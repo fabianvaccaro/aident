@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="TestFoodSet" EntityType="Model1.Store.TestFoodSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ExperimentoSet" EntityType="Model1.Store.ExperimentoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="HistoriaClinicaSet" EntityType="Model1.Store.HistoriaClinicaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MpatSet" EntityType="Model1.Store.MpatSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PacienteSet" EntityType="Model1.Store.PacienteSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProcedimientoClinicoSet" EntityType="Model1.Store.ProcedimientoClinicoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MuestraSet" EntityType="Model1.Store.MuestraSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CaracteristicaMedidaSet" EntityType="Model1.Store.CaracteristicaMedidaSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="MuestraPaciente" Association="Model1.Store.MuestraPaciente">
+      <End Role="Muestra" EntitySet="MuestraSet" />
+      <End Role="Paciente" EntitySet="PacienteSet" />
+    </AssociationSet>
+    <AssociationSet Name="MuestraCaracteristicaMedida" Association="Model1.Store.MuestraCaracteristicaMedida">
+      <End Role="Muestra" EntitySet="MuestraSet" />
+      <End Role="CaracteristicaMedida" EntitySet="CaracteristicaMedidaSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TestFoodSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="tipo" Type="int" Nullable="false" />
+    <Property Name="caracteristicaMonitorzadas" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExperimentoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HistoriaClinicaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MpatSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PacienteSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Muestra_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProcedimientoClinicoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MuestraSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ciclos" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CaracteristicaMedidaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Valor" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Muestra_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="MuestraPaciente">
+    <End Role="Muestra" Type="Model1.Store.MuestraSet" Multiplicity="1" />
+    <End Role="Paciente" Type="Model1.Store.PacienteSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Muestra">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Paciente">
+        <PropertyRef Name="Muestra_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MuestraCaracteristicaMedida">
+    <End Role="Muestra" Type="Model1.Store.MuestraSet" Multiplicity="1" />
+    <End Role="CaracteristicaMedida" Type="Model1.Store.CaracteristicaMedidaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Muestra">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CaracteristicaMedida">
+        <PropertyRef Name="Muestra_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TestFoodSet" EntityType="Model1.TestFood" />
+          <EntitySet Name="ExperimentoSet" EntityType="Model1.Experimento" />
+          <EntitySet Name="HistoriaClinicaSet" EntityType="Model1.HistoriaClinica" />
+          <EntitySet Name="MpatSet" EntityType="Model1.Mpat" />
+          <EntitySet Name="PacienteSet" EntityType="Model1.Paciente" />
+          <EntitySet Name="ProcedimientoClinicoSet" EntityType="Model1.ProcedimientoClinico" />
+          <EntitySet Name="MuestraSet" EntityType="Model1.Muestra" />
+          <AssociationSet Name="MuestraPaciente" Association="Model1.MuestraPaciente">
+            <End Role="Muestra" EntitySet="MuestraSet" />
+            <End Role="Paciente" EntitySet="PacienteSet" />
+          </AssociationSet>
+          <EntitySet Name="CaracteristicaMedidaSet" EntityType="Model1.CaracteristicaMedida" />
+          <AssociationSet Name="MuestraCaracteristicaMedida" Association="Model1.MuestraCaracteristicaMedida">
+            <End Role="Muestra" EntitySet="MuestraSet" />
+            <End Role="CaracteristicaMedida" EntitySet="CaracteristicaMedidaSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TestFood">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" />
+          <Property Name="tipo" Type="Int32" Nullable="false" />
+          <Property Name="caracteristicaMonitorzadas" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Experimento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="HistoriaClinica">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Mpat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Muestra" Relationship="Model1.MuestraPaciente" FromRole="Paciente" ToRole="Muestra" />
+        </EntityType>
+        <EntityType Name="ProcedimientoClinico">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Muestra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Paciente" Relationship="Model1.MuestraPaciente" FromRole="Muestra" ToRole="Paciente" />
+          <Property Name="Ciclos" Type="String" Nullable="false" />
+          <NavigationProperty Name="CaracteristicaMedida" Relationship="Model1.MuestraCaracteristicaMedida" FromRole="Muestra" ToRole="CaracteristicaMedida" />
+        </EntityType>
+        <Association Name="MuestraPaciente">
+          <End Type="Model1.Muestra" Role="Muestra" Multiplicity="1" />
+          <End Type="Model1.Paciente" Role="Paciente" Multiplicity="*" />
+        </Association>
+        <EntityType Name="CaracteristicaMedida">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Valor" Type="String" Nullable="false" />
+          <NavigationProperty Name="Muestra" Relationship="Model1.MuestraCaracteristicaMedida" FromRole="CaracteristicaMedida" ToRole="Muestra" />
+        </EntityType>
+        <Association Name="MuestraCaracteristicaMedida">
+          <End Type="Model1.Muestra" Role="Muestra" Multiplicity="1" />
+          <End Type="Model1.CaracteristicaMedida" Role="CaracteristicaMedida" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="TestFoodSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.TestFood)">
+        <MappingFragment StoreEntitySet="TestFoodSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="caracteristicaMonitorzadas" ColumnName="caracteristicaMonitorzadas" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExperimentoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Experimento)">
+        <MappingFragment StoreEntitySet="ExperimentoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistoriaClinicaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.HistoriaClinica)">
+        <MappingFragment StoreEntitySet="HistoriaClinicaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MpatSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Mpat)">
+        <MappingFragment StoreEntitySet="MpatSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PacienteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Paciente)">
+        <MappingFragment StoreEntitySet="PacienteSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProcedimientoClinicoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.ProcedimientoClinico)">
+        <MappingFragment StoreEntitySet="ProcedimientoClinicoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MuestraSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Muestra)">
+        <MappingFragment StoreEntitySet="MuestraSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ciclos" ColumnName="Ciclos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CaracteristicaMedidaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.CaracteristicaMedida)">
+        <MappingFragment StoreEntitySet="CaracteristicaMedidaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MuestraPaciente" TypeName="Model1.MuestraPaciente" StoreEntitySet="PacienteSet">
+      <EndProperty Name="Muestra">
+        <ScalarProperty Name="Id" ColumnName="Muestra_Id" />
+      </EndProperty>
+      <EndProperty Name="Paciente">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MuestraCaracteristicaMedida" TypeName="Model1.MuestraCaracteristicaMedida" StoreEntitySet="CaracteristicaMedidaSet">
+      <EndProperty Name="Muestra">
+        <ScalarProperty Name="Id" ColumnName="Muestra_Id" />
+      </EndProperty>
+      <EndProperty Name="CaracteristicaMedida">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
