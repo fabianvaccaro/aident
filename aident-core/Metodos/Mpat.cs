@@ -7,13 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Metodos
+namespace MainCore
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Mpat
     {
+        public Mpat()
+        {
+            this.TestFood = new HashSet<TestFood>();
+        }
+    
         public int Id { get; set; }
+        public int idTestFood { get; set; }
+        public int ciclosMasticatorios { get; set; }
+        public int ciclosEvaluacion { get; set; }
+        public string procedimiento { get; set; }
+    
+        public virtual ICollection<TestFood> TestFood { get; set; }
     }
 }

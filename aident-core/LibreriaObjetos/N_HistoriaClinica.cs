@@ -5,7 +5,8 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MainCore
+
+namespace LibreriaObjetos
 {
     [DataContract]
     [Serializable]

@@ -6,32 +6,40 @@
     <edmx:StorageModels>
     <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="Model1StoreContainer">
-    <EntitySet Name="TestFoodSet" EntityType="Model1.Store.TestFoodSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CaracteristicaMedidaSet" EntityType="Model1.Store.CaracteristicaMedidaSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ExperimentoSet" EntityType="Model1.Store.ExperimentoSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="HistoriaClinicaSet" EntityType="Model1.Store.HistoriaClinicaSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MpatSet" EntityType="Model1.Store.MpatSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MuestraSet" EntityType="Model1.Store.MuestraSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PacienteSet" EntityType="Model1.Store.PacienteSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProcedimientoClinicoSet" EntityType="Model1.Store.ProcedimientoClinicoSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="MuestraSet" EntityType="Model1.Store.MuestraSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CaracteristicaMedidaSet" EntityType="Model1.Store.CaracteristicaMedidaSet" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="MuestraPaciente" Association="Model1.Store.MuestraPaciente">
-      <End Role="Muestra" EntitySet="MuestraSet" />
-      <End Role="Paciente" EntitySet="PacienteSet" />
+    <EntitySet Name="PruebasSet" EntityType="Model1.Store.PruebasSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TestFoodSet" EntityType="Model1.Store.TestFoodSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TipoTestFoodSet" EntityType="Model1.Store.TipoTestFoodSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_MuestraCaracteristicaMedida" Association="Model1.Store.FK_MuestraCaracteristicaMedida">
+      <End Role="MuestraSet" EntitySet="MuestraSet" />
+      <End Role="CaracteristicaMedidaSet" EntitySet="CaracteristicaMedidaSet" />
     </AssociationSet>
-    <AssociationSet Name="MuestraCaracteristicaMedida" Association="Model1.Store.MuestraCaracteristicaMedida">
-      <End Role="Muestra" EntitySet="MuestraSet" />
-      <End Role="CaracteristicaMedida" EntitySet="CaracteristicaMedidaSet" />
+    <AssociationSet Name="FK_MuestraPaciente" Association="Model1.Store.FK_MuestraPaciente">
+      <End Role="MuestraSet" EntitySet="MuestraSet" />
+      <End Role="PacienteSet" EntitySet="PacienteSet" />
+    </AssociationSet>
+    <AssociationSet Name="MpatTestFood" Association="Model1.Store.MpatTestFood">
+      <End Role="Mpat" EntitySet="MpatSet" />
+      <End Role="TestFood" EntitySet="TestFoodSet" />
+    </AssociationSet>
+    <AssociationSet Name="TipoTestFoodTestFood" Association="Model1.Store.TipoTestFoodTestFood">
+      <End Role="TipoTestFood" EntitySet="TipoTestFoodSet" />
+      <End Role="TestFood" EntitySet="TestFoodSet" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="TestFoodSet">
+  <EntityType Name="CaracteristicaMedidaSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="tipo" Type="int" Nullable="false" />
-    <Property Name="caracteristicaMonitorzadas" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Valor" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Muestra_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ExperimentoSet">
     <Key>
@@ -50,6 +58,17 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idTestFood" Type="int" Nullable="false" />
+    <Property Name="ciclosMasticatorios" Type="int" Nullable="false" />
+    <Property Name="ciclosEvaluacion" Type="int" Nullable="false" />
+    <Property Name="procedimiento" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MuestraSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ciclos" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="PacienteSet">
     <Key>
@@ -64,42 +83,78 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
-  <EntityType Name="MuestraSet">
+  <EntityType Name="PruebasSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Ciclos" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Valor1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Valor2" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="CaracteristicaMedidaSet">
+  <EntityType Name="TestFoodSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Valor" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Muestra_Id" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="caracteristicaMonitorzadas" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mpat_Id" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="MuestraPaciente">
-    <End Role="Muestra" Type="Model1.Store.MuestraSet" Multiplicity="1" />
-    <End Role="Paciente" Type="Model1.Store.PacienteSet" Multiplicity="*" />
+  <EntityType Name="TipoTestFoodSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TestFood_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_MuestraCaracteristicaMedida">
+    <End Role="MuestraSet" Type="Model1.Store.MuestraSet" Multiplicity="1" />
+    <End Role="CaracteristicaMedidaSet" Type="Model1.Store.CaracteristicaMedidaSet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Muestra">
+      <Principal Role="MuestraSet">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Paciente">
+      <Dependent Role="CaracteristicaMedidaSet">
         <PropertyRef Name="Muestra_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="MuestraCaracteristicaMedida">
-    <End Role="Muestra" Type="Model1.Store.MuestraSet" Multiplicity="1" />
-    <End Role="CaracteristicaMedida" Type="Model1.Store.CaracteristicaMedidaSet" Multiplicity="*" />
+  <Association Name="FK_MuestraPaciente">
+    <End Role="MuestraSet" Type="Model1.Store.MuestraSet" Multiplicity="1" />
+    <End Role="PacienteSet" Type="Model1.Store.PacienteSet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Muestra">
+      <Principal Role="MuestraSet">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="CaracteristicaMedida">
+      <Dependent Role="PacienteSet">
         <PropertyRef Name="Muestra_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MpatTestFood">
+    <End Role="Mpat" Type="Model1.Store.MpatSet" Multiplicity="1" />
+    <End Role="TestFood" Type="Model1.Store.TestFoodSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mpat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TestFood">
+        <PropertyRef Name="Mpat_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TipoTestFoodTestFood">
+    <End Role="TipoTestFood" Type="Model1.Store.TipoTestFoodSet" Multiplicity="*" />
+    <End Role="TestFood" Type="Model1.Store.TestFoodSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TestFood">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TipoTestFood">
+        <PropertyRef Name="TestFood_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -107,33 +162,42 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TestFoodSet" EntityType="Model1.TestFood" />
+        <EntityContainer Name="Model1Container1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CaracteristicaMedidaSet" EntityType="Model1.CaracteristicaMedida" />
           <EntitySet Name="ExperimentoSet" EntityType="Model1.Experimento" />
           <EntitySet Name="HistoriaClinicaSet" EntityType="Model1.HistoriaClinica" />
           <EntitySet Name="MpatSet" EntityType="Model1.Mpat" />
+          <EntitySet Name="MuestraSet" EntityType="Model1.Muestra" />
           <EntitySet Name="PacienteSet" EntityType="Model1.Paciente" />
           <EntitySet Name="ProcedimientoClinicoSet" EntityType="Model1.ProcedimientoClinico" />
-          <EntitySet Name="MuestraSet" EntityType="Model1.Muestra" />
-          <AssociationSet Name="MuestraPaciente" Association="Model1.MuestraPaciente">
-            <End Role="Muestra" EntitySet="MuestraSet" />
-            <End Role="Paciente" EntitySet="PacienteSet" />
+          <EntitySet Name="PruebasSet" EntityType="Model1.Pruebas" />
+          <EntitySet Name="TestFoodSet" EntityType="Model1.TestFood" />
+          <AssociationSet Name="FK_MuestraCaracteristicaMedida" Association="Model1.FK_MuestraCaracteristicaMedida">
+            <End Role="MuestraSet" EntitySet="MuestraSet" />
+            <End Role="CaracteristicaMedidaSet" EntitySet="CaracteristicaMedidaSet" />
           </AssociationSet>
-          <EntitySet Name="CaracteristicaMedidaSet" EntityType="Model1.CaracteristicaMedida" />
-          <AssociationSet Name="MuestraCaracteristicaMedida" Association="Model1.MuestraCaracteristicaMedida">
-            <End Role="Muestra" EntitySet="MuestraSet" />
-            <End Role="CaracteristicaMedida" EntitySet="CaracteristicaMedidaSet" />
+          <AssociationSet Name="FK_MuestraPaciente" Association="Model1.FK_MuestraPaciente">
+            <End Role="MuestraSet" EntitySet="MuestraSet" />
+            <End Role="PacienteSet" EntitySet="PacienteSet" />
+          </AssociationSet>
+          <EntitySet Name="TipoTestFoodSet" EntityType="Model1.TipoTestFood" />
+          <AssociationSet Name="MpatTestFood" Association="Model1.MpatTestFood">
+            <End Role="Mpat" EntitySet="MpatSet" />
+            <End Role="TestFood" EntitySet="TestFoodSet" />
+          </AssociationSet>
+          <AssociationSet Name="TipoTestFoodTestFood" Association="Model1.TipoTestFoodTestFood">
+            <End Role="TipoTestFood" EntitySet="TipoTestFoodSet" />
+            <End Role="TestFood" EntitySet="TestFoodSet" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="TestFood">
+        <EntityType Name="CaracteristicaMedida">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" />
-          <Property Name="descripcion" Type="String" Nullable="false" />
-          <Property Name="tipo" Type="Int32" Nullable="false" />
-          <Property Name="caracteristicaMonitorzadas" Type="String" Nullable="false" />
+          <Property Name="Valor" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Muestra_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MuestraSet" Relationship="Model1.FK_MuestraCaracteristicaMedida" FromRole="CaracteristicaMedidaSet" ToRole="MuestraSet" />
         </EntityType>
         <EntityType Name="Experimento">
           <Key>
@@ -152,13 +216,28 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTestFood" Type="Int32" Nullable="false" />
+          <Property Name="ciclosMasticatorios" Type="Int32" Nullable="false" />
+          <Property Name="ciclosEvaluacion" Type="Int32" Nullable="false" />
+          <Property Name="procedimiento" Type="String" Nullable="false" />
+          <NavigationProperty Name="TestFood" Relationship="Model1.MpatTestFood" FromRole="Mpat" ToRole="TestFood" />
+        </EntityType>
+        <EntityType Name="Muestra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ciclos" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CaracteristicaMedidaSet" Relationship="Model1.FK_MuestraCaracteristicaMedida" FromRole="MuestraSet" ToRole="CaracteristicaMedidaSet" />
+          <NavigationProperty Name="PacienteSet" Relationship="Model1.FK_MuestraPaciente" FromRole="MuestraSet" ToRole="PacienteSet" />
         </EntityType>
         <EntityType Name="Paciente">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Muestra" Relationship="Model1.MuestraPaciente" FromRole="Paciente" ToRole="Muestra" />
+          <Property Name="Muestra_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MuestraSet" Relationship="Model1.FK_MuestraPaciente" FromRole="PacienteSet" ToRole="MuestraSet" />
         </EntityType>
         <EntityType Name="ProcedimientoClinico">
           <Key>
@@ -166,45 +245,78 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="Muestra">
+        <EntityType Name="Pruebas">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Paciente" Relationship="Model1.MuestraPaciente" FromRole="Muestra" ToRole="Paciente" />
-          <Property Name="Ciclos" Type="String" Nullable="false" />
-          <NavigationProperty Name="CaracteristicaMedida" Relationship="Model1.MuestraCaracteristicaMedida" FromRole="Muestra" ToRole="CaracteristicaMedida" />
+          <Property Name="Valor1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Valor2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="MuestraPaciente">
-          <End Type="Model1.Muestra" Role="Muestra" Multiplicity="1" />
-          <End Type="Model1.Paciente" Role="Paciente" Multiplicity="*" />
+        <EntityType Name="TestFood">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="caracteristicaMonitorzadas" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Mpat" Relationship="Model1.MpatTestFood" FromRole="TestFood" ToRole="Mpat" />
+          <NavigationProperty Name="TipoTestFood" Relationship="Model1.TipoTestFoodTestFood" FromRole="TestFood" ToRole="TipoTestFood" />
+        </EntityType>
+        <Association Name="FK_MuestraCaracteristicaMedida">
+          <End Type="Model1.Muestra" Role="MuestraSet" Multiplicity="1" />
+          <End Type="Model1.CaracteristicaMedida" Role="CaracteristicaMedidaSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MuestraSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CaracteristicaMedidaSet">
+              <PropertyRef Name="Muestra_Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <EntityType Name="CaracteristicaMedida">
+        <Association Name="FK_MuestraPaciente">
+          <End Type="Model1.Muestra" Role="MuestraSet" Multiplicity="1" />
+          <End Type="Model1.Paciente" Role="PacienteSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MuestraSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PacienteSet">
+              <PropertyRef Name="Muestra_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TipoTestFood">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Valor" Type="String" Nullable="false" />
-          <NavigationProperty Name="Muestra" Relationship="Model1.MuestraCaracteristicaMedida" FromRole="CaracteristicaMedida" ToRole="Muestra" />
+          <Property Name="nombre" Type="String" Nullable="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" />
+          <NavigationProperty Name="TestFood" Relationship="Model1.TipoTestFoodTestFood" FromRole="TipoTestFood" ToRole="TestFood" />
         </EntityType>
-        <Association Name="MuestraCaracteristicaMedida">
-          <End Type="Model1.Muestra" Role="Muestra" Multiplicity="1" />
-          <End Type="Model1.CaracteristicaMedida" Role="CaracteristicaMedida" Multiplicity="*" />
+        <Association Name="MpatTestFood">
+          <End Type="Model1.Mpat" Role="Mpat" Multiplicity="1" />
+          <End Type="Model1.TestFood" Role="TestFood" Multiplicity="*" />
+        </Association>
+        <Association Name="TipoTestFoodTestFood">
+          <End Type="Model1.TipoTestFood" Role="TipoTestFood" Multiplicity="1" />
+          <End Type="Model1.TestFood" Role="TestFood" Multiplicity="1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
-    <EntitySetMapping Name="TestFoodSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.TestFood)">
-        <MappingFragment StoreEntitySet="TestFoodSet">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container1">
+    <EntitySetMapping Name="CaracteristicaMedidaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.CaracteristicaMedida)">
+        <MappingFragment StoreEntitySet="CaracteristicaMedidaSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="tipo" ColumnName="tipo" />
-          <ScalarProperty Name="caracteristicaMonitorzadas" ColumnName="caracteristicaMonitorzadas" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="Muestra_Id" ColumnName="Muestra_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -226,20 +338,10 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Mpat)">
         <MappingFragment StoreEntitySet="MpatSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="PacienteSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.Paciente)">
-        <MappingFragment StoreEntitySet="PacienteSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ProcedimientoClinicoSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.ProcedimientoClinico)">
-        <MappingFragment StoreEntitySet="ProcedimientoClinicoSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="idTestFood" ColumnName="idTestFood" />
+          <ScalarProperty Name="ciclosMasticatorios" ColumnName="ciclosMasticatorios" />
+          <ScalarProperty Name="ciclosEvaluacion" ColumnName="ciclosEvaluacion" />
+          <ScalarProperty Name="procedimiento" ColumnName="procedimiento" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -251,27 +353,62 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CaracteristicaMedidaSet">
-      <EntityTypeMapping TypeName="IsTypeOf(Model1.CaracteristicaMedida)">
-        <MappingFragment StoreEntitySet="CaracteristicaMedidaSet">
+    <EntitySetMapping Name="PacienteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Paciente)">
+        <MappingFragment StoreEntitySet="PacienteSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="Muestra_Id" ColumnName="Muestra_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="MuestraPaciente" TypeName="Model1.MuestraPaciente" StoreEntitySet="PacienteSet">
-      <EndProperty Name="Muestra">
-        <ScalarProperty Name="Id" ColumnName="Muestra_Id" />
+    <EntitySetMapping Name="ProcedimientoClinicoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.ProcedimientoClinico)">
+        <MappingFragment StoreEntitySet="ProcedimientoClinicoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PruebasSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Pruebas)">
+        <MappingFragment StoreEntitySet="PruebasSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Valor1" ColumnName="Valor1" />
+          <ScalarProperty Name="Valor2" ColumnName="Valor2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestFoodSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.TestFood)">
+        <MappingFragment StoreEntitySet="TestFoodSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="caracteristicaMonitorzadas" ColumnName="caracteristicaMonitorzadas" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoTestFoodSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.TipoTestFood)">
+        <MappingFragment StoreEntitySet="TipoTestFoodSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MpatTestFood" TypeName="Model1.MpatTestFood" StoreEntitySet="TestFoodSet">
+      <EndProperty Name="Mpat">
+        <ScalarProperty Name="Id" ColumnName="Mpat_Id" />
       </EndProperty>
-      <EndProperty Name="Paciente">
+      <EndProperty Name="TestFood">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="MuestraCaracteristicaMedida" TypeName="Model1.MuestraCaracteristicaMedida" StoreEntitySet="CaracteristicaMedidaSet">
-      <EndProperty Name="Muestra">
-        <ScalarProperty Name="Id" ColumnName="Muestra_Id" />
+    <AssociationSetMapping Name="TipoTestFoodTestFood" TypeName="Model1.TipoTestFoodTestFood" StoreEntitySet="TipoTestFoodSet">
+      <EndProperty Name="TestFood">
+        <ScalarProperty Name="Id" ColumnName="TestFood_Id" />
       </EndProperty>
-      <EndProperty Name="CaracteristicaMedida">
+      <EndProperty Name="TipoTestFood">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
@@ -290,6 +427,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>

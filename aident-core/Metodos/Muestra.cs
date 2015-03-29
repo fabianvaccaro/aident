@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Metodos
+namespace MainCore
 {
     using System;
     using System.Collections.Generic;
@@ -16,14 +16,14 @@ namespace Metodos
     {
         public Muestra()
         {
-            this.Paciente = new HashSet<Paciente>();
-            this.CaracteristicaMedida = new HashSet<CaracteristicaMedida>();
+            this.CaracteristicaMedidaSet = new HashSet<CaracteristicaMedida>();
+            this.PacienteSet = new HashSet<Paciente>();
         }
     
         public int Id { get; set; }
         public string Ciclos { get; set; }
     
-        public virtual ICollection<Paciente> Paciente { get; set; }
-        public virtual ICollection<CaracteristicaMedida> CaracteristicaMedida { get; set; }
+        public virtual ICollection<CaracteristicaMedida> CaracteristicaMedidaSet { get; set; }
+        public virtual ICollection<Paciente> PacienteSet { get; set; }
     }
 }

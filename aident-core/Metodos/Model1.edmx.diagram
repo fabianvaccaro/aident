@@ -4,17 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6556df933cfe4a63846004573d6bcec7" Name="Diagram1" ZoomLevel="85" >
-        <EntityTypeShape EntityType="Model1.TestFood" Width="2" PointX="7.375" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.Experimento" Width="1.5" PointX="3.375" PointY="0.625" />
-        <EntityTypeShape EntityType="Model1.HistoriaClinica" Width="1.5" PointX="0.5" PointY="2.875" />
-        <EntityTypeShape EntityType="Model1.Mpat" Width="1.5" PointX="5.5" PointY="1.125" />
-        <EntityTypeShape EntityType="Model1.Paciente" Width="1.5" PointX="0.5" PointY="1.125" />
-        <EntityTypeShape EntityType="Model1.ProcedimientoClinico" Width="2.125" PointX="7.375" PointY="4" />
-        <EntityTypeShape EntityType="Model1.Muestra" Width="1.875" PointX="2.25" PointY="4.25" />
-        <AssociationConnector Association="Model1.MuestraPaciente" />
-        <EntityTypeShape EntityType="Model1.CaracteristicaMedida" Width="1.5" PointX="4.75" PointY="4" IsExpanded="true" />
-        <AssociationConnector Association="Model1.MuestraCaracteristicaMedida" />
+      <Diagram DiagramId="d00b4407502e4a7cbbfe71965a0e141e" Name="Diagram1" ZoomLevel="64" >
+        <EntityTypeShape EntityType="Model1.CaracteristicaMedida" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="Model1.Experimento" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model1.HistoriaClinica" Width="1.5" PointX="5.75" PointY="2.75" />
+        <EntityTypeShape EntityType="Model1.Mpat" Width="1.5" PointX="6.625" PointY="4.625" />
+        <EntityTypeShape EntityType="Model1.Muestra" Width="1.5" PointX="0.75" PointY="2.25" />
+        <EntityTypeShape EntityType="Model1.Paciente" Width="1.5" PointX="3" PointY="3.625" />
+        <EntityTypeShape EntityType="Model1.ProcedimientoClinico" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="Model1.Pruebas" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="Model1.TestFood" Width="1.5" PointX="4.75" PointY="6.75" />
+        <AssociationConnector Association="Model1.FK_MuestraCaracteristicaMedida" />
+        <AssociationConnector Association="Model1.FK_MuestraPaciente" />
+        <EntityTypeShape EntityType="Model1.TipoTestFood" Width="1.5" PointX="8.25" PointY="6.875" />
+        <AssociationConnector Association="Model1.MpatTestFood" />
+        <AssociationConnector Association="Model1.TipoTestFoodTestFood" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

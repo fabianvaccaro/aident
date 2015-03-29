@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Metodos
+namespace MainCore
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,9 @@ namespace Metodos
         public int Id { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
-        public int tipo { get; set; }
         public string caracteristicaMonitorzadas { get; set; }
+    
+        public virtual Mpat Mpat { get; set; }
+        public virtual TipoTestFood TipoTestFood { get; set; }
     }
 }

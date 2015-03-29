@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aident-core", "aident-core\aident-core.csproj", "{C8E1EEB6-AC82-4B81-855F-8567BD54AB2C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Objetos", "Objetos", "{F0DDCCF6-6A12-4DC9-8098-54CF3EF131EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibreriaObjetos", "LibreriaObjetos\LibreriaObjetos.csproj", "{C069F7BB-BA70-47E1-B51B-965D15B8DBCC}"
@@ -25,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C8E1EEB6-AC82-4B81-855F-8567BD54AB2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8E1EEB6-AC82-4B81-855F-8567BD54AB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8E1EEB6-AC82-4B81-855F-8567BD54AB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8E1EEB6-AC82-4B81-855F-8567BD54AB2C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C069F7BB-BA70-47E1-B51B-965D15B8DBCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C069F7BB-BA70-47E1-B51B-965D15B8DBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C069F7BB-BA70-47E1-B51B-965D15B8DBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU

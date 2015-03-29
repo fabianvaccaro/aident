@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Metodos
+namespace MainCore
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,8 @@ namespace Metodos
     public partial class Paciente
     {
         public int Id { get; set; }
+        public int Muestra_Id { get; set; }
     
-        public virtual Muestra Muestra { get; set; }
+        public virtual Muestra MuestraSet { get; set; }
     }
 }

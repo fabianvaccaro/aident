@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace LibreriaObjetos
 {
-    class N_Paciente
+    [DataContract]
+    [Serializable]
+    public class N_Paciente
     {
-        private enum T_Sexo
+        public enum T_Sexo
         {
             NULO, HOMBRE, MUJER
         }
-        
+
+        [DataMember]
         public Int32 id { set; get; }
+        [DataMember]
         public String identificacion { set; get; }
-        public String nombre{ set; get;}
+        [DataMember]
+        public String nombre { set; get; }
+        [DataMember]
         public String ubicacion { set; get; }
+        [DataMember]
         public T_Sexo sexo { set; get; }
+        [DataMember]
         public Int32 idHistoriaClinica { set; get; }
 
         public N_Paciente()

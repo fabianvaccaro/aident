@@ -3,23 +3,136 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LibreriaObjetos;
 using System.Runtime.Serialization;
-using Metodos;
+using LibreriaObjetos;
+
 
 namespace MainCore
 {
     [DataContract]
     [Serializable]
-    class Metodos
+    public class Metodos
     {
         public Metodos()
         {
 
         }
+
+        /// <summary>
+        /// Añade a la BD un nuevo elemento TestFood
+        /// </summary>
+        /// <param name="tf">datos del elemento</param>
+        /// <returns></returns>
+        public Boolean AddTestFood(N_TestFood tf)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                TestFood Dbtf = new TestFood();
+
+                //Popula el objeto DbPac
+                //Dbtf.Id = tf.id;
+                Dbtf.nombre = tf.nombre;
+                Dbtf.descripcion = tf.descripcion;
+                Dbtf.caracteristicaMonitorzadas = tf.caracteristicasMonitorizadas;
+                Dbtf.tipo = tf.tipo;
+
+                //Guardar el objeto Dbtf en el Context
+                try
+                {
+                    Context.TestFoodSet.Add(Dbtf);
+                    Context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Elimina un TestFood de la base de datos en caso de existir. Si no existe devuelve false.
+        /// </summary>
+        /// <param name="tf">TestFood a eliminar</param>
+        /// <returns> true si elimina. false si no elimina o si no existe.</returns>
+        public Boolean DeleteTestFood(Int32 tfId)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                //Selecciona un registro de TestFood por su nombre
+                var xdf = (from arecord in Context.TestFoodSet
+                           where arecord.Id == tfId
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        //Borra el registro
+                        Context.TestFoodSet.Remove(xdf.arecord);
+                        Context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Comprueba la existencia del elemento TestFood en la BD.
+        /// </summary>
+        /// <param name="tf">TestFood a buscar</param>
+        /// <returns>True si elemento existe. False si elemento no existe</returns>
+        public Boolean ExisteTestFood(N_TestFood tf) {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                //Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.TestFoodSet
+                           where arecord.nombre.CompareTo(tf.nombre) == 0
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Genera una lista de TestFood.
+        /// </summary>
+        /// <returns> Devuelve una lista de TestFood.</returns>
         public List<N_TestFood> testFoodToList()
         {
-            using ( Model1Container Context = new Model1Container())
+            using (Model1Container1 Context = new Model1Container1())
             {
                 List<N_TestFood> lista = new List<N_TestFood>();
                 
@@ -52,7 +165,7 @@ namespace MainCore
                     }
                     else
                     {
-                        return false;
+                        return lista;
                     }
 
 
@@ -61,8 +174,117 @@ namespace MainCore
                 catch (Exception e)
                 {
                     Console.Write("Error " + e);
+                    return lista;
                 }
             }
+        }
+
+        public List<N_TipoTestFood> tipoTestFoodToList()
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                List<N_TipoTestFood> lista = new List<N_TipoTestFood>();
+
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.TipoTestFoodSet
+                           select new
+                           {
+                               arecord
+                           }).ToList();
+                try
+                {
+
+                    //Verifica que existan los registros
+                    if (xdf != null)
+                    {
+                        foreach (var registro in xdf)
+                        {
+                            //crear instancia de objeto N_Paciente
+                            N_TipoTestFood tf = new N_TipoTestFood();
+                            tf.id = registro.arecord.Id;
+                            tf.nombre = registro.arecord.nombre;
+                            tf.descripcion = registro.arecord.descripcion;
+
+
+                            //añadir tf a la lista
+                            lista.Add(tf);
+                        }
+                        return lista;
+                    }
+                    else
+                    {
+                        return lista;
+                    }
+
+
+
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return lista;
+                }
+            }
+        }
+
+        public Boolean AddTipoTestFood(N_TipoTestFood ttf)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                TipoTestFood Dbttf = new TipoTestFood();
+
+                //Popula el objeto DbPac
+                //Dbtf.Id = tf.id;
+                Dbttf.nombre = ttf.nombre;
+                Dbttf.descripcion = ttf.descripcion;
+
+                //Guardar el objeto Dbtf en el Context
+                try
+                {
+                    Context.TipoTestFoodSet.Add(Dbttf);
+                    Context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        public Boolean AddMPAT(N_Mpat mpat)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                Mpat Db = new Mpat();
+
+                //Popula el objeto Db
+                //Dbtf.Id = tf.id;
+                Db.idTestFood = mpat.idTestFood;
+                Db.procedimiento = mpat.ListaProcedimientos;
+                Db.ciclosMasticatorios = mpat.CiclosMasticatorios;
+                Db.ciclosEvaluacion = mpat.CiclosEvaluacion;
+
+                //Guardar el objeto Dbtf en el Context
+                try
+                {
+                    Context.MpatSet.Add(Db);
+                    Context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        public void validaMPAT(String procedimiento, Int32 idTestFood, Int32 ciclosMasticatorios, Int32 ciclosValidacion)
+        {
+            N_Mpat mpat = new N_Mpat(procedimiento, idTestFood, ciclosMasticatorios, ciclosValidacion);
+            AddMPAT(mpat);
         }
     }
 }

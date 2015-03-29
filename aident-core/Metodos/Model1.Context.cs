@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Metodos
+namespace MainCore
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Model1Container : DbContext
+    public partial class Model1Container1 : DbContext
     {
-        public Model1Container()
-            : base("name=Model1Container")
+        public Model1Container1()
+            : base("name=Model1Container1")
         {
         }
     
@@ -25,13 +25,15 @@ namespace Metodos
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<TestFood> TestFoodSet { get; set; }
+        public virtual DbSet<CaracteristicaMedida> CaracteristicaMedidaSet { get; set; }
         public virtual DbSet<Experimento> ExperimentoSet { get; set; }
         public virtual DbSet<HistoriaClinica> HistoriaClinicaSet { get; set; }
         public virtual DbSet<Mpat> MpatSet { get; set; }
+        public virtual DbSet<Muestra> MuestraSet { get; set; }
         public virtual DbSet<Paciente> PacienteSet { get; set; }
         public virtual DbSet<ProcedimientoClinico> ProcedimientoClinicoSet { get; set; }
-        public virtual DbSet<Muestra> MuestraSet { get; set; }
-        public virtual DbSet<CaracteristicaMedida> CaracteristicaMedidaSet { get; set; }
+        public virtual DbSet<Pruebas> PruebasSet { get; set; }
+        public virtual DbSet<TestFood> TestFoodSet { get; set; }
+        public virtual DbSet<TipoTestFood> TipoTestFoodSet { get; set; }
     }
 }
