@@ -16,7 +16,15 @@ namespace MainCore
     {
         public int Id { get; set; }
         public int Muestra_Id { get; set; }
+        public string Nombre { get; set; }
+        public string DNI { get; set; }
+        public string Ubicacion { get; set; }
+        public string Sexo { get; set; }
+        public int IdExperimento { get; set; }
+        public int idHistoriaClinica { get; set; }
     
         public virtual Muestra MuestraSet { get; set; }
+        public virtual HistoriaClinica HistoriaClinica { get; set; }
+        public virtual Experimento Experimento { get; set; }
     }
 }

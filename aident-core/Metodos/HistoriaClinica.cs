@@ -14,6 +14,13 @@ namespace MainCore
     
     public partial class HistoriaClinica
     {
+        public HistoriaClinica()
+        {
+            this.Paciente = new HashSet<Paciente>();
+        }
+    
         public int Id { get; set; }
+    
+        public virtual ICollection<Paciente> Paciente { get; set; }
     }
 }

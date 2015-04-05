@@ -34,7 +34,7 @@ namespace MainCore
                 Dbtf.nombre = tf.nombre;
                 Dbtf.descripcion = tf.descripcion;
                 Dbtf.caracteristicaMonitorzadas = tf.caracteristicasMonitorizadas;
-                Dbtf.tipo = tf.tipo;
+                //Dbtf.TipoTestFood = tf.tipo;
 
                 //Guardar el objeto Dbtf en el Context
                 try
@@ -281,10 +281,103 @@ namespace MainCore
             }
         }
 
+        public Boolean AddExperimento(N_Experimento exp)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                Experimento Db = new Experimento();
+
+                //Popula el objeto Db
+                //Db.Id = exp.id;
+                Db.idMpat = exp.idMpat;
+                Db.NumeroPacientes = exp.numeroPacientes;
+                //Db.Paciente = exp.idPaciente; ponemos el numero experimento en el paciente
+                Db.Codigo = exp.codigoExperimento;
+
+                //Guardar el objeto Dbtf en el Context
+                try
+                {
+                    Context.ExperimentoSet.Add(Db);
+                    Context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        public Boolean AddPacientesExperimento(List<N_Paciente> listPacientes, String codigoExperimento)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+
+                Paciente Db = new Paciente();
+                N_Paciente paciente = new N_Paciente();
+
+                //Selecciona un registro de TestFood por su nombre
+                var xdf = (from arecord in Context.ExperimentoSet
+                           where arecord.Id.CompareTo(codigoExperimento) == 0
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Insertamos la lista de Pacientes en la Base de Datos
+                    if (xdf.arecord != null)
+                    {
+                        paciente = listPacientes.First();
+                        while (paciente != null)
+                        {
+                            //Popula el objeto Db
+                            //Db.Id = exp.id;
+                            Db.DNI = paciente.identificacion;
+                            Db.IdExperimento = xdf.arecord.Id;
+                            Db.idHistoriaClinica = paciente.idHistoriaClinica;
+                            Db.Nombre = paciente.nombre;
+                            Db.Sexo = paciente.sexo;
+                            Db.Ubicacion = paciente.ubicacion;
+
+                            Context.PacienteSet.Add(Db);
+                            Context.SaveChanges();
+
+                            paciente = listPacientes.First();
+                        }
+                        
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
         public void validaMPAT(String procedimiento, Int32 idTestFood, Int32 ciclosMasticatorios, Int32 ciclosValidacion)
         {
+            // falta validacion de datos
             N_Mpat mpat = new N_Mpat(procedimiento, idTestFood, ciclosMasticatorios, ciclosValidacion);
             AddMPAT(mpat);
         }
+
+        public void validaExperimento(String codigoExperimento, Int32 idMpat, Int32 numeroPacientes, List<N_Paciente> listaPacientes)
+        {
+            // falta validacion de datos
+
+            N_Experimento experimento = new N_Experimento(codigoExperimento, idMpat, numeroPacientes);
+
+            this.AddExperimento(experimento);
+            this.AddPacientesExperimento(listaPacientes, experimento.codigoExperimento);
+        }
+
     }
 }

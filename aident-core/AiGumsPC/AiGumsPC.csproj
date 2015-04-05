@@ -61,9 +61,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AltaPaciente.xaml.cs">
+      <DependentUpon>AltaPaciente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AltaTestFood.xaml.cs">
       <DependentUpon>AltaTestFood.xaml</DependentUpon>
     </Compile>
+    <Page Include="AltaPaciente.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AltaTipoTestFood.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

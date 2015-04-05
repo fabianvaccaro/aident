@@ -19,13 +19,29 @@
                     <Label Content="Ciclos de Evaluación" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtCiclosEvaluacion" HorizontalAlignment="Left" Height="23" Margin="130,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
                     <Button x:Name="btBajaTestFood" Content="Baja" HorizontalAlignment="Left" Margin="551,61,0,0" VerticalAlignment="Top" Width="75" Click="BajaTestFood"/>
-                    <Button x:Name="grabarMpat" Content="Grabar MPAT" HorizontalAlignment="Left" Margin="213,291,0,0" VerticalAlignment="Top" Width="75" Click="grabarMpat_Click"/>
+                    <Button x:Name="grabarMpat" Content="Grabar MPAT" HorizontalAlignment="Left" Margin="222,316,0,0" VerticalAlignment="Top" Width="224" Height="58" FontSize="22" FontWeight="Bold" Click="grabarMpat_Click"/>
+                    <Label Content="Dar de Alta un MPAT" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
 
                 </Grid>
 
             </TabItem>
             <TabItem Header="Alta Experimento">
-                <Grid Background="#000F00">
+                <Grid Background="#0000F0">
+                    <ComboBox x:Name="txtMPAT" HorizontalAlignment="Left" Margin="175,129,0,0" VerticalAlignment="Top" Width="314" Height="32"/>
+                    <TextBox x:Name="txtCodigo" HorizontalAlignment="Left" Height="32" Margin="175,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" FontSize="16"/>
+                    <Label Content="Código Experimento" HorizontalAlignment="Left" Margin="15,76,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label Content="MPAT" HorizontalAlignment="Left" Margin="15,129,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <TextBox x:Name="txtNumeroPacientes" HorizontalAlignment="Left" Height="32" Margin="175,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" FontSize="16"/>
+                    <Label Content="Número Pacientes" HorizontalAlignment="Left" Margin="15,180,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <ListBox x:Name="txtListaPacientes" HorizontalAlignment="Left" Margin="175,236,0,0" VerticalAlignment="Top" Width="314" Height="32"/>
+                    <Label Content="Lista Pacientes" HorizontalAlignment="Left" Margin="15,236,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Button x:Name="bt_AddPaciente" Content="Añadir Paciente" HorizontalAlignment="Left" Margin="494,236,0,0" VerticalAlignment="Top" Width="91" Height="32" Click="bt_AddPaciente_Click"/>
+                    <Button x:Name="bt_DeletePaciente" Content="Borrar Paciente" HorizontalAlignment="Left" Margin="590,236,0,0" VerticalAlignment="Top" Width="89" Height="32"/>
+                    <Button x:Name="bt_AddMpat" Content="Añadir MPAT" HorizontalAlignment="Left" Margin="494,129,0,0" VerticalAlignment="Top" Width="91" Height="32" Click="bt_AddMpat_Click"/>
+                    <Button x:Name="bt_DeleteMpat" Content="Borrar MPAT" HorizontalAlignment="Left" Margin="590,129,0,0" VerticalAlignment="Top" Width="89" Height="32"/>
+                    <Label Content="Dar de Alta un Experimento" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+                    <Button x:Name="bt_AddExperimento" Content="Alta Experimento" HorizontalAlignment="Left" Margin="222,316,0,0" VerticalAlignment="Top" Width="224" Height="58" FontSize="22" FontWeight="Bold" Click="bt_AddExperimento_Click"/>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Alta Diagnóstico">

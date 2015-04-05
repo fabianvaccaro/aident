@@ -113,5 +113,32 @@ namespace AiGumsPC
                 Console.Write(error);
             }
         }
+
+        private void bt_AddExperimento_Click(object sender, RoutedEventArgs e)
+        {
+            Metodos metodo = new Metodos();
+            List<N_Paciente> lista = new List<N_Paciente>();
+
+            try
+            {
+                metodo.validaExperimento(txtCodigo.Text, Int32.Parse(this.txtMPAT.SelectedValue.ToString()), Int32.Parse(this.txtNumeroPacientes.Text), lista);
+                resetview();
+            }
+            catch (Exception error)
+            {
+                Console.Write(error);
+            }
+        }
+
+        private void bt_AddMpat_Click(object sender, RoutedEventArgs e)
+        {
+            // habilito crear MPAT desde Alta de Experimento o solo se pueden crear experimentos con MPAT creadas?¿?¿
+        }
+
+        private void bt_AddPaciente_Click(object sender, RoutedEventArgs e)
+        {
+            AltaPaciente win = new AltaPaciente();
+            win.Show();
+        }
     }
 }

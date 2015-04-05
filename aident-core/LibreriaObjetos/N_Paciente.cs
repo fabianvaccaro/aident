@@ -11,10 +11,10 @@ namespace LibreriaObjetos
     [Serializable]
     public class N_Paciente
     {
-        public enum T_Sexo
-        {
-            NULO, HOMBRE, MUJER
-        }
+        //public enum T_Sexo
+        //{
+        //    NULO, HOMBRE, MUJER
+        //}
 
         [DataMember]
         public Int32 id { set; get; }
@@ -25,7 +25,7 @@ namespace LibreriaObjetos
         [DataMember]
         public String ubicacion { set; get; }
         [DataMember]
-        public T_Sexo sexo { set; get; }
+        public String sexo { set; get; }
         [DataMember]
         public Int32 idHistoriaClinica { set; get; }
 

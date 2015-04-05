@@ -32,6 +32,18 @@
       <End Role="TipoTestFood" EntitySet="TipoTestFoodSet" />
       <End Role="TestFood" EntitySet="TestFoodSet" />
     </AssociationSet>
+    <AssociationSet Name="HistoriaClinicaPaciente" Association="Model1.Store.HistoriaClinicaPaciente">
+      <End Role="HistoriaClinica" EntitySet="HistoriaClinicaSet" />
+      <End Role="Paciente" EntitySet="PacienteSet" />
+    </AssociationSet>
+    <AssociationSet Name="MpatExperimento" Association="Model1.Store.MpatExperimento">
+      <End Role="Mpat" EntitySet="MpatSet" />
+      <End Role="Experimento" EntitySet="ExperimentoSet" />
+    </AssociationSet>
+    <AssociationSet Name="ExperimentoPaciente" Association="Model1.Store.ExperimentoPaciente">
+      <End Role="Experimento" EntitySet="ExperimentoSet" />
+      <End Role="Paciente" EntitySet="PacienteSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="CaracteristicaMedidaSet">
     <Key>
@@ -46,6 +58,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NumeroPacientes" Type="int" Nullable="false" />
+    <Property Name="idMpat" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="HistoriaClinicaSet">
     <Key>
@@ -62,6 +77,8 @@
     <Property Name="ciclosMasticatorios" Type="int" Nullable="false" />
     <Property Name="ciclosEvaluacion" Type="int" Nullable="false" />
     <Property Name="procedimiento" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Experimento_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="MuestraSet">
     <Key>
@@ -76,6 +93,14 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Muestra_Id" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DNI" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ubicacion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sexo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IdExperimento" Type="int" Nullable="false" />
+    <Property Name="idHistoriaClinica" Type="int" Nullable="false" />
+    <Property Name="HistoriaClinica_Id" Type="int" Nullable="false" />
+    <Property Name="Experimento_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ProcedimientoClinicoSet">
     <Key>
@@ -158,6 +183,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="HistoriaClinicaPaciente">
+    <End Role="HistoriaClinica" Type="Model1.Store.HistoriaClinicaSet" Multiplicity="1" />
+    <End Role="Paciente" Type="Model1.Store.PacienteSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HistoriaClinica">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Paciente">
+        <PropertyRef Name="HistoriaClinica_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MpatExperimento">
+    <End Role="Mpat" Type="Model1.Store.MpatSet" Multiplicity="*" />
+    <End Role="Experimento" Type="Model1.Store.ExperimentoSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Experimento">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Mpat">
+        <PropertyRef Name="Experimento_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExperimentoPaciente">
+    <End Role="Experimento" Type="Model1.Store.ExperimentoSet" Multiplicity="1" />
+    <End Role="Paciente" Type="Model1.Store.PacienteSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Experimento">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Paciente">
+        <PropertyRef Name="Experimento_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -189,6 +250,18 @@
             <End Role="TipoTestFood" EntitySet="TipoTestFoodSet" />
             <End Role="TestFood" EntitySet="TestFoodSet" />
           </AssociationSet>
+          <AssociationSet Name="HistoriaClinicaPaciente" Association="Model1.HistoriaClinicaPaciente">
+            <End Role="HistoriaClinica" EntitySet="HistoriaClinicaSet" />
+            <End Role="Paciente" EntitySet="PacienteSet" />
+          </AssociationSet>
+          <AssociationSet Name="MpatExperimento" Association="Model1.MpatExperimento">
+            <End Role="Mpat" EntitySet="MpatSet" />
+            <End Role="Experimento" EntitySet="ExperimentoSet" />
+          </AssociationSet>
+          <AssociationSet Name="ExperimentoPaciente" Association="Model1.ExperimentoPaciente">
+            <End Role="Experimento" EntitySet="ExperimentoSet" />
+            <End Role="Paciente" EntitySet="PacienteSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CaracteristicaMedida">
           <Key>
@@ -204,12 +277,18 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Mpat" Relationship="Model1.MpatExperimento" FromRole="Experimento" ToRole="Mpat" />
+          <Property Name="Codigo" Type="String" Nullable="false" />
+          <Property Name="NumeroPacientes" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Paciente" Relationship="Model1.ExperimentoPaciente" FromRole="Experimento" ToRole="Paciente" />
+          <Property Name="idMpat" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="HistoriaClinica">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Paciente" Relationship="Model1.HistoriaClinicaPaciente" FromRole="HistoriaClinica" ToRole="Paciente" />
         </EntityType>
         <EntityType Name="Mpat">
           <Key>
@@ -221,6 +300,8 @@
           <Property Name="ciclosEvaluacion" Type="Int32" Nullable="false" />
           <Property Name="procedimiento" Type="String" Nullable="false" />
           <NavigationProperty Name="TestFood" Relationship="Model1.MpatTestFood" FromRole="Mpat" ToRole="TestFood" />
+          <NavigationProperty Name="Experimento" Relationship="Model1.MpatExperimento" FromRole="Mpat" ToRole="Experimento" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Muestra">
           <Key>
@@ -238,6 +319,14 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Muestra_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MuestraSet" Relationship="Model1.FK_MuestraPaciente" FromRole="PacienteSet" ToRole="MuestraSet" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="DNI" Type="String" Nullable="false" />
+          <Property Name="Ubicacion" Type="String" Nullable="false" />
+          <Property Name="Sexo" Type="String" Nullable="false" />
+          <NavigationProperty Name="HistoriaClinica" Relationship="Model1.HistoriaClinicaPaciente" FromRole="Paciente" ToRole="HistoriaClinica" />
+          <Property Name="IdExperimento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Experimento" Relationship="Model1.ExperimentoPaciente" FromRole="Paciente" ToRole="Experimento" />
+          <Property Name="idHistoriaClinica" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ProcedimientoClinico">
           <Key>
@@ -305,6 +394,18 @@
           <End Type="Model1.TipoTestFood" Role="TipoTestFood" Multiplicity="1" />
           <End Type="Model1.TestFood" Role="TestFood" Multiplicity="1" />
         </Association>
+        <Association Name="HistoriaClinicaPaciente">
+          <End Type="Model1.HistoriaClinica" Role="HistoriaClinica" Multiplicity="1" />
+          <End Type="Model1.Paciente" Role="Paciente" Multiplicity="*" />
+        </Association>
+        <Association Name="MpatExperimento">
+          <End Type="Model1.Mpat" Role="Mpat" Multiplicity="*" />
+          <End Type="Model1.Experimento" Role="Experimento" Multiplicity="1" />
+        </Association>
+        <Association Name="ExperimentoPaciente">
+          <End Type="Model1.Experimento" Role="Experimento" Multiplicity="1" />
+          <End Type="Model1.Paciente" Role="Paciente" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -324,6 +425,9 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model1.Experimento)">
         <MappingFragment StoreEntitySet="ExperimentoSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="NumeroPacientes" ColumnName="NumeroPacientes" />
+          <ScalarProperty Name="idMpat" ColumnName="idMpat" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -342,6 +446,7 @@
           <ScalarProperty Name="ciclosMasticatorios" ColumnName="ciclosMasticatorios" />
           <ScalarProperty Name="ciclosEvaluacion" ColumnName="ciclosEvaluacion" />
           <ScalarProperty Name="procedimiento" ColumnName="procedimiento" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -358,6 +463,12 @@
         <MappingFragment StoreEntitySet="PacienteSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Muestra_Id" ColumnName="Muestra_Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+          <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+          <ScalarProperty Name="IdExperimento" ColumnName="IdExperimento" />
+          <ScalarProperty Name="idHistoriaClinica" ColumnName="idHistoriaClinica" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -409,6 +520,30 @@
         <ScalarProperty Name="Id" ColumnName="TestFood_Id" />
       </EndProperty>
       <EndProperty Name="TipoTestFood">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="HistoriaClinicaPaciente" TypeName="Model1.HistoriaClinicaPaciente" StoreEntitySet="PacienteSet">
+      <EndProperty Name="HistoriaClinica">
+        <ScalarProperty Name="Id" ColumnName="HistoriaClinica_Id" />
+      </EndProperty>
+      <EndProperty Name="Paciente">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MpatExperimento" TypeName="Model1.MpatExperimento" StoreEntitySet="MpatSet">
+      <EndProperty Name="Experimento">
+        <ScalarProperty Name="Id" ColumnName="Experimento_Id" />
+      </EndProperty>
+      <EndProperty Name="Mpat">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ExperimentoPaciente" TypeName="Model1.ExperimentoPaciente" StoreEntitySet="PacienteSet">
+      <EndProperty Name="Experimento">
+        <ScalarProperty Name="Id" ColumnName="Experimento_Id" />
+      </EndProperty>
+      <EndProperty Name="Paciente">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
