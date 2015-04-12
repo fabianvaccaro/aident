@@ -44,6 +44,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,16 +63,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AltaPaciente.xaml.cs">
-      <DependentUpon>AltaPaciente.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AltaTestFood.xaml.cs">
       <DependentUpon>AltaTestFood.xaml</DependentUpon>
     </Compile>
-    <Page Include="AltaPaciente.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Service References\srvweb\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Page Include="AltaTipoTestFood.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -114,11 +114,24 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\LibreriaObjetos.N_Mpat.datasource" />
+    <None Include="Properties\DataSources\LibreriaObjetos.N_TestFood.datasource" />
+    <None Include="Properties\DataSources\MainCore.N_TipoTestFood.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\srvweb\NegocioService.wsdl" />
+    <None Include="Service References\srvweb\NegocioService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\srvweb\NegocioService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\srvweb\NegocioService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -132,6 +145,30 @@
       <Project>{8e76d7ec-7ef2-4a5a-829d-adddf6bf58ad}</Project>
       <Name>MainCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\srvweb\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\srvweb\NegocioService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\srvweb\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\srvweb\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\srvweb\NegocioService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\srvweb\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

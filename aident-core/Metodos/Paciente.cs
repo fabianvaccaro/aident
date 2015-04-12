@@ -25,6 +25,5 @@ namespace MainCore
     
         public virtual Muestra MuestraSet { get; set; }
         public virtual HistoriaClinica HistoriaClinica { get; set; }
-        public virtual Experimento Experimento { get; set; }
     }
 }

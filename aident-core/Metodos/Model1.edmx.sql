@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/05/2015 20:26:43
+-- Date Created: 04/12/2015 21:40:22
 -- Generated from EDMX file: C:\Users\Jaime\Source\Repos\AiDent\aident-core\Metodos\Model1.edmx
 -- --------------------------------------------------
 
@@ -24,10 +24,7 @@ IF OBJECT_ID(N'[dbo].[FK_MuestraPaciente]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PacienteSet] DROP CONSTRAINT [FK_MuestraPaciente];
 GO
 IF OBJECT_ID(N'[dbo].[FK_MpatTestFood]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[TestFoodSet] DROP CONSTRAINT [FK_MpatTestFood];
-GO
-IF OBJECT_ID(N'[dbo].[FK_TipoTestFoodTestFood]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[TipoTestFoodSet] DROP CONSTRAINT [FK_TipoTestFoodTestFood];
+    ALTER TABLE [dbo].[MpatSet] DROP CONSTRAINT [FK_MpatTestFood];
 GO
 IF OBJECT_ID(N'[dbo].[FK_HistoriaClinicaPaciente]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PacienteSet] DROP CONSTRAINT [FK_HistoriaClinicaPaciente];
@@ -37,6 +34,9 @@ IF OBJECT_ID(N'[dbo].[FK_MpatExperimento]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_ExperimentoPaciente]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PacienteSet] DROP CONSTRAINT [FK_ExperimentoPaciente];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TestFoodTipoTestFood]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TestFoodSet] DROP CONSTRAINT [FK_TestFoodTipoTestFood];
 GO
 
 -- --------------------------------------------------
@@ -109,7 +109,7 @@ CREATE TABLE [dbo].[MpatSet] (
     [ciclosEvaluacion] int  NOT NULL,
     [procedimiento] nvarchar(max)  NOT NULL,
     [Estado] int  NOT NULL,
-    [Experimento_Id] int  NOT NULL
+    [nombre] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -129,9 +129,7 @@ CREATE TABLE [dbo].[PacienteSet] (
     [Ubicacion] nvarchar(max)  NOT NULL,
     [Sexo] nvarchar(max)  NOT NULL,
     [IdExperimento] int  NOT NULL,
-    [idHistoriaClinica] int  NOT NULL,
-    [HistoriaClinica_Id] int  NOT NULL,
-    [Experimento_Id] int  NOT NULL
+    [idHistoriaClinica] int  NOT NULL
 );
 GO
 
@@ -155,7 +153,7 @@ CREATE TABLE [dbo].[TestFoodSet] (
     [nombre] nvarchar(max)  NOT NULL,
     [descripcion] nvarchar(max)  NOT NULL,
     [caracteristicaMonitorzadas] nvarchar(max)  NOT NULL,
-    [Mpat_Id] int  NOT NULL
+    [IdTipo] int  NOT NULL
 );
 GO
 
@@ -163,8 +161,7 @@ GO
 CREATE TABLE [dbo].[TipoTestFoodSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [nombre] nvarchar(max)  NOT NULL,
-    [descripcion] nvarchar(max)  NOT NULL,
-    [TestFood_Id] int  NOT NULL
+    [descripcion] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -266,40 +263,25 @@ ON [dbo].[PacienteSet]
     ([Muestra_Id]);
 GO
 
--- Creating foreign key on [Mpat_Id] in table 'TestFoodSet'
-ALTER TABLE [dbo].[TestFoodSet]
+-- Creating foreign key on [idTestFood] in table 'MpatSet'
+ALTER TABLE [dbo].[MpatSet]
 ADD CONSTRAINT [FK_MpatTestFood]
-    FOREIGN KEY ([Mpat_Id])
-    REFERENCES [dbo].[MpatSet]
+    FOREIGN KEY ([idTestFood])
+    REFERENCES [dbo].[TestFoodSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_MpatTestFood'
 CREATE INDEX [IX_FK_MpatTestFood]
-ON [dbo].[TestFoodSet]
-    ([Mpat_Id]);
+ON [dbo].[MpatSet]
+    ([idTestFood]);
 GO
 
--- Creating foreign key on [TestFood_Id] in table 'TipoTestFoodSet'
-ALTER TABLE [dbo].[TipoTestFoodSet]
-ADD CONSTRAINT [FK_TipoTestFoodTestFood]
-    FOREIGN KEY ([TestFood_Id])
-    REFERENCES [dbo].[TestFoodSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_TipoTestFoodTestFood'
-CREATE INDEX [IX_FK_TipoTestFoodTestFood]
-ON [dbo].[TipoTestFoodSet]
-    ([TestFood_Id]);
-GO
-
--- Creating foreign key on [HistoriaClinica_Id] in table 'PacienteSet'
+-- Creating foreign key on [idHistoriaClinica] in table 'PacienteSet'
 ALTER TABLE [dbo].[PacienteSet]
 ADD CONSTRAINT [FK_HistoriaClinicaPaciente]
-    FOREIGN KEY ([HistoriaClinica_Id])
+    FOREIGN KEY ([idHistoriaClinica])
     REFERENCES [dbo].[HistoriaClinicaSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -308,37 +290,22 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_HistoriaClinicaPaciente'
 CREATE INDEX [IX_FK_HistoriaClinicaPaciente]
 ON [dbo].[PacienteSet]
-    ([HistoriaClinica_Id]);
+    ([idHistoriaClinica]);
 GO
 
--- Creating foreign key on [Experimento_Id] in table 'MpatSet'
-ALTER TABLE [dbo].[MpatSet]
-ADD CONSTRAINT [FK_MpatExperimento]
-    FOREIGN KEY ([Experimento_Id])
-    REFERENCES [dbo].[ExperimentoSet]
+-- Creating foreign key on [IdTipo] in table 'TestFoodSet'
+ALTER TABLE [dbo].[TestFoodSet]
+ADD CONSTRAINT [FK_TestFoodTipoTestFood]
+    FOREIGN KEY ([IdTipo])
+    REFERENCES [dbo].[TipoTestFoodSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_MpatExperimento'
-CREATE INDEX [IX_FK_MpatExperimento]
-ON [dbo].[MpatSet]
-    ([Experimento_Id]);
-GO
-
--- Creating foreign key on [Experimento_Id] in table 'PacienteSet'
-ALTER TABLE [dbo].[PacienteSet]
-ADD CONSTRAINT [FK_ExperimentoPaciente]
-    FOREIGN KEY ([Experimento_Id])
-    REFERENCES [dbo].[ExperimentoSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ExperimentoPaciente'
-CREATE INDEX [IX_FK_ExperimentoPaciente]
-ON [dbo].[PacienteSet]
-    ([Experimento_Id]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_TestFoodTipoTestFood'
+CREATE INDEX [IX_FK_TestFoodTipoTestFood]
+ON [dbo].[TestFoodSet]
+    ([IdTipo]);
 GO
 
 -- --------------------------------------------------

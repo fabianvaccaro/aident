@@ -14,12 +14,18 @@ namespace MainCore
     
     public partial class TestFood
     {
+        public TestFood()
+        {
+            this.Mpat = new HashSet<Mpat>();
+        }
+    
         public int Id { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public string caracteristicaMonitorzadas { get; set; }
+        public int IdTipo { get; set; }
     
-        public virtual Mpat Mpat { get; set; }
+        public virtual ICollection<Mpat> Mpat { get; set; }
         public virtual TipoTestFood TipoTestFood { get; set; }
     }
 }

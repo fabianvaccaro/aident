@@ -14,19 +14,14 @@ namespace MainCore
     
     public partial class Mpat
     {
-        public Mpat()
-        {
-            this.TestFood = new HashSet<TestFood>();
-        }
-    
         public int Id { get; set; }
         public int idTestFood { get; set; }
         public int ciclosMasticatorios { get; set; }
         public int ciclosEvaluacion { get; set; }
         public string procedimiento { get; set; }
         public int Estado { get; set; }
+        public string nombre { get; set; }
     
-        public virtual ICollection<TestFood> TestFood { get; set; }
-        public virtual Experimento Experimento { get; set; }
+        public virtual TestFood TestFood { get; set; }
     }
 }

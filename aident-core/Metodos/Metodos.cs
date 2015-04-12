@@ -34,7 +34,7 @@ namespace MainCore
                 Dbtf.nombre = tf.nombre;
                 Dbtf.descripcion = tf.descripcion;
                 Dbtf.caracteristicaMonitorzadas = tf.caracteristicasMonitorizadas;
-                //Dbtf.TipoTestFood = tf.tipo;
+                Dbtf.IdTipo = tf.tipo;
 
                 //Guardar el objeto Dbtf en el Context
                 try
@@ -150,11 +150,11 @@ namespace MainCore
                     {
                         foreach (var registro in xdf)
                         {
-                            //crear instancia de objeto N_Paciente
+                            //crear instancia de objeto N_TestFood
                             N_TestFood tf = new N_TestFood();
                             tf.id = registro.arecord.Id;
                             tf.nombre = registro.arecord.nombre;
-                            tf.tipo = registro.arecord.tipo;
+                            tf.tipo = registro.arecord.TipoTestFood.Id;
                             tf.descripcion = registro.arecord.descripcion;
                             tf.caracteristicasMonitorizadas = registro.arecord.caracteristicaMonitorzadas;
 
@@ -185,7 +185,7 @@ namespace MainCore
             {
                 List<N_TipoTestFood> lista = new List<N_TipoTestFood>();
 
-                //Selecciona un registro de paciente por su Id
+                //Selecciona un registro de tipoTestFood por su Id
                 var xdf = (from arecord in Context.TipoTestFoodSet
                            select new
                            {
@@ -199,13 +199,12 @@ namespace MainCore
                     {
                         foreach (var registro in xdf)
                         {
-                            //crear instancia de objeto N_Paciente
+                            //crear instancia de objeto N_TipoTestFood
                             N_TipoTestFood tf = new N_TipoTestFood();
                             tf.id = registro.arecord.Id;
                             tf.nombre = registro.arecord.nombre;
                             tf.descripcion = registro.arecord.descripcion;
-
-
+                            
                             //añadir tf a la lista
                             lista.Add(tf);
                         }
@@ -218,6 +217,53 @@ namespace MainCore
 
 
 
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return lista;
+                }
+            }
+        }
+
+        public List<N_Mpat> mpatToList()
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                List<N_Mpat> lista = new List<N_Mpat>();
+
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.MpatSet
+                           select new
+                           {
+                               arecord
+                           }).ToList();
+                try
+                {
+
+                    //Verifica que existan los registros
+                    if (xdf != null)
+                    {
+                        foreach (var registro in xdf)
+                        {
+                            //crear instancia de objeto N_Mpat
+                            N_Mpat ob = new N_Mpat();
+                            ob.id = registro.arecord.Id;
+                            ob.ListaProcedimientos = registro.arecord.procedimiento;
+                            ob.CiclosEvaluacion = registro.arecord.ciclosEvaluacion;
+                            ob.CiclosMasticatorios = registro.arecord.ciclosMasticatorios;
+                            ob.idTestFood = registro.arecord.idTestFood;
+                            ob.idEstado = registro.arecord.Estado;
+                            ob.nombre = registro.arecord.nombre;
+                                                        
+                            //añadir ob a la lista
+                            lista.Add(ob);
+                        }
+                        return lista;
+                    }
+                    else{
+                        return lista;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -265,6 +311,8 @@ namespace MainCore
                 Db.procedimiento = mpat.ListaProcedimientos;
                 Db.ciclosMasticatorios = mpat.CiclosMasticatorios;
                 Db.ciclosEvaluacion = mpat.CiclosEvaluacion;
+                Db.nombre = mpat.nombre;
+
 
                 //Guardar el objeto Dbtf en el Context
                 try
@@ -291,7 +339,6 @@ namespace MainCore
                 //Db.Id = exp.id;
                 Db.idMpat = exp.idMpat;
                 Db.NumeroPacientes = exp.numeroPacientes;
-                //Db.Paciente = exp.idPaciente; ponemos el numero experimento en el paciente
                 Db.Codigo = exp.codigoExperimento;
 
                 //Guardar el objeto Dbtf en el Context
@@ -362,21 +409,20 @@ namespace MainCore
             }
         }
 
-        public void validaMPAT(String procedimiento, Int32 idTestFood, Int32 ciclosMasticatorios, Int32 ciclosValidacion)
+        public void validaMPAT(String nombre, String procedimiento, Int32 idTestFood, Int32 ciclosMasticatorios, Int32 ciclosValidacion)
         {
             // falta validacion de datos
-            N_Mpat mpat = new N_Mpat(procedimiento, idTestFood, ciclosMasticatorios, ciclosValidacion);
+            N_Mpat mpat = new N_Mpat(nombre, procedimiento, idTestFood, ciclosMasticatorios, ciclosValidacion);
             AddMPAT(mpat);
         }
 
-        public void validaExperimento(String codigoExperimento, Int32 idMpat, Int32 numeroPacientes, List<N_Paciente> listaPacientes)
+        public void validaExperimento(String codigoExperimento, Int32 idMpat, Int32 numeroPacientes)
         {
             // falta validacion de datos
 
             N_Experimento experimento = new N_Experimento(codigoExperimento, idMpat, numeroPacientes);
 
             this.AddExperimento(experimento);
-            this.AddPacientesExperimento(listaPacientes, experimento.codigoExperimento);
         }
 
     }

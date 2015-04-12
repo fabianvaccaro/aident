@@ -32,18 +32,19 @@ namespace AiGumsPC
 
         private void grabarTipoTestFood(object sender, RoutedEventArgs e)
         {
-            Metodos metodo = new Metodos();
+            
             N_TipoTestFood ttf = new N_TipoTestFood();
             ttf.nombre = tbNombre.Text;
             ttf.descripcion = tbDescripcion.Text;
+            
 
-            if (metodo.AddTipoTestFood(ttf))
+            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            if (mets.AddTipoTestFood(ttf))
             {
                 this.resetview();
                 this.Close();
             }
             
-
         }
         private void resetview()
         {

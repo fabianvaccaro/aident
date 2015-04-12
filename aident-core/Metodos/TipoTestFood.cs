@@ -14,10 +14,15 @@ namespace MainCore
     
     public partial class TipoTestFood
     {
+        public TipoTestFood()
+        {
+            this.TestFood = new HashSet<TestFood>();
+        }
+    
         public int Id { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
     
-        public virtual TestFood TestFood { get; set; }
+        public virtual ICollection<TestFood> TestFood { get; set; }
     }
 }

@@ -25,12 +25,10 @@ namespace AiGumsPC
         
         public MainWindow()
         {
-            
             InitializeComponent();
             Loaded += MyWindow_Loaded;
             Activated += window_Activated;
             Deactivated += window_Deactivated;
-
         }
 
 
@@ -43,8 +41,8 @@ namespace AiGumsPC
             this.txtTextFood.IsEnabled = true;
             this.btAltaTestFood.IsEnabled = true;
             this.txtProcedimiento.IsEnabled = true;
-
         }
+
         private void window_Deactivated(object sender, EventArgs e)
         {
             this.txtCiclosMasticatorios.IsEnabled = false;
@@ -54,10 +52,12 @@ namespace AiGumsPC
             this.btAltaTestFood.IsEnabled = false;
             this.txtProcedimiento.IsEnabled = false;
         }
+
         private void MyWindow_Loaded(object sender, RoutedEventArgs e)
         {
             updateComboBox();
         }
+
         private void AltaTestFood(object sender, RoutedEventArgs e)
         {
             AltaTestFood win = new AltaTestFood();
@@ -67,23 +67,31 @@ namespace AiGumsPC
 
         private void updateComboBox()
         {
-            MainCore.Metodos metodos = new MainCore.Metodos();
+            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            //MainCore.Metodos metodos = new MainCore.Metodos();
             List<N_TestFood> lista = new List<N_TestFood>();
-
-            lista = metodos.testFoodToList();
+            lista = mets.testFoodToList().ToList();
+            
             txtTextFood.ItemsSource = lista;
             txtTextFood.DisplayMemberPath = "nombre";
             txtTextFood.SelectedValuePath = "id";
             txtTextFood.SelectedIndex = 0;
 
+            List<N_Mpat> listaMPAT = new List<N_Mpat>();
+            listaMPAT = mets.mpatToList().ToList();
+
+            txtMPAT.ItemsSource = listaMPAT;
+            txtMPAT.DisplayMemberPath = "nombre";
+            txtMPAT.SelectedValuePath = "id";
+            txtMPAT.SelectedIndex = 0;
+
         }
 
         private void BajaTestFood(object sender, RoutedEventArgs e)
         {
-            Metodos metodo = new Metodos();
+            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
             
-
-            metodo.DeleteTestFood(Int32.Parse(this.txtTextFood.SelectedValue.ToString()));
+            mets.DeleteTestFood(Int32.Parse(this.txtTextFood.SelectedValue.ToString()));
             resetview();
         }
         private void resetview()
@@ -99,30 +107,45 @@ namespace AiGumsPC
 
     
         }
+        private void resetviewExperimento()
+        {
+            try
+            {
+                this.txtCodigo.Text = "";
+                this.txtNumeroPacientes.Text = "";
+                this.txtProcedimiento.Text = "";
+                updateComboBox();
+            }
+            catch { }
+
+
+        }
 
         private void grabarMpat_Click(object sender, RoutedEventArgs e)
         {
-            Metodos metodo = new Metodos();
+            //Metodos metodo = new Metodos();
+            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            
+            mets.validaMPAT(
+                txtNombre.Text, 
+                txtProcedimiento.Text, 
+                Int32.Parse(txtTextFood.SelectedValue.ToString()),
+                Int32.Parse(txtCiclosMasticatorios.Text), 
+                Int32.Parse(txtCiclosEvaluacion.Text));
 
-            try{
-                metodo.validaMPAT(txtProcedimiento.Text, Int32.Parse(this.txtTextFood.SelectedValue.ToString()), Int32.Parse(txtCiclosMasticatorios.Text), Int32.Parse(txtCiclosEvaluacion.Text));
-                resetview();
-            }
-            catch (Exception error)
-            {
-                Console.Write(error);
-            }
+            resetview();
+            
         }
 
         private void bt_AddExperimento_Click(object sender, RoutedEventArgs e)
         {
-            Metodos metodo = new Metodos();
-            List<N_Paciente> lista = new List<N_Paciente>();
+            //Metodos metodo = new Metodos();
+            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
 
             try
             {
-                metodo.validaExperimento(txtCodigo.Text, Int32.Parse(this.txtMPAT.SelectedValue.ToString()), Int32.Parse(this.txtNumeroPacientes.Text), lista);
-                resetview();
+                mets.validaExperimento(txtCodigo.Text, Int32.Parse(this.txtMPAT.SelectedValue.ToString()), Int32.Parse(this.txtNumeroPacientes.Text));
+                resetviewExperimento();
             }
             catch (Exception error)
             {
@@ -130,15 +153,7 @@ namespace AiGumsPC
             }
         }
 
-        private void bt_AddMpat_Click(object sender, RoutedEventArgs e)
-        {
-            // habilito crear MPAT desde Alta de Experimento o solo se pueden crear experimentos con MPAT creadas?¿?¿
-        }
 
-        private void bt_AddPaciente_Click(object sender, RoutedEventArgs e)
-        {
-            AltaPaciente win = new AltaPaciente();
-            win.Show();
-        }
+        
     }
 }

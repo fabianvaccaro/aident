@@ -59,33 +59,33 @@ namespace AiGumsPC
             //List<N_TipoTestFood> lista = new List<N_TipoTestFood>();
 
             //lista = metodos.tipoTestFoodToList();
-            cbTipo.ItemsSource = lista;
-            cbTipo.DisplayMemberPath = "nombre";
-            cbTipo.SelectedValuePath = "id";
-            cbTipo.SelectedIndex = 0;
+            //cbTipo.ItemsSource = lista;
+            //cbTipo.DisplayMemberPath = "nombre";
+            //cbTipo.SelectedValuePath = "id";
+            //cbTipo.SelectedIndex = 0;
         }
 
-        private void grabarPaciente(object sender, RoutedEventArgs e)
-        {
-            Metodos metodo = new Metodos();
-            N_Paciente elemento = new N_Paciente();
-            List<N_Paciente> lista = new List<N_Paciente>();
+        //private void grabarPaciente(object sender, RoutedEventArgs e)
+        //{
+        //    Metodos metodo = new Metodos();
+        //    N_Paciente elemento = new N_Paciente();
+        //    List<N_Paciente> lista = new List<N_Paciente>();
 
-            elemento.identificacion = this.txtDNI.Text;
-            elemento.nombre = this.txtNombre.Text;
-            elemento.sexo = "Hombre"; // pasar de radiobutton a texto
-            elemento.ubicacion = this.txtUbicacion.Text;
+        //    elemento.identificacion = this.txtDNI.Text;
+        //    elemento.nombre = this.txtNombre.Text;
+        //    elemento.sexo = "Hombre"; // pasar de radiobutton a texto
+        //    elemento.ubicacion = this.txtUbicacion.Text;
 
-            lista.Add(elemento);
-            updateComboBox(lista);
-            this.Close();
+        //    lista.Add(elemento);
+        //    updateComboBox(lista);
+        //    this.Close();
             
-        }
+        //}
 
-        private void cancelarPaciente(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        //private void cancelarPaciente(object sender, RoutedEventArgs e)
+        //{
+        //    this.Close();
+        //}
 
         private void resetview()
         {

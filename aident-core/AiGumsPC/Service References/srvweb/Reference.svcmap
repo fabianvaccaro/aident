@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f31a262a-c0b3-4b67-a707-07c77df5ad94" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:65012/NegocioService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="NegocioService.disco" MetadataType="Disco" ID="67f6a8c6-3707-446f-99ca-0a8249b85201" SourceId="1" SourceUrl="http://localhost:65012/NegocioService.svc?disco" />
+    <MetadataFile FileName="NegocioService.wsdl" MetadataType="Wsdl" ID="70ff43ad-cbcc-4c4f-a47a-bd873dee1c08" SourceId="1" SourceUrl="http://localhost:65012/NegocioService.svc?wsdl" />
+    <MetadataFile FileName="NegocioService3.xsd" MetadataType="Schema" ID="f823389b-2d58-4fe0-a603-0646333cb9c1" SourceId="1" SourceUrl="http://localhost:65012/NegocioService.svc?xsd=xsd3" />
+    <MetadataFile FileName="NegocioService.xsd" MetadataType="Schema" ID="627c173a-ea49-4c08-a57d-f39c24fdfb43" SourceId="1" SourceUrl="http://localhost:65012/NegocioService.svc?xsd=xsd2" />
+    <MetadataFile FileName="NegocioService1.xsd" MetadataType="Schema" ID="6654d840-b7aa-42e3-b519-ddf435fd243e" SourceId="1" SourceUrl="http://localhost:65012/NegocioService.svc?xsd=xsd1" />
+    <MetadataFile FileName="NegocioService2.xsd" MetadataType="Schema" ID="a7f1c7cc-c7bd-424d-b392-04f5aa00b652" SourceId="1" SourceUrl="http://localhost:65012/NegocioService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

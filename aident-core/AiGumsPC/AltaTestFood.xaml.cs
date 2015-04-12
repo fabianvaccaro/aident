@@ -1,5 +1,4 @@
-﻿using LibreriaObjetos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,11 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MainCore;
+using LibreriaObjetos;
 
 namespace AiGumsPC
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for AltaTestFood.xaml
     /// </summary>
     public partial class AltaTestFood : Window
     {
@@ -54,10 +54,11 @@ namespace AiGumsPC
         }
         private void updateComboBox()
         {
-            MainCore.Metodos metodos = new MainCore.Metodos();
-            List<N_TipoTestFood> lista = new List<N_TipoTestFood>();
 
-            lista = metodos.tipoTestFoodToList();
+            List<N_TipoTestFood> lista = new List<N_TipoTestFood>();
+            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+
+            lista = mets.tipoTestFoodToList().ToList();
             cbTipo.ItemsSource = lista;
             cbTipo.DisplayMemberPath = "nombre";
             cbTipo.SelectedValuePath = "id";
@@ -66,14 +67,15 @@ namespace AiGumsPC
 
         private void grabarTestFood(object sender, RoutedEventArgs e)
         {
-            Metodos metodo = new Metodos();
+            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
             N_TestFood tf = new N_TestFood();
+
             tf.nombre = tbNombre.Text;
             tf.descripcion = tbDescripcion.Text;
             tf.caracteristicasMonitorizadas = tbCaracteristicaMonitorzadas.Text;
             tf.tipo = Int32.Parse(cbTipo.SelectedValue.ToString());
 
-            metodo.AddTestFood(tf);
+            mets.AddTestFood(tf);
             this.Close();
             
         }

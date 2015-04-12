@@ -9,36 +9,32 @@
         <TabControl HorizontalAlignment="Left" Height="634" VerticalAlignment="Top" Width="694" Margin="0,0,-0.4,0">
             <TabItem Header="Alta MPAT">
                 <Grid Background="#00FF00" Margin="0,0,0,0.4">
-                    <Label Content="Test Food" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Procedimiento" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.586,1.57"/>
-                    <ComboBox x:Name="txtTextFood" HorizontalAlignment="Left" Margin="128,61,0,0" VerticalAlignment="Top" Width="322"/>
-                    <TextBox x:Name="txtProcedimiento" HorizontalAlignment="Left" Height="78" Margin="128,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322"/>
-                    <Button x:Name="btAltaTestFood" Content="Alta" HorizontalAlignment="Left" Margin="471,61,0,0" VerticalAlignment="Top" Width="75" Click="AltaTestFood"/>
-                    <Label Content="Ciclos Masticatorios" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtCiclosMasticatorios" HorizontalAlignment="Left" Height="23" Margin="130,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
-                    <Label Content="Ciclos de Evaluación" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtCiclosEvaluacion" HorizontalAlignment="Left" Height="23" Margin="130,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
-                    <Button x:Name="btBajaTestFood" Content="Baja" HorizontalAlignment="Left" Margin="551,61,0,0" VerticalAlignment="Top" Width="75" Click="BajaTestFood"/>
+                    <Label Content="Test Food" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Procedimiento" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.586,1.57"/>
+                    <ComboBox x:Name="txtTextFood" HorizontalAlignment="Left" Margin="128,125,0,0" VerticalAlignment="Top" Width="322"/>
+                    <TextBox x:Name="txtProcedimiento" HorizontalAlignment="Left" Height="78" Margin="128,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322"/>
+                    <Button x:Name="btAltaTestFood" Content="Alta" HorizontalAlignment="Left" Margin="471,127,0,0" VerticalAlignment="Top" Width="75" Click="AltaTestFood"/>
+                    <Label Content="Ciclos Masticatorios" HorizontalAlignment="Left" Margin="10,263,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtCiclosMasticatorios" HorizontalAlignment="Left" Height="23" Margin="128,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
+                    <Label Content="Ciclos de Evaluación" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtCiclosEvaluacion" HorizontalAlignment="Left" Height="23" Margin="128,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
+                    <Button x:Name="btBajaTestFood" Content="Baja" HorizontalAlignment="Left" Margin="551,127,0,0" VerticalAlignment="Top" Width="75" Click="BajaTestFood"/>
                     <Button x:Name="grabarMpat" Content="Grabar MPAT" HorizontalAlignment="Left" Margin="222,316,0,0" VerticalAlignment="Top" Width="224" Height="58" FontSize="22" FontWeight="Bold" Click="grabarMpat_Click"/>
                     <Label Content="Dar de Alta un MPAT" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+                    <TextBox x:Name="txtNombre" HorizontalAlignment="Left" Height="23" Margin="128,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
+                    <Label Content="Nombre&#x9;" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top"/>
 
                 </Grid>
 
             </TabItem>
             <TabItem Header="Alta Experimento">
                 <Grid Background="#0000F0">
-                    <ComboBox x:Name="txtMPAT" HorizontalAlignment="Left" Margin="175,129,0,0" VerticalAlignment="Top" Width="314" Height="32"/>
-                    <TextBox x:Name="txtCodigo" HorizontalAlignment="Left" Height="32" Margin="175,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" FontSize="16"/>
+                    <ComboBox x:Name="txtMPAT" HorizontalAlignment="Left" Margin="197,129,0,0" VerticalAlignment="Top" Width="314" Height="32"/>
+                    <TextBox x:Name="txtCodigo" HorizontalAlignment="Left" Height="32" Margin="197,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" FontSize="16"/>
                     <Label Content="Código Experimento" HorizontalAlignment="Left" Margin="15,76,0,0" VerticalAlignment="Top" FontSize="16"/>
                     <Label Content="MPAT" HorizontalAlignment="Left" Margin="15,129,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <TextBox x:Name="txtNumeroPacientes" HorizontalAlignment="Left" Height="32" Margin="175,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" FontSize="16"/>
-                    <Label Content="Número Pacientes" HorizontalAlignment="Left" Margin="15,180,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <ListBox x:Name="txtListaPacientes" HorizontalAlignment="Left" Margin="175,236,0,0" VerticalAlignment="Top" Width="314" Height="32"/>
-                    <Label Content="Lista Pacientes" HorizontalAlignment="Left" Margin="15,236,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Button x:Name="bt_AddPaciente" Content="Añadir Paciente" HorizontalAlignment="Left" Margin="494,236,0,0" VerticalAlignment="Top" Width="91" Height="32" Click="bt_AddPaciente_Click"/>
-                    <Button x:Name="bt_DeletePaciente" Content="Borrar Paciente" HorizontalAlignment="Left" Margin="590,236,0,0" VerticalAlignment="Top" Width="89" Height="32"/>
-                    <Button x:Name="bt_AddMpat" Content="Añadir MPAT" HorizontalAlignment="Left" Margin="494,129,0,0" VerticalAlignment="Top" Width="91" Height="32" Click="bt_AddMpat_Click"/>
-                    <Button x:Name="bt_DeleteMpat" Content="Borrar MPAT" HorizontalAlignment="Left" Margin="590,129,0,0" VerticalAlignment="Top" Width="89" Height="32"/>
+                    <TextBox x:Name="txtNumeroPacientes" HorizontalAlignment="Left" Height="32" Margin="197,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" FontSize="16"/>
+                    <Label Content="Número Min Pacientes" HorizontalAlignment="Left" Margin="15,180,0,0" VerticalAlignment="Top" FontSize="16"/>
                     <Label Content="Dar de Alta un Experimento" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
                     <Button x:Name="bt_AddExperimento" Content="Alta Experimento" HorizontalAlignment="Left" Margin="222,316,0,0" VerticalAlignment="Top" Width="224" Height="58" FontSize="22" FontWeight="Bold" Click="bt_AddExperimento_Click"/>
 

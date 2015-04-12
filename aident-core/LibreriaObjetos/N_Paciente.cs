@@ -35,7 +35,7 @@ namespace LibreriaObjetos
             this.identificacion = String.Empty;
             this.nombre = String.Empty;
             this.ubicacion = String.Empty;
-            this.sexo = T_Sexo.NULO;
+            this.sexo = String.Empty;
             this.idHistoriaClinica = 0;
         }
     }
