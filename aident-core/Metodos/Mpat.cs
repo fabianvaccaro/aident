@@ -14,6 +14,11 @@ namespace MainCore
     
     public partial class Mpat
     {
+        public Mpat()
+        {
+            this.Experimento = new HashSet<Experimento>();
+        }
+    
         public int Id { get; set; }
         public int idTestFood { get; set; }
         public int ciclosMasticatorios { get; set; }
@@ -23,5 +28,6 @@ namespace MainCore
         public string nombre { get; set; }
     
         public virtual TestFood TestFood { get; set; }
+        public virtual ICollection<Experimento> Experimento { get; set; }
     }
 }

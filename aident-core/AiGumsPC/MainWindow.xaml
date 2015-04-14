@@ -46,10 +46,39 @@
             </TabItem>
             <TabItem Header="Listado MPATs">
                 <Grid Background="#000F00">
+                    <DataGrid x:Name="grid_listado_mpat"  Margin="10,10,9.8,0" VerticalAlignment="Top" AutoGenerateColumns="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=id}" Header="Id"/>
+                            <DataGridTextColumn Binding="{Binding Path=ListaProcedimientos}" Header="Procedimiento"/>
+                            <DataGridTextColumn Binding="{Binding Path=nombre }" Header="Nombre"/>
+                            <DataGridTextColumn Binding="{Binding Path=idTestFood}" Header="idTestFood"/>
+                            <DataGridTextColumn Binding="{Binding Path=CiclosMasticatorios}" Header="Ciclos Masticatorios"/>
+                            <DataGridTextColumn Binding="{Binding Path=CiclosEvaluacion}" Header="Ciclos Evaluación"/>
+                            <DataGridTextColumn Binding="{Binding Path=idEstado}" Header="Estado"/>
+
+                            <DataGridTemplateColumn Header="Imagen">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Path=rutaImagen}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Listado Experimentos">
                 <Grid Background="#000F00">
+                    <DataGrid x:Name="grid_listado_experimento"  Margin="10,10,9.8,0" VerticalAlignment="Top" AutoGenerateColumns="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=id}" Header="Id"/>
+                            <DataGridTextColumn Binding="{Binding Path=codigoExperimento}" Header="Código Experimento"/>
+                            <DataGridTextColumn Binding="{Binding Path=idPaciente}" Header="Paciente"/>
+                            <DataGridTextColumn Binding="{Binding Path=idMpat}" Header="MPAT"/>
+                            <DataGridTextColumn Binding="{Binding Path=numeroPacientes}" Header="Número Pacientes"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Listado Diagnósticos">

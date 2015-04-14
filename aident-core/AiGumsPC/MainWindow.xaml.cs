@@ -85,6 +85,10 @@ namespace AiGumsPC
             txtMPAT.SelectedValuePath = "id";
             txtMPAT.SelectedIndex = 0;
 
+            cargarDatosMPAT();
+
+            cargarDatosExperimento();
+
         }
 
         private void BajaTestFood(object sender, RoutedEventArgs e)
@@ -150,6 +154,36 @@ namespace AiGumsPC
             catch (Exception error)
             {
                 Console.Write(error);
+            }
+        }
+        private void cargarDatosMPAT()
+        {
+            Metodos metodo = new Metodos();
+            List<N_Mpat> listaMPAT = new List<N_Mpat>();
+            listaMPAT = metodo.mpatToList();
+            if (listaMPAT != null)
+            {
+                grid_listado_mpat.ItemsSource = listaMPAT;
+
+            }
+            else
+            {
+                MessageBox.Show("Error al listar mpat");
+            }
+        }
+        private void cargarDatosExperimento()
+        {
+            Metodos metodo = new Metodos();
+            List<N_Experimento> listaExperimento = new List<N_Experimento>();
+            listaExperimento = metodo.experimentoToList();
+            if (listaExperimento != null)
+            {
+                grid_listado_mpat.ItemsSource = listaExperimento;
+
+            }
+            else
+            {
+                MessageBox.Show("Error al listar mpat");
             }
         }
 

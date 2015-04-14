@@ -14,9 +14,17 @@ namespace MainCore
     
     public partial class Experimento
     {
+        public Experimento()
+        {
+            this.Paciente = new HashSet<Paciente>();
+        }
+    
         public int Id { get; set; }
         public string Codigo { get; set; }
         public int NumeroPacientes { get; set; }
         public int idMpat { get; set; }
+    
+        public virtual ICollection<Paciente> Paciente { get; set; }
+        public virtual Mpat Mpat { get; set; }
     }
 }

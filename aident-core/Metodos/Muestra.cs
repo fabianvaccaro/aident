@@ -17,13 +17,13 @@ namespace MainCore
         public Muestra()
         {
             this.CaracteristicaMedidaSet = new HashSet<CaracteristicaMedida>();
-            this.PacienteSet = new HashSet<Paciente>();
         }
     
         public int Id { get; set; }
         public string Ciclos { get; set; }
+        public int idPaciente { get; set; }
     
         public virtual ICollection<CaracteristicaMedida> CaracteristicaMedidaSet { get; set; }
-        public virtual ICollection<Paciente> PacienteSet { get; set; }
+        public virtual Paciente PacienteSet { get; set; }
     }
 }

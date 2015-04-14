@@ -225,6 +225,54 @@ namespace MainCore
                 }
             }
         }
+        public List<N_Experimento> experimentoToList(){
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                List<N_Experimento> lista = new List<N_Experimento>();
+
+                //Selecciona un registro de tipoTestFood por su Id
+                var xdf = (from arecord in Context.ExperimentoSet
+                           select new
+                           {
+                               arecord
+                           }).ToList();
+                try
+                {
+
+                    //Verifica que existan los registros
+                    if (xdf != null)
+                    {
+                        foreach (var registro in xdf)
+                        {
+                            //crear instancia de objeto N_TipoTestFood
+                            N_Experimento tf = new N_Experimento();
+                            tf.id = registro.arecord.Id;
+                            tf.idMpat = registro.arecord.idMpat;
+                            tf.numeroPacientes = registro.arecord.NumeroPacientes;
+                            
+
+
+
+                            //añadir tf a la lista
+                            lista.Add(tf);
+                        }
+                        return lista;
+                    }
+                    else
+                    {
+                        return lista;
+                    }
+
+
+
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return lista;
+                }
+            }
+        }
 
         public List<N_Mpat> mpatToList()
         {
