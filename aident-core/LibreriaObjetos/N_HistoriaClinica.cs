@@ -15,6 +15,8 @@ namespace LibreriaObjetos
         [DataMember]
         public Int32 id { get; set; }
         [DataMember]
+        public Int32 idPaciente { get; set; }
+        [DataMember]
         public String odontograma { get; set; }
         [DataMember]
         public Int32 numeroCariados { get; set; }
@@ -53,6 +55,7 @@ namespace LibreriaObjetos
         public N_HistoriaClinica()
         {
             this.id = 0;
+            this.idPaciente = 0;
             this.odontograma = String.Empty;
             this.numeroCariados = 0;
             this.numeroDientesPerdidos = 0;

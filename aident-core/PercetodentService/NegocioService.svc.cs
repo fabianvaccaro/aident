@@ -44,20 +44,26 @@ namespace PercetodentService
             Metodos metodo = new Metodos();
             return metodo.DeleteTestFood(id);
         }
-        public void validaExperimento(String codigoExperimento, Int32 idMpat, Int32 numeroPacientes)
+        public Boolean AddExperimento(N_Experimento experimento) 
         {
             Metodos metodo = new Metodos();
-            metodo.validaExperimento(codigoExperimento, idMpat, numeroPacientes);
+            return metodo.AddExperimento(experimento);
         }
-        public void validaMPAT(String nombre, String procedimiento, Int32 idTestFood, Int32 ciclosMasticatorios, Int32 ciclosValidacion)
+        public Boolean AddMPAT(N_Mpat mpat)
         {
             Metodos metodo = new Metodos();
-            metodo.validaMPAT(nombre, procedimiento, idTestFood, ciclosMasticatorios, ciclosValidacion);
+            return metodo.AddMPAT(mpat);
         }
         public List<N_Mpat> mpatToList()
         {
             Metodos metodo = new Metodos();
             return metodo.mpatToList();
+        }
+
+        public List<N_Experimento> experimentoToList()
+        {
+            Metodos metodo = new Metodos();
+            return metodo.experimentoToList();
         }
     }
 }

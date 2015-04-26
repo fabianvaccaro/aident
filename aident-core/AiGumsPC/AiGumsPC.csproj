@@ -69,6 +69,9 @@
     <Compile Include="Muestras.xaml.cs">
       <DependentUpon>Muestras.xaml</DependentUpon>
     </Compile>
+    <Compile Include="recogidaDatosPaciente.xaml.cs">
+      <DependentUpon>recogidaDatosPaciente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Service References\srvweb\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,6 +104,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="recogidaDatosPaciente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -121,6 +128,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\LibreriaObjetos.N_Experimento.datasource" />
     <None Include="Properties\DataSources\LibreriaObjetos.N_Mpat.datasource" />
     <None Include="Properties\DataSources\LibreriaObjetos.N_TestFood.datasource" />
     <None Include="Properties\DataSources\MainCore.N_TipoTestFood.datasource" />

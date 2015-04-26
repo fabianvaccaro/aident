@@ -78,34 +78,32 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="validaMPAT">
+  <xs:element name="AddMPAT">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="procedimiento" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="idTestFood" type="xs:int" />
-        <xs:element minOccurs="0" name="ciclosMasticatorios" type="xs:int" />
-        <xs:element minOccurs="0" name="ciclosValidacion" type="xs:int" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="mpat" nillable="true" type="q5:N_Mpat" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="validaMPATResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="validaExperimento">
+  <xs:element name="AddMPATResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="codigoExperimento" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="idMpat" type="xs:int" />
-        <xs:element minOccurs="0" name="numeroPacientes" type="xs:int" />
+        <xs:element minOccurs="0" name="AddMPATResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="validaExperimentoResponse">
+  <xs:element name="AddExperimento">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="experimento" nillable="true" type="q6:N_Experimento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddExperimentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddExperimentoResult" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="mpatToList">
@@ -116,7 +114,19 @@
   <xs:element name="mpatToListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="mpatToListResult" nillable="true" type="q5:ArrayOfN_Mpat" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="mpatToListResult" nillable="true" type="q7:ArrayOfN_Mpat" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="experimentoToList">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="experimentoToListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="experimentoToListResult" nillable="true" type="q8:ArrayOfN_Experimento" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

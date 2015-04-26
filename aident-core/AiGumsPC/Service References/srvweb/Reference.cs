@@ -51,23 +51,29 @@ namespace AiGumsPC.srvweb {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/DeleteTestFood", ReplyAction="http://tempuri.org/INegocioService/DeleteTestFoodResponse")]
         System.Threading.Tasks.Task<bool> DeleteTestFoodAsync(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/validaMPAT", ReplyAction="http://tempuri.org/INegocioService/validaMPATResponse")]
-        void validaMPAT(string nombre, string procedimiento, int idTestFood, int ciclosMasticatorios, int ciclosValidacion);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddMPAT", ReplyAction="http://tempuri.org/INegocioService/AddMPATResponse")]
+        bool AddMPAT(LibreriaObjetos.N_Mpat mpat);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/validaMPAT", ReplyAction="http://tempuri.org/INegocioService/validaMPATResponse")]
-        System.Threading.Tasks.Task validaMPATAsync(string nombre, string procedimiento, int idTestFood, int ciclosMasticatorios, int ciclosValidacion);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddMPAT", ReplyAction="http://tempuri.org/INegocioService/AddMPATResponse")]
+        System.Threading.Tasks.Task<bool> AddMPATAsync(LibreriaObjetos.N_Mpat mpat);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/validaExperimento", ReplyAction="http://tempuri.org/INegocioService/validaExperimentoResponse")]
-        void validaExperimento(string codigoExperimento, int idMpat, int numeroPacientes);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddExperimento", ReplyAction="http://tempuri.org/INegocioService/AddExperimentoResponse")]
+        bool AddExperimento(LibreriaObjetos.N_Experimento experimento);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/validaExperimento", ReplyAction="http://tempuri.org/INegocioService/validaExperimentoResponse")]
-        System.Threading.Tasks.Task validaExperimentoAsync(string codigoExperimento, int idMpat, int numeroPacientes);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddExperimento", ReplyAction="http://tempuri.org/INegocioService/AddExperimentoResponse")]
+        System.Threading.Tasks.Task<bool> AddExperimentoAsync(LibreriaObjetos.N_Experimento experimento);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/mpatToList", ReplyAction="http://tempuri.org/INegocioService/mpatToListResponse")]
         LibreriaObjetos.N_Mpat[] mpatToList();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/mpatToList", ReplyAction="http://tempuri.org/INegocioService/mpatToListResponse")]
         System.Threading.Tasks.Task<LibreriaObjetos.N_Mpat[]> mpatToListAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/experimentoToList", ReplyAction="http://tempuri.org/INegocioService/experimentoToListResponse")]
+        LibreriaObjetos.N_Experimento[] experimentoToList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/experimentoToList", ReplyAction="http://tempuri.org/INegocioService/experimentoToListResponse")]
+        System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> experimentoToListAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -145,20 +151,20 @@ namespace AiGumsPC.srvweb {
             return base.Channel.DeleteTestFoodAsync(id);
         }
         
-        public void validaMPAT(string nombre, string procedimiento, int idTestFood, int ciclosMasticatorios, int ciclosValidacion) {
-            base.Channel.validaMPAT(nombre, procedimiento, idTestFood, ciclosMasticatorios, ciclosValidacion);
+        public bool AddMPAT(LibreriaObjetos.N_Mpat mpat) {
+            return base.Channel.AddMPAT(mpat);
         }
         
-        public System.Threading.Tasks.Task validaMPATAsync(string nombre, string procedimiento, int idTestFood, int ciclosMasticatorios, int ciclosValidacion) {
-            return base.Channel.validaMPATAsync(nombre, procedimiento, idTestFood, ciclosMasticatorios, ciclosValidacion);
+        public System.Threading.Tasks.Task<bool> AddMPATAsync(LibreriaObjetos.N_Mpat mpat) {
+            return base.Channel.AddMPATAsync(mpat);
         }
         
-        public void validaExperimento(string codigoExperimento, int idMpat, int numeroPacientes) {
-            base.Channel.validaExperimento(codigoExperimento, idMpat, numeroPacientes);
+        public bool AddExperimento(LibreriaObjetos.N_Experimento experimento) {
+            return base.Channel.AddExperimento(experimento);
         }
         
-        public System.Threading.Tasks.Task validaExperimentoAsync(string codigoExperimento, int idMpat, int numeroPacientes) {
-            return base.Channel.validaExperimentoAsync(codigoExperimento, idMpat, numeroPacientes);
+        public System.Threading.Tasks.Task<bool> AddExperimentoAsync(LibreriaObjetos.N_Experimento experimento) {
+            return base.Channel.AddExperimentoAsync(experimento);
         }
         
         public LibreriaObjetos.N_Mpat[] mpatToList() {
@@ -167,6 +173,14 @@ namespace AiGumsPC.srvweb {
         
         public System.Threading.Tasks.Task<LibreriaObjetos.N_Mpat[]> mpatToListAsync() {
             return base.Channel.mpatToListAsync();
+        }
+        
+        public LibreriaObjetos.N_Experimento[] experimentoToList() {
+            return base.Channel.experimentoToList();
+        }
+        
+        public System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> experimentoToListAsync() {
+            return base.Channel.experimentoToListAsync();
         }
     }
 }

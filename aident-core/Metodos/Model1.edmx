@@ -67,6 +67,22 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="odontograma" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="numeroCariados" Type="int" Nullable="false" />
+    <Property Name="numeroDientesPerdidos" Type="int" Nullable="false" />
+    <Property Name="numeroDientesObturados" Type="int" Nullable="false" />
+    <Property Name="ortodoncia" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="protesis" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="implantes" Type="int" Nullable="false" />
+    <Property Name="paresAntagPerdidos" Type="int" Nullable="false" />
+    <Property Name="gradoEdentulismo" Type="int" Nullable="false" />
+    <Property Name="estadoSaludGeneral" Type="bit" Nullable="false" />
+    <Property Name="enfermedadCardioVascular" Type="bit" Nullable="false" />
+    <Property Name="enfermedadRenal" Type="bit" Nullable="false" />
+    <Property Name="ICTUS" Type="bit" Nullable="false" />
+    <Property Name="ACV" Type="bit" Nullable="false" />
+    <Property Name="paralisisFacial" Type="bit" Nullable="false" />
+    <Property Name="gradoDesnutricion" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="MpatSet">
     <Key>
@@ -97,7 +113,8 @@
     <Property Name="DNI" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Ubicacion" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Sexo" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IdExperimento" Type="int" Nullable="false" />
+    <Property Name="idPacienteExp" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="idExperimento" Type="int" Nullable="false" />
     <Property Name="idHistoriaClinica" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ProcedimientoClinicoSet">
@@ -200,7 +217,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Paciente">
-        <PropertyRef Name="IdExperimento" />
+        <PropertyRef Name="idExperimento" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -286,6 +303,22 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Paciente" Relationship="Model1.HistoriaClinicaPaciente" FromRole="HistoriaClinica" ToRole="Paciente" />
+          <Property Name="odontograma" Type="String" Nullable="false" />
+          <Property Name="numeroCariados" Type="Int32" Nullable="false" />
+          <Property Name="numeroDientesPerdidos" Type="Int32" Nullable="false" />
+          <Property Name="numeroDientesObturados" Type="Int32" Nullable="false" />
+          <Property Name="ortodoncia" Type="String" Nullable="false" />
+          <Property Name="protesis" Type="String" Nullable="false" />
+          <Property Name="implantes" Type="Int32" Nullable="false" />
+          <Property Name="paresAntagPerdidos" Type="Int32" Nullable="false" />
+          <Property Name="gradoEdentulismo" Type="Int32" Nullable="false" />
+          <Property Name="estadoSaludGeneral" Type="Boolean" Nullable="false" />
+          <Property Name="enfermedadCardioVascular" Type="Boolean" Nullable="false" />
+          <Property Name="enfermedadRenal" Type="Boolean" Nullable="false" />
+          <Property Name="ICTUS" Type="Boolean" Nullable="false" />
+          <Property Name="ACV" Type="Boolean" Nullable="false" />
+          <Property Name="paralisisFacial" Type="Boolean" Nullable="false" />
+          <Property Name="gradoDesnutricion" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Mpat">
           <Key>
@@ -322,9 +355,10 @@
           <Property Name="Ubicacion" Type="String" Nullable="false" />
           <Property Name="Sexo" Type="String" Nullable="false" />
           <NavigationProperty Name="HistoriaClinica" Relationship="Model1.HistoriaClinicaPaciente" FromRole="Paciente" ToRole="HistoriaClinica" />
-          <Property Name="IdExperimento" Type="Int32" Nullable="false" />
-          <Property Name="idHistoriaClinica" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Experimento" Relationship="Model1.ExperimentoPaciente" FromRole="Paciente" ToRole="Experimento" />
+          <Property Name="idPacienteExp" Type="String" Nullable="false" />
+          <Property Name="idExperimento" Type="Int32" Nullable="false" />
+          <Property Name="idHistoriaClinica" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ProcedimientoClinico">
           <Key>
@@ -429,7 +463,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Paciente">
-              <PropertyRef Name="IdExperimento" />
+              <PropertyRef Name="idExperimento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -474,6 +508,22 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model1.HistoriaClinica)">
         <MappingFragment StoreEntitySet="HistoriaClinicaSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="odontograma" ColumnName="odontograma" />
+          <ScalarProperty Name="numeroCariados" ColumnName="numeroCariados" />
+          <ScalarProperty Name="numeroDientesPerdidos" ColumnName="numeroDientesPerdidos" />
+          <ScalarProperty Name="numeroDientesObturados" ColumnName="numeroDientesObturados" />
+          <ScalarProperty Name="ortodoncia" ColumnName="ortodoncia" />
+          <ScalarProperty Name="protesis" ColumnName="protesis" />
+          <ScalarProperty Name="implantes" ColumnName="implantes" />
+          <ScalarProperty Name="paresAntagPerdidos" ColumnName="paresAntagPerdidos" />
+          <ScalarProperty Name="gradoEdentulismo" ColumnName="gradoEdentulismo" />
+          <ScalarProperty Name="estadoSaludGeneral" ColumnName="estadoSaludGeneral" />
+          <ScalarProperty Name="enfermedadCardioVascular" ColumnName="enfermedadCardioVascular" />
+          <ScalarProperty Name="enfermedadRenal" ColumnName="enfermedadRenal" />
+          <ScalarProperty Name="ICTUS" ColumnName="ICTUS" />
+          <ScalarProperty Name="ACV" ColumnName="ACV" />
+          <ScalarProperty Name="paralisisFacial" ColumnName="paralisisFacial" />
+          <ScalarProperty Name="gradoDesnutricion" ColumnName="gradoDesnutricion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -507,7 +557,8 @@
           <ScalarProperty Name="DNI" ColumnName="DNI" />
           <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
           <ScalarProperty Name="Sexo" ColumnName="Sexo" />
-          <ScalarProperty Name="IdExperimento" ColumnName="IdExperimento" />
+          <ScalarProperty Name="idPacienteExp" ColumnName="idPacienteExp" />
+          <ScalarProperty Name="idExperimento" ColumnName="idExperimento" />
           <ScalarProperty Name="idHistoriaClinica" ColumnName="idHistoriaClinica" />
         </MappingFragment>
       </EntityTypeMapping>

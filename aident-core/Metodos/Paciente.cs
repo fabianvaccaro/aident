@@ -24,7 +24,8 @@ namespace MainCore
         public string DNI { get; set; }
         public string Ubicacion { get; set; }
         public string Sexo { get; set; }
-        public int IdExperimento { get; set; }
+        public string idPacienteExp { get; set; }
+        public int idExperimento { get; set; }
         public int idHistoriaClinica { get; set; }
     
         public virtual ICollection<Muestra> MuestraSet { get; set; }

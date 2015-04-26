@@ -20,6 +20,22 @@ namespace MainCore
         }
     
         public int Id { get; set; }
+        public string odontograma { get; set; }
+        public int numeroCariados { get; set; }
+        public int numeroDientesPerdidos { get; set; }
+        public int numeroDientesObturados { get; set; }
+        public string ortodoncia { get; set; }
+        public string protesis { get; set; }
+        public int implantes { get; set; }
+        public int paresAntagPerdidos { get; set; }
+        public int gradoEdentulismo { get; set; }
+        public bool estadoSaludGeneral { get; set; }
+        public bool enfermedadCardioVascular { get; set; }
+        public bool enfermedadRenal { get; set; }
+        public bool ICTUS { get; set; }
+        public bool ACV { get; set; }
+        public bool paralisisFacial { get; set; }
+        public int gradoDesnutricion { get; set; }
     
         public virtual ICollection<Paciente> Paciente { get; set; }
     }

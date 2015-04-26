@@ -28,6 +28,8 @@ namespace LibreriaObjetos
         public String sexo { set; get; }
         [DataMember]
         public Int32 idHistoriaClinica { set; get; }
+        [DataMember]
+        public Int32 idPacienteExp { set; get; }
 
         public N_Paciente()
         {
@@ -37,6 +39,7 @@ namespace LibreriaObjetos
             this.ubicacion = String.Empty;
             this.sexo = String.Empty;
             this.idHistoriaClinica = 0;
+            this.idPacienteExp = 0;
         }
     }
 }

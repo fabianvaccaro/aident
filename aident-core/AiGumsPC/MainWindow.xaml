@@ -30,31 +30,39 @@
             <TabItem Header="Alta Experimento">
                 <Grid Background="#0000F0">
                     <ComboBox x:Name="txtMPAT" HorizontalAlignment="Left" Margin="197,129,0,0" VerticalAlignment="Top" Width="314" Height="32"/>
-                    <TextBox x:Name="txtCodigo" HorizontalAlignment="Left" Height="32" Margin="197,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" FontSize="16"/>
+                    <TextBox x:Name="txtCodigoExpermiento" HorizontalAlignment="Left" Height="32" Margin="197,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" FontSize="16"/>
                     <Label Content="Código Experimento" HorizontalAlignment="Left" Margin="15,76,0,0" VerticalAlignment="Top" FontSize="16"/>
                     <Label Content="MPAT" HorizontalAlignment="Left" Margin="15,129,0,0" VerticalAlignment="Top" FontSize="16"/>
                     <TextBox x:Name="txtNumeroPacientes" HorizontalAlignment="Left" Height="32" Margin="197,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" FontSize="16"/>
                     <Label Content="Número Min Pacientes" HorizontalAlignment="Left" Margin="15,180,0,0" VerticalAlignment="Top" FontSize="16"/>
                     <Label Content="Dar de Alta un Experimento" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
-                    <Button x:Name="bt_AddExperimento" Content="Alta Experimento" HorizontalAlignment="Left" Margin="222,316,0,0" VerticalAlignment="Top" Width="224" Height="58" FontSize="22" FontWeight="Bold" Click="bt_AddExperimento_Click"/>
+                    <Button x:Name="bt_AddExperimento" Content="Alta Experimento" HorizontalAlignment="Left" Margin="222,316,0,0" VerticalAlignment="Top" Width="224" Height="58" FontSize="22" FontWeight="Bold" Click="AltaExperimento"/>
 
                 </Grid>
             </TabItem>
             <TabItem Header="Alta Diagnóstico">
-                <Grid Background="#000F00">
+                <Grid Background="#003F00">
+                    <Button x:Name="bt_ProcesarExperimento" Content="Procesar Experimento" HorizontalAlignment="Left" Margin="222,379,0,0" VerticalAlignment="Top" Width="257" Height="58" FontSize="22" FontWeight="Bold" Click="procesarExperimento"/>
+                    <ComboBox x:Name="txtDiagExperimentos" HorizontalAlignment="Left" Margin="197,129,0,0" VerticalAlignment="Top" Width="314" Height="32"/>
+                    <Label Content="Experimento" HorizontalAlignment="Left" Margin="15,129,0,0" VerticalAlignment="Top" FontSize="16"/>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Listado MPATs">
                 <Grid Background="#000F00">
-                    <DataGrid x:Name="grid_listado_mpat"  Margin="10,10,9.8,0" VerticalAlignment="Top" AutoGenerateColumns="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True">
+
+
+                    <Button Content="Refresh" HorizontalAlignment="Left" Margin="329,17,0,0" VerticalAlignment="Top" Width="75" Click="RefrescaMpat"/>
+
+                    <DataGrid x:Name="grid_listado_mpat"  Margin="10,44,9.8,0" VerticalAlignment="Top" AutoGenerateColumns="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True" Grid.ColumnSpan="3">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Path=id}" Header="Id"/>
-                            <DataGridTextColumn Binding="{Binding Path=ListaProcedimientos}" Header="Procedimiento"/>
-                            <DataGridTextColumn Binding="{Binding Path=nombre }" Header="Nombre"/>
-                            <DataGridTextColumn Binding="{Binding Path=idTestFood}" Header="idTestFood"/>
-                            <DataGridTextColumn Binding="{Binding Path=CiclosMasticatorios}" Header="Ciclos Masticatorios"/>
-                            <DataGridTextColumn Binding="{Binding Path=CiclosEvaluacion}" Header="Ciclos Evaluación"/>
-                            <DataGridTextColumn Binding="{Binding Path=idEstado}" Header="Estado"/>
+                            <DataGridTextColumn Binding="{Binding Path=id}" Header="MPAT_Id"/>
+                            <DataGridTextColumn Binding="{Binding Path=ListaProcedimientos}" Header="MPAT_Procedimiento"/>
+                            <DataGridTextColumn Binding="{Binding Path=nombre }" Header="MPAT_Nombre"/>
+                            <DataGridTextColumn Binding="{Binding Path=idTestFood}" Header="MPAT_idTestFood"/>
+                            <DataGridTextColumn Binding="{Binding Path=CiclosMasticatorios}" Header="MPAT_Ciclos Masticatorios"/>
+                            <DataGridTextColumn Binding="{Binding Path=CiclosEvaluacion}" Header="MPAT_Ciclos Evaluación"/>
+                            <DataGridTextColumn Binding="{Binding Path=idEstado}" Header="MPAT_Estado"/>
 
                             <DataGridTemplateColumn Header="Imagen">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -70,13 +78,16 @@
             </TabItem>
             <TabItem Header="Listado Experimentos">
                 <Grid Background="#000F00">
-                    <DataGrid x:Name="grid_listado_experimento"  Margin="10,10,9.8,0" VerticalAlignment="Top" AutoGenerateColumns="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True">
+                    
+                    <Button Content="Refresh" HorizontalAlignment="Left" Margin="176.4,17,0,0" VerticalAlignment="Top" Width="75" Click="RefrescaExperimento" Grid.Column="2"/>
+
+                    <DataGrid x:Name="grid_listado_experimento"  Margin="10,42,9.8,0" VerticalAlignment="Top" AutoGenerateColumns="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True" Grid.ColumnSpan="3">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Path=id}" Header="Id"/>
-                            <DataGridTextColumn Binding="{Binding Path=codigoExperimento}" Header="Código Experimento"/>
-                            <DataGridTextColumn Binding="{Binding Path=idPaciente}" Header="Paciente"/>
-                            <DataGridTextColumn Binding="{Binding Path=idMpat}" Header="MPAT"/>
-                            <DataGridTextColumn Binding="{Binding Path=numeroPacientes}" Header="Número Pacientes"/>
+                            <DataGridTextColumn Binding="{Binding Path=id}" Header="EXP_Id"/>
+                            <DataGridTextColumn Binding="{Binding Path=codigoExperimento}" Header="EXP_Código Experimento"/>
+                            <DataGridTextColumn Binding="{Binding Path=idPaciente}" Header="EXP_Paciente"/>
+                            <DataGridTextColumn Binding="{Binding Path=idMpat}" Header="EXP_MPAT"/>
+                            <DataGridTextColumn Binding="{Binding Path=numeroPacientes}" Header="EXP_Número Pacientes"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

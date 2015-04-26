@@ -1,0 +1,18 @@
+﻿<Window x:Class="AiGumsPC.recogidaDatosPaciente"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="recogidaDatosPaciente" Height="300" Width="300">
+    <Grid>
+        <Label Content="Lado:" HorizontalAlignment="Left" Margin="8,76,0,0" VerticalAlignment="Top"/>
+        <Label Content="# ciclos masticatorios" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,108,0,0"/>
+        <Label Content="# de muestra" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="6,0,0,109.4"/>
+        <TextBox x:Name="txtLado1" HorizontalAlignment="Left" Height="23" Margin="160,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtCiclosMasticatorios1" HorizontalAlignment="Left" Height="23" Margin="160,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtNumeroMuestra1" HorizontalAlignment="Left" Height="23" Margin="160,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Siguiente" HorizontalAlignment="Left" Margin="30,203,0,0" VerticalAlignment="Top" Width="101" Height="39"/>
+        <Label Content="Datos de la Muestra" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="270"/>
+        <Label x:Name="etiquetaIDPaciente" Content="" HorizontalAlignment="Left" Margin="11,44,0,0" VerticalAlignment="Top" Width="269"/>
+        <Button Content="Finalizar" HorizontalAlignment="Left" Margin="160,203,0,0" VerticalAlignment="Top" Width="101" Height="39"/>
+
+    </Grid>
+</Window>

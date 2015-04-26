@@ -44,23 +44,29 @@
   <wsdl:message name="INegocioService_DeleteTestFood_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteTestFoodResponse" />
   </wsdl:message>
-  <wsdl:message name="INegocioService_validaMPAT_InputMessage">
-    <wsdl:part name="parameters" element="tns:validaMPAT" />
+  <wsdl:message name="INegocioService_AddMPAT_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddMPAT" />
   </wsdl:message>
-  <wsdl:message name="INegocioService_validaMPAT_OutputMessage">
-    <wsdl:part name="parameters" element="tns:validaMPATResponse" />
+  <wsdl:message name="INegocioService_AddMPAT_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddMPATResponse" />
   </wsdl:message>
-  <wsdl:message name="INegocioService_validaExperimento_InputMessage">
-    <wsdl:part name="parameters" element="tns:validaExperimento" />
+  <wsdl:message name="INegocioService_AddExperimento_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddExperimento" />
   </wsdl:message>
-  <wsdl:message name="INegocioService_validaExperimento_OutputMessage">
-    <wsdl:part name="parameters" element="tns:validaExperimentoResponse" />
+  <wsdl:message name="INegocioService_AddExperimento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddExperimentoResponse" />
   </wsdl:message>
   <wsdl:message name="INegocioService_mpatToList_InputMessage">
     <wsdl:part name="parameters" element="tns:mpatToList" />
   </wsdl:message>
   <wsdl:message name="INegocioService_mpatToList_OutputMessage">
     <wsdl:part name="parameters" element="tns:mpatToListResponse" />
+  </wsdl:message>
+  <wsdl:message name="INegocioService_experimentoToList_InputMessage">
+    <wsdl:part name="parameters" element="tns:experimentoToList" />
+  </wsdl:message>
+  <wsdl:message name="INegocioService_experimentoToList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:experimentoToListResponse" />
   </wsdl:message>
   <wsdl:portType name="INegocioService">
     <wsdl:operation name="DoWork">
@@ -87,17 +93,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/DeleteTestFood" message="tns:INegocioService_DeleteTestFood_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/DeleteTestFoodResponse" message="tns:INegocioService_DeleteTestFood_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="validaMPAT">
-      <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/validaMPAT" message="tns:INegocioService_validaMPAT_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/validaMPATResponse" message="tns:INegocioService_validaMPAT_OutputMessage" />
+    <wsdl:operation name="AddMPAT">
+      <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/AddMPAT" message="tns:INegocioService_AddMPAT_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/AddMPATResponse" message="tns:INegocioService_AddMPAT_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="validaExperimento">
-      <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/validaExperimento" message="tns:INegocioService_validaExperimento_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/validaExperimentoResponse" message="tns:INegocioService_validaExperimento_OutputMessage" />
+    <wsdl:operation name="AddExperimento">
+      <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/AddExperimento" message="tns:INegocioService_AddExperimento_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/AddExperimentoResponse" message="tns:INegocioService_AddExperimento_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="mpatToList">
       <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/mpatToList" message="tns:INegocioService_mpatToList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/mpatToListResponse" message="tns:INegocioService_mpatToList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="experimentoToList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/experimentoToList" message="tns:INegocioService_experimentoToList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/experimentoToListResponse" message="tns:INegocioService_experimentoToList_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_INegocioService" type="tns:INegocioService">
@@ -156,8 +166,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="validaMPAT">
-      <soap:operation soapAction="http://tempuri.org/INegocioService/validaMPAT" style="document" />
+    <wsdl:operation name="AddMPAT">
+      <soap:operation soapAction="http://tempuri.org/INegocioService/AddMPAT" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -165,8 +175,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="validaExperimento">
-      <soap:operation soapAction="http://tempuri.org/INegocioService/validaExperimento" style="document" />
+    <wsdl:operation name="AddExperimento">
+      <soap:operation soapAction="http://tempuri.org/INegocioService/AddExperimento" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -176,6 +186,15 @@
     </wsdl:operation>
     <wsdl:operation name="mpatToList">
       <soap:operation soapAction="http://tempuri.org/INegocioService/mpatToList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="experimentoToList">
+      <soap:operation soapAction="http://tempuri.org/INegocioService/experimentoToList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

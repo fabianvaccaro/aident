@@ -225,10 +225,11 @@ namespace MainCore
                 }
             }
         }
+
         public List<N_Experimento> experimentoToList(){
             using (Model1Container1 Context = new Model1Container1())
             {
-                List<N_Experimento> lista = new List<N_Experimento>();
+                List<N_Experimento> listaExp = new List<N_Experimento>();
 
                 //Selecciona un registro de tipoTestFood por su Id
                 var xdf = (from arecord in Context.ExperimentoSet
@@ -249,18 +250,17 @@ namespace MainCore
                             tf.id = registro.arecord.Id;
                             tf.idMpat = registro.arecord.idMpat;
                             tf.numeroPacientes = registro.arecord.NumeroPacientes;
-                            
-
-
+                            tf.codigoExperimento = registro.arecord.Codigo;
+                            tf.idPaciente = 0;
 
                             //añadir tf a la lista
-                            lista.Add(tf);
+                            listaExp.Add(tf);
                         }
-                        return lista;
+                        return listaExp;
                     }
                     else
                     {
-                        return lista;
+                        return listaExp;
                     }
 
 
@@ -269,7 +269,7 @@ namespace MainCore
                 catch (Exception e)
                 {
                     Console.Write("Error " + e);
-                    return lista;
+                    return listaExp;
                 }
             }
         }
@@ -320,6 +320,7 @@ namespace MainCore
                 }
             }
         }
+       
 
         public Boolean AddTipoTestFood(N_TipoTestFood ttf)
         {
@@ -430,7 +431,7 @@ namespace MainCore
                             //Popula el objeto Db
                             //Db.Id = exp.id;
                             Db.DNI = paciente.identificacion;
-                            Db.IdExperimento = xdf.arecord.Id;
+                            Db.idExperimento = xdf.arecord.Id;
                             Db.idHistoriaClinica = paciente.idHistoriaClinica;
                             Db.Nombre = paciente.nombre;
                             Db.Sexo = paciente.sexo;
@@ -473,5 +474,78 @@ namespace MainCore
             this.AddExperimento(experimento);
         }
 
+
+        public Boolean addPaciente(N_Paciente paciente, out Int32 miid)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                Paciente Db = new Paciente();
+                miid = 0;
+                //Popula el objeto Db
+                //Dbtf.Id = tf.id;
+                Db.DNI = paciente.identificacion;
+                Db.idHistoriaClinica = paciente.idHistoriaClinica;
+                Db.idPacienteExp = paciente.idPacienteExp.ToString();
+                Db.Nombre = paciente.nombre;
+                Db.Sexo = paciente.sexo;
+                Db.Ubicacion = paciente.ubicacion;
+                //Db.HistoriaClinica = paciente.idHistoriaClinica;
+                //Db.Experimento = paciente.idPacienteExp;
+                Db.idExperimento = paciente.idPacienteExp;
+
+                //Guardar el objeto Dbtf en el Context
+                try
+                {
+                    Context.PacienteSet.Add(Db);
+                    Context.SaveChanges();
+                    miid = Db.Id;
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+        public Boolean addHistoriaClinica(N_HistoriaClinica historiaClinica, out Int32 idHistoriaClinica)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                HistoriaClinica Db = new HistoriaClinica();
+                idHistoriaClinica = 0;
+                //Popula el objeto Db
+                //Dbtf.Id = tf.id;
+                Db.odontograma = historiaClinica.odontograma;
+                Db.numeroCariados = historiaClinica.numeroCariados;
+                Db.numeroDientesPerdidos = historiaClinica.numeroDientesPerdidos;
+                Db.numeroDientesObturados = historiaClinica.numeroDientesObturados;
+                Db.ortodoncia = historiaClinica.ortodoncia;
+                Db.protesis = historiaClinica.protesis;
+                Db.implantes = historiaClinica.implantes;
+                Db.paresAntagPerdidos = historiaClinica.paresAntagPerdidos;
+                Db.gradoEdentulismo = historiaClinica.gradoEdentulismo;
+                Db.estadoSaludGeneral = historiaClinica.estadoSaludGeneral;
+                Db.enfermedadCardioVascular = historiaClinica.enfermedadCardioVascular;
+                Db.enfermedadRenal = historiaClinica.enfermedadRenal;
+                Db.ICTUS = historiaClinica.ICTUS;
+                Db.ACV = historiaClinica.ACV;
+                Db.paralisisFacial = historiaClinica.paralisisFacial;
+                Db.gradoDesnutricion = historiaClinica.gradoDesnutricion;
+                //Guardar el objeto Dbtf en el Context
+                try
+                {
+                    Context.HistoriaClinicaSet.Add(Db);
+                    Context.SaveChanges();
+                    idHistoriaClinica = Db.Id;
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
     }
 }

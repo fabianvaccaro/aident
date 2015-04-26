@@ -32,13 +32,17 @@ namespace PercetodentService
         Boolean DeleteTestFood(Int32 id);
 
         [OperationContract]
-        void validaMPAT(String nombre, String procedimiento, Int32 idTestFood, Int32 ciclosMasticatorios, Int32 ciclosValidacion);
+        Boolean AddMPAT(N_Mpat mpat);
 
         [OperationContract]
-        void validaExperimento(String codigoExperimento, Int32 idMpat, Int32 numeroPacientes);
+        Boolean AddExperimento(N_Experimento experimento);
 
         [OperationContract]
         List<N_Mpat> mpatToList();
+
+        [OperationContract]
+        List<N_Experimento> experimentoToList();
+
         
     }
 }
