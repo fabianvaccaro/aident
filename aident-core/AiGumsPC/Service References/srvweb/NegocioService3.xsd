@@ -50,4 +50,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfN_Experimento" nillable="true" type="tns:ArrayOfN_Experimento" />
+  <xs:complexType name="N_ProcedimientoClinico">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idMpat" type="xs:int" />
+      <xs:element minOccurs="0" name="orden" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="N_ProcedimientoClinico" nillable="true" type="tns:N_ProcedimientoClinico" />
+  <xs:complexType name="N_CiclosEvaluacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idMpat" type="xs:int" />
+      <xs:element minOccurs="0" name="numeroCiclos" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="N_CiclosEvaluacion" nillable="true" type="tns:N_CiclosEvaluacion" />
 </xs:schema>

@@ -11,21 +11,50 @@
                 <Grid Background="#00FF00" Margin="0,0,0,0.4">
                     <Label Content="Test Food" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top"/>
                     <Label Content="Procedimiento" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.586,1.57"/>
-                    <ComboBox x:Name="txtTextFood" HorizontalAlignment="Left" Margin="128,125,0,0" VerticalAlignment="Top" Width="322"/>
-                    <TextBox x:Name="txtProcedimiento" HorizontalAlignment="Left" Height="78" Margin="128,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322"/>
+                    <ComboBox x:Name="txtTextFood" HorizontalAlignment="Left" Margin="128,125,0,0" VerticalAlignment="Top" Width="323"/>
+                    <TextBox x:Name="txtProcedimiento" HorizontalAlignment="Left" Height="23" Margin="128,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="323"/>
                     <Button x:Name="btAltaTestFood" Content="Alta" HorizontalAlignment="Left" Margin="471,127,0,0" VerticalAlignment="Top" Width="75" Click="AltaTestFood"/>
-                    <Label Content="Ciclos Masticatorios" HorizontalAlignment="Left" Margin="10,263,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtCiclosMasticatorios" HorizontalAlignment="Left" Height="23" Margin="128,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
-                    <Label Content="Ciclos de Evaluación" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtCiclosEvaluacion" HorizontalAlignment="Left" Height="23" Margin="128,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
+                    <Label Content="Ciclos Masticatorios" HorizontalAlignment="Left" Margin="11,521,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtCiclosMasticatorios" HorizontalAlignment="Left" Height="23" Margin="128,524,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
+                    <Label Content="Ciclos de Evaluación" HorizontalAlignment="Left" Margin="10,313,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtCiclosEvaluacion" HorizontalAlignment="Left" Height="23" Margin="128,316,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"/>
                     <Button x:Name="btBajaTestFood" Content="Baja" HorizontalAlignment="Left" Margin="551,127,0,0" VerticalAlignment="Top" Width="75" Click="BajaTestFood"/>
-                    <Button x:Name="grabarMpat" Content="Grabar MPAT" HorizontalAlignment="Left" Margin="222,316,0,0" VerticalAlignment="Top" Width="224" Height="58" FontSize="22" FontWeight="Bold" Click="grabarMpat_Click"/>
+                    <Button x:Name="saveMpat" Content="Grabar MPAT" HorizontalAlignment="Left" Margin="189,555,0,0" VerticalAlignment="Top" Width="224" Height="40" FontSize="22" FontWeight="Bold" Click="grabarMpat"/>
                     <Label Content="Dar de Alta un MPAT" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
-                    <TextBox x:Name="txtNombre" HorizontalAlignment="Left" Height="23" Margin="128,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
+                    <TextBox x:Name="txtNombre" HorizontalAlignment="Left" Height="23" Margin="128,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="323"/>
                     <Label Content="Nombre&#x9;" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top"/>
+                    <ListBox x:Name="txtListaCiclosEvaluacion" HorizontalAlignment="Left" Height="169" Margin="128,348,0,0" VerticalAlignment="Top" Width="113">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding numeroCiclos}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button Click="addCicloEvaluacionLista" Content="Añadir" HorizontalAlignment="Left" Margin="246,318,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button Content="Reset Lista" HorizontalAlignment="Left" Margin="338,318,0,0" VerticalAlignment="Top" Width="75" Click="clearCiclosEvaluacionLista"/>
+                    <ListBox x:Name="txtListaProcemientos" HorizontalAlignment="Left" Height="127" Margin="128,184,0,0" VerticalAlignment="Top" Width="323">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="100" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding orden}" />
+                                    <TextBlock Text="{Binding descripcion}" />
+                                 </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button Click="addProcemientoLista" Content="Añadir" HorizontalAlignment="Left" Margin="471,153,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button Content="Reset Lista" HorizontalAlignment="Left" Margin="551,153,0,0" VerticalAlignment="Top" Width="75" Click="clearListaProcemientos"/>
 
                 </Grid>
-
             </TabItem>
             <TabItem Header="Alta Experimento">
                 <Grid Background="#0000F0">
@@ -78,7 +107,7 @@
             </TabItem>
             <TabItem Header="Listado Experimentos">
                 <Grid Background="#000F00">
-                    
+
                     <Button Content="Refresh" HorizontalAlignment="Left" Margin="176.4,17,0,0" VerticalAlignment="Top" Width="75" Click="RefrescaExperimento" Grid.Column="2"/>
 
                     <DataGrid x:Name="grid_listado_experimento"  Margin="10,42,9.8,0" VerticalAlignment="Top" AutoGenerateColumns="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True" Grid.ColumnSpan="3">
@@ -97,6 +126,5 @@
                 </Grid>
             </TabItem>
         </TabControl>
-
     </Grid>
 </Window>

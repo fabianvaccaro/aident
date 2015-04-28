@@ -9,7 +9,7 @@ namespace LibreriaObjetos
 {
     [DataContract]
     [Serializable]
-    public class N_ProcedimientoClinico
+    public class N_CiclosEvaluacion
     {
         // Declaración de variables
         [DataMember]
@@ -17,15 +17,14 @@ namespace LibreriaObjetos
         [DataMember]
         public Int32 idMpat { set; get; }
         [DataMember]
-        public String descripcion { set; get; }
-        [DataMember]
-        public Int32 orden { set; get; }
+        public Int32 numeroCiclos { set; get; }
 
         // Constructor de la clase
-        public N_ProcedimientoClinico()
+        public N_CiclosEvaluacion()
         {
-            this.id = 0;
-            this.descripcion = String.Empty;
+            id = 0;
+            idMpat = 0;
+            numeroCiclos = 0;
         }
     }
 }

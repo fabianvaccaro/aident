@@ -32,15 +32,5 @@ namespace LibreriaObjetos
             this.idMpat = 0;
             this.numeroPacientes = 0;
         }
-
-        public N_Experimento(String cExperimento, Int32 iMpat, Int32 nPacientes)
-        {
-            // TODO: Complete member initialization
-            this.id = 0;
-            this.codigoExperimento = cExperimento;
-            this.idPaciente = 0;
-            this.idMpat = iMpat;
-            this.numeroPacientes = nPacientes;
-        }
     }
 }

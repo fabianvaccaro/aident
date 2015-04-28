@@ -12,12 +12,11 @@ namespace MainCore
     using System;
     using System.Collections.Generic;
     
-    public partial class ProcedimientoClinico
+    public partial class CiclosEvaluacion
     {
         public int Id { get; set; }
-        public int orden { get; set; }
-        public string descripcion { get; set; }
         public int idMpat { get; set; }
+        public int numeroCiclos { get; set; }
     
         public virtual Mpat Mpat { get; set; }
     }

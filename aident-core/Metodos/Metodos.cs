@@ -130,7 +130,7 @@ namespace MainCore
         /// Genera una lista de TestFood.
         /// </summary>
         /// <returns> Devuelve una lista de TestFood.</returns>
-        public List<N_TestFood> testFoodToList()
+        public List<N_TestFood> TestFoodToList()
         {
             using (Model1Container1 Context = new Model1Container1())
             {
@@ -179,7 +179,7 @@ namespace MainCore
             }
         }
 
-        public List<N_TipoTestFood> tipoTestFoodToList()
+        public List<N_TipoTestFood> TipoTestFoodToList()
         {
             using (Model1Container1 Context = new Model1Container1())
             {
@@ -226,7 +226,7 @@ namespace MainCore
             }
         }
 
-        public List<N_Experimento> experimentoToList(){
+        public List<N_Experimento> ExperimentoToList(){
             using (Model1Container1 Context = new Model1Container1())
             {
                 List<N_Experimento> listaExp = new List<N_Experimento>();
@@ -274,7 +274,7 @@ namespace MainCore
             }
         }
 
-        public List<N_Mpat> mpatToList()
+        public List<N_Mpat> MpatToList()
         {
             using (Model1Container1 Context = new Model1Container1())
             {
@@ -297,8 +297,8 @@ namespace MainCore
                             //crear instancia de objeto N_Mpat
                             N_Mpat ob = new N_Mpat();
                             ob.id = registro.arecord.Id;
-                            ob.ListaProcedimientos = registro.arecord.procedimiento;
-                            ob.CiclosEvaluacion = registro.arecord.ciclosEvaluacion;
+                            //ob.ListaProcedimientos = registro.arecord.procedimiento;
+                            //ob.CiclosEvaluacion = registro.arecord.ciclosEvaluacion;
                             ob.CiclosMasticatorios = registro.arecord.ciclosMasticatorios;
                             ob.idTestFood = registro.arecord.idTestFood;
                             ob.idEstado = registro.arecord.Estado;
@@ -320,7 +320,6 @@ namespace MainCore
                 }
             }
         }
-       
 
         public Boolean AddTipoTestFood(N_TipoTestFood ttf)
         {
@@ -348,18 +347,19 @@ namespace MainCore
             }
         }
 
-        public Boolean AddMPAT(N_Mpat mpat)
+        public Boolean AddMPAT(N_Mpat mpat, out Int32 idMpat)
         {
             using (Model1Container1 Context = new Model1Container1())
             {
                 Mpat Db = new Mpat();
+                idMpat = 0;
 
                 //Popula el objeto Db
                 //Dbtf.Id = tf.id;
                 Db.idTestFood = mpat.idTestFood;
-                Db.procedimiento = mpat.ListaProcedimientos;
+                //Db.procedimiento = mpat.ListaProcedimientos;
                 Db.ciclosMasticatorios = mpat.CiclosMasticatorios;
-                Db.ciclosEvaluacion = mpat.CiclosEvaluacion;
+                //Db.ciclosEvaluacion = mpat.CiclosEvaluacion;
                 Db.nombre = mpat.nombre;
 
 
@@ -368,6 +368,7 @@ namespace MainCore
                 {
                     Context.MpatSet.Add(Db);
                     Context.SaveChanges();
+                    idMpat = Db.Id;
                     return true;
                 }
                 catch (Exception e)
@@ -394,6 +395,33 @@ namespace MainCore
                 try
                 {
                     Context.ExperimentoSet.Add(Db);
+                    Context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        public Boolean AddProcedimiento(N_ProcedimientoClinico pro)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                ProcedimientoClinico Db = new ProcedimientoClinico();
+
+                //Popula el objeto Db
+                //Db.Id = exp.id;
+                Db.idMpat = pro.idMpat;
+                Db.descripcion = pro.descripcion;
+                Db.orden = pro.orden;
+
+                //Guardar el objeto Dbtf en el Context
+                try
+                {
+                    Context.ProcedimientoClinicoSet.Add(Db);
                     Context.SaveChanges();
                     return true;
                 }
@@ -458,24 +486,7 @@ namespace MainCore
             }
         }
 
-        public void validaMPAT(String nombre, String procedimiento, Int32 idTestFood, Int32 ciclosMasticatorios, Int32 ciclosValidacion)
-        {
-            // falta validacion de datos
-            N_Mpat mpat = new N_Mpat(nombre, procedimiento, idTestFood, ciclosMasticatorios, ciclosValidacion);
-            AddMPAT(mpat);
-        }
-
-        public void validaExperimento(String codigoExperimento, Int32 idMpat, Int32 numeroPacientes)
-        {
-            // falta validacion de datos
-
-            N_Experimento experimento = new N_Experimento(codigoExperimento, idMpat, numeroPacientes);
-
-            this.AddExperimento(experimento);
-        }
-
-
-        public Boolean addPaciente(N_Paciente paciente, out Int32 miid)
+        public Boolean AddPaciente(N_Paciente paciente, out Int32 miid)
         {
             using (Model1Container1 Context = new Model1Container1())
             {
@@ -508,7 +519,8 @@ namespace MainCore
                 }
             }
         }
-        public Boolean addHistoriaClinica(N_HistoriaClinica historiaClinica, out Int32 idHistoriaClinica)
+
+        public Boolean AddHistoriaClinica(N_HistoriaClinica historiaClinica, out Int32 idHistoriaClinica)
         {
             using (Model1Container1 Context = new Model1Container1())
             {
@@ -547,5 +559,47 @@ namespace MainCore
                 }
             }
         }
-    }
+
+        public Boolean AddCiclosEvaluacion(N_CiclosEvaluacion ciclos)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                CiclosEvaluacion Db = new CiclosEvaluacion();
+
+                //Popula el objeto Db
+                //Db.Id = ciclos.id;
+                Db.idMpat = ciclos.idMpat;
+                Db.numeroCiclos = ciclos.numeroCiclos; 
+
+                //Guardar el objeto Dbtf en el Context
+                try
+                {
+                    Context.CiclosEvaluacionSet.Add(Db);
+                    Context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        //public void validaMPAT(String nombre, String procedimiento, Int32 idTestFood, Int32 ciclosMasticatorios, Int32 ciclosValidacion)
+        //{
+        //    // falta validacion de datos
+        //    N_Mpat mpat = new N_Mpat(nombre, procedimiento, idTestFood, ciclosMasticatorios, ciclosValidacion);
+        //    addMPAT(mpat);
+        //}
+
+        //public void validaExperimento(String codigoExperimento, Int32 idMpat, Int32 numeroPacientes)
+        //{
+        //    // falta validacion de datos
+
+        //    N_Experimento experimento = new N_Experimento(codigoExperimento, idMpat, numeroPacientes);
+
+        //    this.AddExperimento(experimento);
+        //}
+    }    
 }

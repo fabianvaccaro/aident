@@ -12,15 +12,15 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="tipoTestFoodToList">
+  <xs:element name="TipoTestFoodToList">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="tipoTestFoodToListResponse">
+  <xs:element name="TipoTestFoodToListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MainCore" minOccurs="0" name="tipoTestFoodToListResult" nillable="true" type="q1:ArrayOfN_TipoTestFood" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MainCore" minOccurs="0" name="TipoTestFoodToListResult" nillable="true" type="q1:ArrayOfN_TipoTestFood" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -52,15 +52,15 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="testFoodToList">
+  <xs:element name="TestFoodToList">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="testFoodToListResponse">
+  <xs:element name="TestFoodToListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="testFoodToListResult" nillable="true" type="q4:ArrayOfN_TestFood" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="TestFoodToListResult" nillable="true" type="q4:ArrayOfN_TestFood" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -89,6 +89,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="AddMPATResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="idMpat" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -106,27 +107,55 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="mpatToList">
+  <xs:element name="MpatToList">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="mpatToListResponse">
+  <xs:element name="MpatToListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="mpatToListResult" nillable="true" type="q7:ArrayOfN_Mpat" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="MpatToListResult" nillable="true" type="q7:ArrayOfN_Mpat" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="experimentoToList">
+  <xs:element name="ExperimentoToList">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="experimentoToListResponse">
+  <xs:element name="ExperimentoToListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="experimentoToListResult" nillable="true" type="q8:ArrayOfN_Experimento" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ExperimentoToListResult" nillable="true" type="q8:ArrayOfN_Experimento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddProcedimiento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="pro" nillable="true" type="q9:N_ProcedimientoClinico" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddProcedimientoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddProcedimientoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCiclosEvaluacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ciclos" nillable="true" type="q10:N_CiclosEvaluacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCiclosEvaluacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddCiclosEvaluacionResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

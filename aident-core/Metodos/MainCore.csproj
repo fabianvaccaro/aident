@@ -51,6 +51,9 @@
     <Compile Include="CaracteristicaMedida.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="CiclosEvaluacion.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Experimento.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -16,6 +16,7 @@
     <EntitySet Name="PruebasSet" EntityType="Model1.Store.PruebasSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TestFoodSet" EntityType="Model1.Store.TestFoodSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TipoTestFoodSet" EntityType="Model1.Store.TipoTestFoodSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CiclosEvaluacionSet" EntityType="Model1.Store.CiclosEvaluacionSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_MuestraCaracteristicaMedida" Association="Model1.Store.FK_MuestraCaracteristicaMedida">
       <End Role="MuestraSet" EntitySet="MuestraSet" />
       <End Role="CaracteristicaMedidaSet" EntitySet="CaracteristicaMedidaSet" />
@@ -43,6 +44,14 @@
     <AssociationSet Name="MpatExperimento" Association="Model1.Store.MpatExperimento">
       <End Role="Mpat" EntitySet="MpatSet" />
       <End Role="Experimento" EntitySet="ExperimentoSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProcedimientoClinicoMpat" Association="Model1.Store.ProcedimientoClinicoMpat">
+      <End Role="ProcedimientoClinico" EntitySet="ProcedimientoClinicoSet" />
+      <End Role="Mpat" EntitySet="MpatSet" />
+    </AssociationSet>
+    <AssociationSet Name="MpatCiclosEvaluacion" Association="Model1.Store.MpatCiclosEvaluacion">
+      <End Role="Mpat" EntitySet="MpatSet" />
+      <End Role="CiclosEvaluacion" EntitySet="CiclosEvaluacionSet" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="CaracteristicaMedidaSet">
@@ -91,8 +100,6 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idTestFood" Type="int" Nullable="false" />
     <Property Name="ciclosMasticatorios" Type="int" Nullable="false" />
-    <Property Name="ciclosEvaluacion" Type="int" Nullable="false" />
-    <Property Name="procedimiento" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
     <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
@@ -122,6 +129,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orden" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="idMpat" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="PruebasSet">
     <Key>
@@ -148,6 +158,14 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CiclosEvaluacionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idMpat" Type="int" Nullable="false" />
+    <Property Name="numeroCiclos" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_MuestraCaracteristicaMedida">
     <End Role="MuestraSet" Type="Model1.Store.MuestraSet" Multiplicity="1" />
@@ -233,6 +251,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="ProcedimientoClinicoMpat">
+    <End Role="ProcedimientoClinico" Type="Model1.Store.ProcedimientoClinicoSet" Multiplicity="*" />
+    <End Role="Mpat" Type="Model1.Store.MpatSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Mpat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProcedimientoClinico">
+        <PropertyRef Name="idMpat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MpatCiclosEvaluacion">
+    <End Role="Mpat" Type="Model1.Store.MpatSet" Multiplicity="1" />
+    <End Role="CiclosEvaluacion" Type="Model1.Store.CiclosEvaluacionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mpat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CiclosEvaluacion">
+        <PropertyRef Name="idMpat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -275,6 +317,15 @@
           <AssociationSet Name="MpatExperimento" Association="Model1.MpatExperimento">
             <End Role="Mpat" EntitySet="MpatSet" />
             <End Role="Experimento" EntitySet="ExperimentoSet" />
+          </AssociationSet>
+          <AssociationSet Name="ProcedimientoClinicoMpat" Association="Model1.ProcedimientoClinicoMpat">
+            <End Role="ProcedimientoClinico" EntitySet="ProcedimientoClinicoSet" />
+            <End Role="Mpat" EntitySet="MpatSet" />
+          </AssociationSet>
+          <EntitySet Name="CiclosEvaluacionSet" EntityType="Model1.CiclosEvaluacion" />
+          <AssociationSet Name="MpatCiclosEvaluacion" Association="Model1.MpatCiclosEvaluacion">
+            <End Role="Mpat" EntitySet="MpatSet" />
+            <End Role="CiclosEvaluacion" EntitySet="CiclosEvaluacionSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CaracteristicaMedida">
@@ -327,12 +378,12 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idTestFood" Type="Int32" Nullable="false" />
           <Property Name="ciclosMasticatorios" Type="Int32" Nullable="false" />
-          <Property Name="ciclosEvaluacion" Type="Int32" Nullable="false" />
-          <Property Name="procedimiento" Type="String" Nullable="false" />
           <NavigationProperty Name="TestFood" Relationship="Model1.MpatTestFood" FromRole="Mpat" ToRole="TestFood" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" Nullable="false" />
           <NavigationProperty Name="Experimento" Relationship="Model1.MpatExperimento" FromRole="Mpat" ToRole="Experimento" />
+          <NavigationProperty Name="ProcedimientoClinico" Relationship="Model1.ProcedimientoClinicoMpat" FromRole="Mpat" ToRole="ProcedimientoClinico" />
+          <NavigationProperty Name="CiclosEvaluacion" Relationship="Model1.MpatCiclosEvaluacion" FromRole="Mpat" ToRole="CiclosEvaluacion" />
         </EntityType>
         <EntityType Name="Muestra">
           <Key>
@@ -365,6 +416,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orden" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" />
+          <Property Name="idMpat" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Mpat" Relationship="Model1.ProcedimientoClinicoMpat" FromRole="ProcedimientoClinico" ToRole="Mpat" />
         </EntityType>
         <EntityType Name="Pruebas">
           <Key>
@@ -479,6 +534,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ProcedimientoClinicoMpat">
+          <End Type="Model1.ProcedimientoClinico" Role="ProcedimientoClinico" Multiplicity="*" />
+          <End Type="Model1.Mpat" Role="Mpat" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Mpat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProcedimientoClinico">
+              <PropertyRef Name="idMpat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CiclosEvaluacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idMpat" Type="Int32" Nullable="false" />
+          <Property Name="numeroCiclos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Mpat" Relationship="Model1.MpatCiclosEvaluacion" FromRole="CiclosEvaluacion" ToRole="Mpat" />
+        </EntityType>
+        <Association Name="MpatCiclosEvaluacion">
+          <End Type="Model1.Mpat" Role="Mpat" Multiplicity="1" />
+          <End Type="Model1.CiclosEvaluacion" Role="CiclosEvaluacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mpat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CiclosEvaluacion">
+              <PropertyRef Name="idMpat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -533,8 +621,6 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="idTestFood" ColumnName="idTestFood" />
           <ScalarProperty Name="ciclosMasticatorios" ColumnName="ciclosMasticatorios" />
-          <ScalarProperty Name="ciclosEvaluacion" ColumnName="ciclosEvaluacion" />
-          <ScalarProperty Name="procedimiento" ColumnName="procedimiento" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
         </MappingFragment>
@@ -567,6 +653,9 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model1.ProcedimientoClinico)">
         <MappingFragment StoreEntitySet="ProcedimientoClinicoSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="orden" ColumnName="orden" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="idMpat" ColumnName="idMpat" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -596,6 +685,15 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CiclosEvaluacionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.CiclosEvaluacion)">
+        <MappingFragment StoreEntitySet="CiclosEvaluacionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="idMpat" ColumnName="idMpat" />
+          <ScalarProperty Name="numeroCiclos" ColumnName="numeroCiclos" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -28,6 +28,7 @@ namespace AiGumsPC
         private void cancelarTipoTestFood(object sender, RoutedEventArgs e)
         {
             this.Close();
+            this.Owner.Show();
         }
 
         private void grabarTipoTestFood(object sender, RoutedEventArgs e)
@@ -43,6 +44,7 @@ namespace AiGumsPC
             {
                 this.resetview();
                 this.Close();
+                this.Owner.Show();
             }
             
         }

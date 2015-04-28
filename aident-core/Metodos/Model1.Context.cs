@@ -35,5 +35,6 @@ namespace MainCore
         public virtual DbSet<Pruebas> PruebasSet { get; set; }
         public virtual DbSet<TestFood> TestFoodSet { get; set; }
         public virtual DbSet<TipoTestFood> TipoTestFoodSet { get; set; }
+        public virtual DbSet<CiclosEvaluacion> CiclosEvaluacionSet { get; set; }
     }
 }

@@ -23,47 +23,64 @@ namespace PercetodentService
             return metodo.AddTipoTestFood(tff);
         }
 
-        public List<N_TipoTestFood> tipoTestFoodToList()
+        public List<N_TipoTestFood> TipoTestFoodToList()
         {
             Metodos metodo = new Metodos();
-            return metodo.tipoTestFoodToList();
+            return metodo.TipoTestFoodToList();
         }
+
         public Boolean AddTestFood(N_TestFood tf)
         {
             Metodos metodo = new Metodos();
             return metodo.AddTestFood(tf);
         }
 
-        public List<N_TestFood> testFoodToList()
+        public List<N_TestFood> TestFoodToList()
         {
             Metodos metodo = new Metodos();
-            return metodo.testFoodToList();
+            return metodo.TestFoodToList();
         }
+
         public Boolean DeleteTestFood(Int32 id)
         {
             Metodos metodo = new Metodos();
             return metodo.DeleteTestFood(id);
         }
+
         public Boolean AddExperimento(N_Experimento experimento) 
         {
             Metodos metodo = new Metodos();
             return metodo.AddExperimento(experimento);
         }
-        public Boolean AddMPAT(N_Mpat mpat)
+
+        public Boolean AddMPAT(N_Mpat mpat, out Int32 idMpat)
         {
             Metodos metodo = new Metodos();
-            return metodo.AddMPAT(mpat);
-        }
-        public List<N_Mpat> mpatToList()
-        {
-            Metodos metodo = new Metodos();
-            return metodo.mpatToList();
+            return metodo.AddMPAT(mpat, out idMpat);
         }
 
-        public List<N_Experimento> experimentoToList()
+        public List<N_Experimento> ExperimentoToList()
         {
             Metodos metodo = new Metodos();
-            return metodo.experimentoToList();
+            return metodo.ExperimentoToList();
+        }
+
+        public Boolean AddProcedimiento(N_ProcedimientoClinico pro)
+        {
+            Metodos metodo = new Metodos();
+            return metodo.AddProcedimiento(pro);
+        }
+
+        public Boolean AddCiclosEvaluacion(N_CiclosEvaluacion ciclos)
+        {
+            Metodos metodo = new Metodos();
+            return metodo.AddCiclosEvaluacion(ciclos);
+        }
+
+        public List<N_Mpat> MpatToList()
+        {
+            Metodos metodo = new Metodos();
+            return metodo.MpatToList();
         }
     }
 }

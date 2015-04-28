@@ -58,7 +58,7 @@ namespace AiGumsPC
             List<N_TipoTestFood> lista = new List<N_TipoTestFood>();
             srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
 
-            lista = mets.tipoTestFoodToList().ToList();
+            lista = mets.TipoTestFoodToList().ToList();
             cbTipo.ItemsSource = lista;
             cbTipo.DisplayMemberPath = "nombre";
             cbTipo.SelectedValuePath = "id";
@@ -77,12 +77,14 @@ namespace AiGumsPC
 
             mets.AddTestFood(tf);
             this.Close();
+            this.Owner.Show();
             
         }
 
         private void cancelarTestFood(object sender, RoutedEventArgs e)
         {
             this.Close();
+            this.Owner.Show();
         }
         private void resetview()
         {
@@ -103,6 +105,8 @@ namespace AiGumsPC
         {
             AltaTipoTestFood win = new AltaTipoTestFood();
             win.Show();
+            win.Owner = this;
+            this.Hide();
         }
     }
 }

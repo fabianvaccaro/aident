@@ -17,17 +17,19 @@ namespace MainCore
         public Mpat()
         {
             this.Experimento = new HashSet<Experimento>();
+            this.ProcedimientoClinico = new HashSet<ProcedimientoClinico>();
+            this.CiclosEvaluacion = new HashSet<CiclosEvaluacion>();
         }
     
         public int Id { get; set; }
         public int idTestFood { get; set; }
         public int ciclosMasticatorios { get; set; }
-        public int ciclosEvaluacion { get; set; }
-        public string procedimiento { get; set; }
         public int Estado { get; set; }
         public string nombre { get; set; }
     
         public virtual TestFood TestFood { get; set; }
         public virtual ICollection<Experimento> Experimento { get; set; }
+        public virtual ICollection<ProcedimientoClinico> ProcedimientoClinico { get; set; }
+        public virtual ICollection<CiclosEvaluacion> CiclosEvaluacion { get; set; }
     }
 }

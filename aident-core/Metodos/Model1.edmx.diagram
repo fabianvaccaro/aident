@@ -11,8 +11,8 @@
         <EntityTypeShape EntityType="Model1.Mpat" Width="1.5" PointX="8.5" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.Muestra" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.Paciente" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model1.ProcedimientoClinico" Width="1.5" PointX="8.5" PointY="6.75" />
-        <EntityTypeShape EntityType="Model1.Pruebas" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="Model1.ProcedimientoClinico" Width="2.125" PointX="8.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.Pruebas" Width="1.5" PointX="3.625" PointY="7.375" />
         <EntityTypeShape EntityType="Model1.TestFood" Width="1.5" PointX="10.75" PointY="3.625" />
         <AssociationConnector Association="Model1.FK_MuestraCaracteristicaMedida" />
         <AssociationConnector Association="Model1.FK_MuestraPaciente" />
@@ -22,6 +22,9 @@
         <AssociationConnector Association="Model1.TestFoodTipoTestFood" />
         <AssociationConnector Association="Model1.ExperimentoPaciente" />
         <AssociationConnector Association="Model1.MpatExperimento" />
+        <AssociationConnector Association="Model1.ProcedimientoClinicoMpat" />
+        <EntityTypeShape EntityType="Model1.CiclosEvaluacion" Width="1.75" PointX="6" PointY="6" />
+        <AssociationConnector Association="Model1.MpatCiclosEvaluacion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

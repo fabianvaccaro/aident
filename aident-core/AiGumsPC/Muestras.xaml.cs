@@ -88,17 +88,18 @@ namespace AiGumsPC
             paciente.ubicacion = txtUbicacion.Text;
             Int32 idHistoriaClinica = 0;
 
-           if (metodos.addHistoriaClinica(nuevaHistoria, out idHistoriaClinica))
+           if (metodos.AddHistoriaClinica(nuevaHistoria, out idHistoriaClinica))
            {
                Int32 idPac = 0;
                paciente.idHistoriaClinica = idHistoriaClinica;
-                if (metodos.addPaciente(paciente, out idPac))
+                if (metodos.AddPaciente(paciente, out idPac))
                 {
                     
                     this.idPacienteExperimento++;
                     //abrir ventana para obtener las muestras
                     recogidaDatosPaciente win = new recogidaDatosPaciente();
                     win.Show();
+                    this.Hide();
                 }
                 else
                 {
@@ -112,7 +113,9 @@ namespace AiGumsPC
 
         private void salir(object sender, RoutedEventArgs e)
         {
+            
             this.Close();
+            this.Owner.Show();
         }
     }
 }

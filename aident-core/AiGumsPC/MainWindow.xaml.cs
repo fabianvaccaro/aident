@@ -34,22 +34,22 @@ namespace AiGumsPC
         private void window_Activated(object sender, EventArgs e)
         {
             updateComboBox();
-            this.txtCiclosMasticatorios.IsEnabled = true;
-            this.txtCiclosEvaluacion.IsEnabled = true;
-            this.estado.IsEnabled = true;
-            this.txtTextFood.IsEnabled = true;
-            this.btAltaTestFood.IsEnabled = true;
-            this.txtProcedimiento.IsEnabled = true;
+            //this.txtCiclosMasticatorios.IsEnabled = true;
+            //this.txtCiclosEvaluacion.IsEnabled = true;
+            //this.estado.IsEnabled = true;
+            //this.txtTextFood.IsEnabled = true;
+            //this.btAltaTestFood.IsEnabled = true;
+            //this.txtProcedimiento.IsEnabled = true;
         }
 
         private void window_Deactivated(object sender, EventArgs e)
         {
-            this.txtCiclosMasticatorios.IsEnabled = false;
-            this.txtCiclosEvaluacion.IsEnabled = false;
-            this.estado.IsEnabled = false;
-            this.txtTextFood.IsEnabled = false;
-            this.btAltaTestFood.IsEnabled = false;
-            this.txtProcedimiento.IsEnabled = false;
+            //this.txtCiclosMasticatorios.IsEnabled = false;
+            //this.txtCiclosEvaluacion.IsEnabled = false;
+            //this.estado.IsEnabled = false;
+            //this.txtTextFood.IsEnabled = false;
+            //this.btAltaTestFood.IsEnabled = false;
+            //this.txtProcedimiento.IsEnabled = false;
         }
 
         private void MyWindow_Loaded(object sender, RoutedEventArgs e)
@@ -61,6 +61,8 @@ namespace AiGumsPC
         {
             AltaTestFood win = new AltaTestFood();
             win.Show();
+            win.Owner = this;
+            this.Hide();
 
         }
 
@@ -69,7 +71,7 @@ namespace AiGumsPC
             srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
             //MainCore.Metodos metodos = new MainCore.Metodos();
             List<N_TestFood> lista = new List<N_TestFood>();
-            lista = mets.testFoodToList().ToList();
+            lista = mets.TestFoodToList().ToList();
             
             txtTextFood.ItemsSource = lista;
             txtTextFood.DisplayMemberPath = "nombre";
@@ -77,7 +79,7 @@ namespace AiGumsPC
             txtTextFood.SelectedIndex = 0;
 
             List<N_Mpat> listaMPAT = new List<N_Mpat>();
-            listaMPAT = mets.mpatToList().ToList();
+            listaMPAT = mets.MpatToList().ToList();
 
             txtMPAT.ItemsSource = listaMPAT;
             txtMPAT.DisplayMemberPath = "nombre";
@@ -85,7 +87,7 @@ namespace AiGumsPC
             txtMPAT.SelectedIndex = 0;
 
             List<N_Experimento> listaExperimento = new List<N_Experimento>();
-            listaExperimento = mets.experimentoToList().ToList();
+            listaExperimento = mets.ExperimentoToList().ToList();
 
             this.txtDiagExperimentos.ItemsSource = listaExperimento;
             this.txtDiagExperimentos.DisplayMemberPath = "codigoExperimento";
@@ -106,9 +108,13 @@ namespace AiGumsPC
         {
             try
             {
-                this.txtCiclosEvaluacion.Text = "";
-                this.txtCiclosMasticatorios.Text = "";
-                this.txtProcedimiento.Text = "";
+                this.txtCiclosEvaluacion.Text = String.Empty;
+                this.txtCiclosMasticatorios.Text = String.Empty;
+                this.txtProcedimiento.Text = String.Empty;
+                this.txtCodigoExpermiento.Text = String.Empty;
+                this.txtListaCiclosEvaluacion.Items.Clear();
+                this.txtListaProcemientos.Items.Clear();
+                this.txtNombre.Text = String.Empty;
                 updateComboBox();
             }
             catch { }
@@ -130,19 +136,39 @@ namespace AiGumsPC
 
         }
 
-        private void grabarMpat_Click(object sender, RoutedEventArgs e)
+        private void grabarMpat(object sender, RoutedEventArgs e)
         {
             //Metodos metodo = new Metodos();
             srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
             N_Mpat mpat = new N_Mpat();
+            Int32 idMpat = 0;
+
             mpat.nombre = txtNombre.Text;
-            mpat.ListaProcedimientos = txtProcedimiento.Text;
             mpat.idTestFood = Int32.Parse(txtTextFood.SelectedValue.ToString());
             mpat.CiclosMasticatorios = Int32.Parse(txtCiclosMasticatorios.Text);
-            mpat.CiclosEvaluacion = Int32.Parse(txtCiclosEvaluacion.Text);
 
-            if (mets.AddMPAT(mpat))
+            //for (Int32 i = 0; i<)
+            if (mets.AddMPAT(mpat, out idMpat))
             {
+
+                // inserta los procedimientos clinicos en la base de datos
+                foreach (N_ProcedimientoClinico procedimento in txtListaProcemientos.Items)
+                {
+                    procedimento.idMpat = idMpat;
+                    if (mets.AddProcedimiento(procedimento))
+                    {
+                        estado.DataContext = "Todo Ok";
+                    }
+                }
+                // inserta los ciclos de evaluación en la base de datos
+                foreach (N_CiclosEvaluacion ciclos in txtListaCiclosEvaluacion.Items)
+                {
+                    ciclos.idMpat = idMpat;
+                    if (mets.AddCiclosEvaluacion(ciclos))
+                    {
+                        estado.DataContext = "Todo Ok";
+                    }
+                } 
                 resetview();
             }
             
@@ -182,7 +208,7 @@ namespace AiGumsPC
             srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
             
             List<N_Mpat> listaMPAT = new List<N_Mpat>();
-            listaMPAT = mets.mpatToList().ToList();
+            listaMPAT = mets.MpatToList().ToList();
             if (listaMPAT != null)
             {
                 grid_listado_mpat.ItemsSource = listaMPAT;
@@ -197,7 +223,7 @@ namespace AiGumsPC
         {
             srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
             List<N_Experimento> listaExperimento = new List<N_Experimento>();
-            listaExperimento = mets.experimentoToList().ToList();
+            listaExperimento = mets.ExperimentoToList().ToList();
             if (listaExperimento != null)
             {
                 grid_listado_experimento.ItemsSource = listaExperimento;
@@ -214,6 +240,8 @@ namespace AiGumsPC
             idExperimento = Int32.Parse(this.txtDiagExperimentos.SelectedValue.ToString());
             Muestras win = new Muestras( idExperimento);
             win.Show();
+            this.Hide();
+            win.Owner = this;
             
         }
 
@@ -227,6 +255,34 @@ namespace AiGumsPC
             cargarDatosMPAT();
         }
 
-        
+        private void addCicloEvaluacionLista(object sender, RoutedEventArgs e)
+        {
+            N_CiclosEvaluacion ciclos = new N_CiclosEvaluacion();
+            ciclos.idMpat = 0;
+            ciclos.numeroCiclos = Int32.Parse(txtCiclosEvaluacion.Text);
+            txtListaCiclosEvaluacion.Items.Add(ciclos);
+            txtCiclosEvaluacion.Text = String.Empty;
+            
+        }
+
+        private void clearCiclosEvaluacionLista(object sender, RoutedEventArgs e)
+        {
+            txtListaCiclosEvaluacion.Items.Clear();
+        }
+
+        private void clearListaProcemientos(object sender, RoutedEventArgs e)
+        {
+            txtListaProcemientos.Items.Clear();
+        }
+
+        private void addProcemientoLista(object sender, RoutedEventArgs e)
+        {
+            N_ProcedimientoClinico procemiento = new N_ProcedimientoClinico();
+            procemiento.idMpat = 0;
+            procemiento.descripcion = txtProcedimiento.Text;
+            procemiento.orden = Int32.Parse(txtListaProcemientos.Items.Count.ToString())+1;
+            txtListaProcemientos.Items.Add(procemiento);
+            txtProcedimiento.Text = String.Empty;
+        }
     }
 }

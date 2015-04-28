@@ -21,11 +21,11 @@ namespace AiGumsPC.srvweb {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/DoWork", ReplyAction="http://tempuri.org/INegocioService/DoWorkResponse")]
         System.Threading.Tasks.Task DoWorkAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/tipoTestFoodToList", ReplyAction="http://tempuri.org/INegocioService/tipoTestFoodToListResponse")]
-        MainCore.N_TipoTestFood[] tipoTestFoodToList();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/TipoTestFoodToList", ReplyAction="http://tempuri.org/INegocioService/TipoTestFoodToListResponse")]
+        MainCore.N_TipoTestFood[] TipoTestFoodToList();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/tipoTestFoodToList", ReplyAction="http://tempuri.org/INegocioService/tipoTestFoodToListResponse")]
-        System.Threading.Tasks.Task<MainCore.N_TipoTestFood[]> tipoTestFoodToListAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/TipoTestFoodToList", ReplyAction="http://tempuri.org/INegocioService/TipoTestFoodToListResponse")]
+        System.Threading.Tasks.Task<MainCore.N_TipoTestFood[]> TipoTestFoodToListAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddTipoTestFood", ReplyAction="http://tempuri.org/INegocioService/AddTipoTestFoodResponse")]
         bool AddTipoTestFood(MainCore.N_TipoTestFood tff);
@@ -39,11 +39,11 @@ namespace AiGumsPC.srvweb {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddTestFood", ReplyAction="http://tempuri.org/INegocioService/AddTestFoodResponse")]
         System.Threading.Tasks.Task<bool> AddTestFoodAsync(LibreriaObjetos.N_TestFood tf);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/testFoodToList", ReplyAction="http://tempuri.org/INegocioService/testFoodToListResponse")]
-        LibreriaObjetos.N_TestFood[] testFoodToList();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/TestFoodToList", ReplyAction="http://tempuri.org/INegocioService/TestFoodToListResponse")]
+        LibreriaObjetos.N_TestFood[] TestFoodToList();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/testFoodToList", ReplyAction="http://tempuri.org/INegocioService/testFoodToListResponse")]
-        System.Threading.Tasks.Task<LibreriaObjetos.N_TestFood[]> testFoodToListAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/TestFoodToList", ReplyAction="http://tempuri.org/INegocioService/TestFoodToListResponse")]
+        System.Threading.Tasks.Task<LibreriaObjetos.N_TestFood[]> TestFoodToListAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/DeleteTestFood", ReplyAction="http://tempuri.org/INegocioService/DeleteTestFoodResponse")]
         bool DeleteTestFood(int id);
@@ -52,10 +52,11 @@ namespace AiGumsPC.srvweb {
         System.Threading.Tasks.Task<bool> DeleteTestFoodAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddMPAT", ReplyAction="http://tempuri.org/INegocioService/AddMPATResponse")]
-        bool AddMPAT(LibreriaObjetos.N_Mpat mpat);
+        AiGumsPC.srvweb.AddMPATResponse AddMPAT(AiGumsPC.srvweb.AddMPATRequest request);
         
+        // CODEGEN: Generating message contract since the operation has multiple return values.
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddMPAT", ReplyAction="http://tempuri.org/INegocioService/AddMPATResponse")]
-        System.Threading.Tasks.Task<bool> AddMPATAsync(LibreriaObjetos.N_Mpat mpat);
+        System.Threading.Tasks.Task<AiGumsPC.srvweb.AddMPATResponse> AddMPATAsync(AiGumsPC.srvweb.AddMPATRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddExperimento", ReplyAction="http://tempuri.org/INegocioService/AddExperimentoResponse")]
         bool AddExperimento(LibreriaObjetos.N_Experimento experimento);
@@ -63,17 +64,65 @@ namespace AiGumsPC.srvweb {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddExperimento", ReplyAction="http://tempuri.org/INegocioService/AddExperimentoResponse")]
         System.Threading.Tasks.Task<bool> AddExperimentoAsync(LibreriaObjetos.N_Experimento experimento);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/mpatToList", ReplyAction="http://tempuri.org/INegocioService/mpatToListResponse")]
-        LibreriaObjetos.N_Mpat[] mpatToList();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/MpatToList", ReplyAction="http://tempuri.org/INegocioService/MpatToListResponse")]
+        LibreriaObjetos.N_Mpat[] MpatToList();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/mpatToList", ReplyAction="http://tempuri.org/INegocioService/mpatToListResponse")]
-        System.Threading.Tasks.Task<LibreriaObjetos.N_Mpat[]> mpatToListAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/MpatToList", ReplyAction="http://tempuri.org/INegocioService/MpatToListResponse")]
+        System.Threading.Tasks.Task<LibreriaObjetos.N_Mpat[]> MpatToListAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/experimentoToList", ReplyAction="http://tempuri.org/INegocioService/experimentoToListResponse")]
-        LibreriaObjetos.N_Experimento[] experimentoToList();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ExperimentoToList", ReplyAction="http://tempuri.org/INegocioService/ExperimentoToListResponse")]
+        LibreriaObjetos.N_Experimento[] ExperimentoToList();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/experimentoToList", ReplyAction="http://tempuri.org/INegocioService/experimentoToListResponse")]
-        System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> experimentoToListAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ExperimentoToList", ReplyAction="http://tempuri.org/INegocioService/ExperimentoToListResponse")]
+        System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> ExperimentoToListAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddProcedimiento", ReplyAction="http://tempuri.org/INegocioService/AddProcedimientoResponse")]
+        bool AddProcedimiento(LibreriaObjetos.N_ProcedimientoClinico pro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddProcedimiento", ReplyAction="http://tempuri.org/INegocioService/AddProcedimientoResponse")]
+        System.Threading.Tasks.Task<bool> AddProcedimientoAsync(LibreriaObjetos.N_ProcedimientoClinico pro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddCiclosEvaluacion", ReplyAction="http://tempuri.org/INegocioService/AddCiclosEvaluacionResponse")]
+        bool AddCiclosEvaluacion(LibreriaObjetos.N_CiclosEvaluacion ciclos);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddCiclosEvaluacion", ReplyAction="http://tempuri.org/INegocioService/AddCiclosEvaluacionResponse")]
+        System.Threading.Tasks.Task<bool> AddCiclosEvaluacionAsync(LibreriaObjetos.N_CiclosEvaluacion ciclos);
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="AddMPAT", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class AddMPATRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public LibreriaObjetos.N_Mpat mpat;
+        
+        public AddMPATRequest() {
+        }
+        
+        public AddMPATRequest(LibreriaObjetos.N_Mpat mpat) {
+            this.mpat = mpat;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="AddMPATResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class AddMPATResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public bool AddMPATResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public int idMpat;
+        
+        public AddMPATResponse() {
+        }
+        
+        public AddMPATResponse(bool AddMPATResult, int idMpat) {
+            this.AddMPATResult = AddMPATResult;
+            this.idMpat = idMpat;
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -111,12 +160,12 @@ namespace AiGumsPC.srvweb {
             return base.Channel.DoWorkAsync();
         }
         
-        public MainCore.N_TipoTestFood[] tipoTestFoodToList() {
-            return base.Channel.tipoTestFoodToList();
+        public MainCore.N_TipoTestFood[] TipoTestFoodToList() {
+            return base.Channel.TipoTestFoodToList();
         }
         
-        public System.Threading.Tasks.Task<MainCore.N_TipoTestFood[]> tipoTestFoodToListAsync() {
-            return base.Channel.tipoTestFoodToListAsync();
+        public System.Threading.Tasks.Task<MainCore.N_TipoTestFood[]> TipoTestFoodToListAsync() {
+            return base.Channel.TipoTestFoodToListAsync();
         }
         
         public bool AddTipoTestFood(MainCore.N_TipoTestFood tff) {
@@ -135,12 +184,12 @@ namespace AiGumsPC.srvweb {
             return base.Channel.AddTestFoodAsync(tf);
         }
         
-        public LibreriaObjetos.N_TestFood[] testFoodToList() {
-            return base.Channel.testFoodToList();
+        public LibreriaObjetos.N_TestFood[] TestFoodToList() {
+            return base.Channel.TestFoodToList();
         }
         
-        public System.Threading.Tasks.Task<LibreriaObjetos.N_TestFood[]> testFoodToListAsync() {
-            return base.Channel.testFoodToListAsync();
+        public System.Threading.Tasks.Task<LibreriaObjetos.N_TestFood[]> TestFoodToListAsync() {
+            return base.Channel.TestFoodToListAsync();
         }
         
         public bool DeleteTestFood(int id) {
@@ -151,12 +200,21 @@ namespace AiGumsPC.srvweb {
             return base.Channel.DeleteTestFoodAsync(id);
         }
         
-        public bool AddMPAT(LibreriaObjetos.N_Mpat mpat) {
-            return base.Channel.AddMPAT(mpat);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        AiGumsPC.srvweb.AddMPATResponse AiGumsPC.srvweb.INegocioService.AddMPAT(AiGumsPC.srvweb.AddMPATRequest request) {
+            return base.Channel.AddMPAT(request);
         }
         
-        public System.Threading.Tasks.Task<bool> AddMPATAsync(LibreriaObjetos.N_Mpat mpat) {
-            return base.Channel.AddMPATAsync(mpat);
+        public bool AddMPAT(LibreriaObjetos.N_Mpat mpat, out int idMpat) {
+            AiGumsPC.srvweb.AddMPATRequest inValue = new AiGumsPC.srvweb.AddMPATRequest();
+            inValue.mpat = mpat;
+            AiGumsPC.srvweb.AddMPATResponse retVal = ((AiGumsPC.srvweb.INegocioService)(this)).AddMPAT(inValue);
+            idMpat = retVal.idMpat;
+            return retVal.AddMPATResult;
+        }
+        
+        public System.Threading.Tasks.Task<AiGumsPC.srvweb.AddMPATResponse> AddMPATAsync(AiGumsPC.srvweb.AddMPATRequest request) {
+            return base.Channel.AddMPATAsync(request);
         }
         
         public bool AddExperimento(LibreriaObjetos.N_Experimento experimento) {
@@ -167,20 +225,36 @@ namespace AiGumsPC.srvweb {
             return base.Channel.AddExperimentoAsync(experimento);
         }
         
-        public LibreriaObjetos.N_Mpat[] mpatToList() {
-            return base.Channel.mpatToList();
+        public LibreriaObjetos.N_Mpat[] MpatToList() {
+            return base.Channel.MpatToList();
         }
         
-        public System.Threading.Tasks.Task<LibreriaObjetos.N_Mpat[]> mpatToListAsync() {
-            return base.Channel.mpatToListAsync();
+        public System.Threading.Tasks.Task<LibreriaObjetos.N_Mpat[]> MpatToListAsync() {
+            return base.Channel.MpatToListAsync();
         }
         
-        public LibreriaObjetos.N_Experimento[] experimentoToList() {
-            return base.Channel.experimentoToList();
+        public LibreriaObjetos.N_Experimento[] ExperimentoToList() {
+            return base.Channel.ExperimentoToList();
         }
         
-        public System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> experimentoToListAsync() {
-            return base.Channel.experimentoToListAsync();
+        public System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> ExperimentoToListAsync() {
+            return base.Channel.ExperimentoToListAsync();
+        }
+        
+        public bool AddProcedimiento(LibreriaObjetos.N_ProcedimientoClinico pro) {
+            return base.Channel.AddProcedimiento(pro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddProcedimientoAsync(LibreriaObjetos.N_ProcedimientoClinico pro) {
+            return base.Channel.AddProcedimientoAsync(pro);
+        }
+        
+        public bool AddCiclosEvaluacion(LibreriaObjetos.N_CiclosEvaluacion ciclos) {
+            return base.Channel.AddCiclosEvaluacion(ciclos);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddCiclosEvaluacionAsync(LibreriaObjetos.N_CiclosEvaluacion ciclos) {
+            return base.Channel.AddCiclosEvaluacionAsync(ciclos);
         }
     }
 }
