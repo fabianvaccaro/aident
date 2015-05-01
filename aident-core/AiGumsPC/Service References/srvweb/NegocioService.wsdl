@@ -62,6 +62,12 @@
   <wsdl:message name="INegocioService_MpatToList_OutputMessage">
     <wsdl:part name="parameters" element="tns:MpatToListResponse" />
   </wsdl:message>
+  <wsdl:message name="INegocioService_ProcedimientoToList_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcedimientoToList" />
+  </wsdl:message>
+  <wsdl:message name="INegocioService_ProcedimientoToList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcedimientoToListResponse" />
+  </wsdl:message>
   <wsdl:message name="INegocioService_ExperimentoToList_InputMessage">
     <wsdl:part name="parameters" element="tns:ExperimentoToList" />
   </wsdl:message>
@@ -116,6 +122,10 @@
     <wsdl:operation name="MpatToList">
       <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/MpatToList" message="tns:INegocioService_MpatToList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/MpatToListResponse" message="tns:INegocioService_MpatToList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcedimientoToList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/ProcedimientoToList" message="tns:INegocioService_ProcedimientoToList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/ProcedimientoToListResponse" message="tns:INegocioService_ProcedimientoToList_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ExperimentoToList">
       <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/ExperimentoToList" message="tns:INegocioService_ExperimentoToList_InputMessage" />
@@ -206,6 +216,15 @@
     </wsdl:operation>
     <wsdl:operation name="MpatToList">
       <soap:operation soapAction="http://tempuri.org/INegocioService/MpatToList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcedimientoToList">
+      <soap:operation soapAction="http://tempuri.org/INegocioService/ProcedimientoToList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

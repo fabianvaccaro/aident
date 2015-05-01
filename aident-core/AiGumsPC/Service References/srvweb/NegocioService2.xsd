@@ -119,6 +119,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ProcedimientoToList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idMpat" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProcedimientoToListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ProcedimientoToListResult" nillable="true" type="q8:ArrayOfN_ProcedimientoClinico" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ExperimentoToList">
     <xs:complexType>
       <xs:sequence />
@@ -127,14 +141,14 @@
   <xs:element name="ExperimentoToListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ExperimentoToListResult" nillable="true" type="q8:ArrayOfN_Experimento" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ExperimentoToListResult" nillable="true" type="q9:ArrayOfN_Experimento" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddProcedimiento">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="pro" nillable="true" type="q9:N_ProcedimientoClinico" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="pro" nillable="true" type="q10:N_ProcedimientoClinico" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -148,7 +162,7 @@
   <xs:element name="AddCiclosEvaluacion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ciclos" nillable="true" type="q10:N_CiclosEvaluacion" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ciclos" nillable="true" type="q11:N_CiclosEvaluacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

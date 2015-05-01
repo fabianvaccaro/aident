@@ -21,52 +21,45 @@ namespace AiGumsPC
     /// </summary>
     public partial class Muestras : Window
     {
+        Metodos metodo = new Metodos();
         //private Int32 estado = 0;
-        N_Experimento nuevoExperimento = new N_Experimento();
-        Int32 idPacienteExperimento = 0;
-        private Int32 experimento; 
-        //nuevoExperimento = "1234"; // obtener Código Experimento
+        Int32 numeroPacienteExperimento = 0;
+        //buscamos el experimento que estamos procesando
+        N_Experimento experimento = new N_Experimento();
+        //buscamos la mpat que estamos procesando
+        N_Mpat mpat = new N_Mpat();
+
 
 
         public Muestras(Int32 idExperimento)
         {
-            experimento = idExperimento;
             InitializeComponent();
-            idPacienteExperimento++;
-            this.txtNumeroExperimento.Content = experimento;
-            this.txtNumPaciente.Text = idPacienteExperimento.ToString();
+            if (metodo.BuscaExperimento(idExperimento, experimento))
+            {
+                if (metodo.BuscaMpat(experimento.idMpat, mpat))
+                {
+                    estado.Content = "Todo ok";
+                }
+            }
+            this.txtNumeroExperimento.Content = experimento.codigoExperimento;
+            this.txtNumPaciente.Text = numeroPacienteExperimento.ToString();
 
         }
         private void siguienteImagen(object sender, RoutedEventArgs e)
         {
-            //if (estado == 0) {
-            //    N_Muestra muestra = new N_Muestra();
-
-            //    txtCiclosMasticatorios.Text = "0";
-            //    txtLado.Text = "A";
-            //    txtNumeroMuestra.Text = String.Empty;
-            //    txtNumPaciente.Text = String.Empty;
-            //    imagen = capturaImagen();
-            //    muestra.lado = txtLado;
-            //    muestra.numero = txtNumeroMuestra;
-            //    muestra.paciente = txtNumPaciente;
-            //    muestra.imagen = imagen;
-            //    if (addMuestra(muestra))
-            //        siguiente;
-            //    else
-            //    {
-            //        error;
-            //    }
-            //}
+            //if(this.numeroPacienteExperimento <= experimento.)
         }
         private void obtenerMuestras(object sender, RoutedEventArgs e)
         {
-            //grabarPaciente
+            //Creamos nuevoPaciente
             N_Paciente paciente = new N_Paciente();
             N_HistoriaClinica nuevaHistoria = new N_HistoriaClinica();
             Metodos metodos = new Metodos(); 
-            estado.DataContext = "Introduce datos. ";
 
+            // Actualizamos el estado
+            estado.DataContext = "Introduce datos. ";
+            
+            // Rellena nuevoPaciente
             if (rb_m.IsChecked == true)
             {
                 paciente.sexo = "HOMBRE";       
@@ -81,25 +74,23 @@ namespace AiGumsPC
                 return;
             }
             paciente.identificacion = txtDNI.Text;
-           // paciente.id = nuevoExperimento.id;
             paciente.idHistoriaClinica = 0;
-            paciente.idPacienteExp = this.experimento;
+            paciente.idPacienteExp = experimento.id;
             paciente.nombre = txtNombre.Text;
             paciente.ubicacion = txtUbicacion.Text;
             Int32 idHistoriaClinica = 0;
 
-           if (metodos.AddHistoriaClinica(nuevaHistoria, out idHistoriaClinica))
-           {
-               Int32 idPac = 0;
-               paciente.idHistoriaClinica = idHistoriaClinica;
+            if (metodos.AddHistoriaClinica(nuevaHistoria, out idHistoriaClinica))
+            {
+                Int32 idPac = 0;
+                paciente.idHistoriaClinica = idHistoriaClinica;
                 if (metodos.AddPaciente(paciente, out idPac))
                 {
-                    
-                    this.idPacienteExperimento++;
                     //abrir ventana para obtener las muestras
                     recogidaDatosPaciente win = new recogidaDatosPaciente();
                     win.Show();
                     this.Hide();
+                    //this.idPacienteExperimento++; //buscamos el segundo elemento
                 }
                 else
                 {

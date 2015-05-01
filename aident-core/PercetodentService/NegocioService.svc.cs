@@ -41,6 +41,13 @@ namespace PercetodentService
             return metodo.TestFoodToList();
         }
 
+        public List<N_ProcedimientoClinico> ProcedimientoToList(Int32 idMpat)
+        {
+            Metodos metodo = new Metodos();
+            return metodo.ProcedimientoToList(idMpat);
+
+        }
+
         public Boolean DeleteTestFood(Int32 id)
         {
             Metodos metodo = new Metodos();

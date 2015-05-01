@@ -272,17 +272,83 @@ namespace AiGumsPC
 
         private void clearListaProcemientos(object sender, RoutedEventArgs e)
         {
-            txtListaProcemientos.Items.Clear();
+            txtListaProcemientos.ItemsSource = new  List<N_ProcedimientoClinico>();
         }
 
         private void addProcemientoLista(object sender, RoutedEventArgs e)
         {
+            var listaProcedimientosClinicos = new List<N_ProcedimientoClinico>();
+            //Obtener elementos del control
+            foreach (N_ProcedimientoClinico prct in txtListaProcemientos.Items)
+            {
+                listaProcedimientosClinicos.Add(prct);
+            }
+
+            //Añade un nuevo procedimiento a la lista
             N_ProcedimientoClinico procemiento = new N_ProcedimientoClinico();
             procemiento.idMpat = 0;
             procemiento.descripcion = txtProcedimiento.Text;
+
             procemiento.orden = Int32.Parse(txtListaProcemientos.Items.Count.ToString())+1;
-            txtListaProcemientos.Items.Add(procemiento);
+
+            //Si se ha seleccionado un item de la lista
+            if(txtListaProcemientos.SelectedIndex>-1)
+            {
+                var miOrden = Int32.Parse(txtListaProcemientos.SelectedValue.ToString());
+                var xdf = (from arecord in listaProcedimientosClinicos
+                           where arecord.orden == miOrden
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                if (xdf.arecord != null)
+                {
+                    procemiento.orden = miOrden;
+                    foreach (var elemento in listaProcedimientosClinicos)
+                    {
+                        if (elemento.orden >= miOrden)
+                        {
+                            elemento.orden = elemento.orden + 1;
+                        }
+                    }
+                }
+                
+            }
+            //insertar el nuevo elemento
+                       
+            listaProcedimientosClinicos.Add(procemiento);
+            
+
+            //Ordenar lista
+            if(txtListaProcemientos.SelectedIndex>-1)
+            {
+                var listaResultante = listaProcedimientosClinicos.OrderBy(x => x.orden).ToList();
+                listaProcedimientosClinicos = listaResultante;
+                txtListaProcemientos.SelectedIndex = -1;
+            }
+            //dibujarlista
+            txtListaProcemientos.ItemsSource = listaProcedimientosClinicos;
+            txtListaProcemientos.SelectedValuePath = "orden";
+            txtListaProcemientos.DisplayMemberPath = "descripcion";
+
+            //txtListaProcemientos.Items.Add(procemiento);
             txtProcedimiento.Text = String.Empty;
+        }
+
+        private void verProcedimiento(object sender, RoutedEventArgs e)
+        {
+            object Id = ((Button)sender).CommandParameter;
+            Int32 idMpat = (Int32)Id;
+            verProcedimientoClinico win = new verProcedimientoClinico(idMpat);
+            win.Owner = this;
+            this.Hide();
+            win.Show();
+
+        }
+
+        private void verCiclosEvaluacion(object sender, RoutedEventArgs e)
+        {
+            // nueva ventana ciclosMasticatoriosEvaluacion
         }
     }
 }

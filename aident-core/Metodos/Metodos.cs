@@ -321,6 +321,51 @@ namespace MainCore
             }
         }
 
+        public List<N_ProcedimientoClinico> ProcedimientoToList(Int32 idMpat)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                List<N_ProcedimientoClinico> lista = new List<N_ProcedimientoClinico>();
+
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.ProcedimientoClinicoSet
+                           where arecord.idMpat == idMpat
+                           select new
+                           {
+                               arecord
+                           }).ToList();
+                try
+                {
+                    //Verifica que existan los registros
+                    if (xdf != null)
+                    {
+                        foreach (var registro in xdf)
+                        {
+                            //crear instancia de objeto N_ProcedimientoClinico
+                            N_ProcedimientoClinico ob = new N_ProcedimientoClinico();
+                            ob.id = registro.arecord.Id;
+                            ob.idMpat = registro.arecord.idMpat;
+                            ob.orden = registro.arecord.orden;
+                            ob.descripcion = registro.arecord.descripcion;
+
+                            //añadir ob a la lista
+                            lista.Add(ob);
+                        }
+                        return lista;
+                    }
+                    else
+                    {
+                        return lista;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return lista;
+                }
+            }
+        }        
+        
         public Boolean AddTipoTestFood(N_TipoTestFood ttf)
         {
             using (Model1Container1 Context = new Model1Container1())
@@ -586,6 +631,78 @@ namespace MainCore
             }
         }
 
+        public Boolean BuscaExperimento(Int32 miid, N_Experimento exp)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                //Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.ExperimentoSet
+                           where arecord.Id == miid
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        exp.id = xdf.arecord.Id;
+                        exp.codigoExperimento = xdf.arecord.Codigo;
+                        exp.idMpat = xdf.arecord.idMpat;
+                        exp.numeroPacientes = xdf.arecord.NumeroPacientes;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+        public Boolean BuscaMpat(Int32 miid, N_Mpat mpat)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                //Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.MpatSet
+                           where arecord.Id == miid
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        mpat.id = xdf.arecord.Id;
+                        //mpat.CiclosEvaluacion = xdf.arecord.CiclosEvaluacion.ToList();
+                        mpat.CiclosMasticatorios = xdf.arecord.ciclosMasticatorios;
+                        mpat.idEstado = xdf.arecord.Estado;
+                        mpat.idTestFood = xdf.arecord.idTestFood;
+                        //mpat.ListaProcedimientos = xdf.arecord.Experimento;
+                        mpat.nombre = xdf.arecord.nombre;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
         //public void validaMPAT(String nombre, String procedimiento, Int32 idTestFood, Int32 ciclosMasticatorios, Int32 ciclosValidacion)
         //{
         //    // falta validacion de datos
@@ -601,5 +718,7 @@ namespace MainCore
 
         //    this.AddExperimento(experimento);
         //}
+
+
     }    
 }

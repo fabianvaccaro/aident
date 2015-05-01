@@ -18,9 +18,9 @@
   <xs:element name="ArrayOfN_TestFood" nillable="true" type="tns:ArrayOfN_TestFood" />
   <xs:complexType name="N_Mpat">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CiclosEvaluacion" type="xs:int" />
+      <xs:element minOccurs="0" name="CiclosEvaluacion" nillable="true" type="tns:ArrayOfN_CiclosEvaluacion" />
       <xs:element minOccurs="0" name="CiclosMasticatorios" type="xs:int" />
-      <xs:element minOccurs="0" name="ListaProcedimientos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ListaProcedimientos" nillable="true" type="tns:ArrayOfN_ProcedimientoClinico" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
       <xs:element minOccurs="0" name="idEstado" type="xs:int" />
       <xs:element minOccurs="0" name="idTestFood" type="xs:int" />
@@ -28,6 +28,35 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="N_Mpat" nillable="true" type="tns:N_Mpat" />
+  <xs:complexType name="ArrayOfN_CiclosEvaluacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="N_CiclosEvaluacion" nillable="true" type="tns:N_CiclosEvaluacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfN_CiclosEvaluacion" nillable="true" type="tns:ArrayOfN_CiclosEvaluacion" />
+  <xs:complexType name="N_CiclosEvaluacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idMpat" type="xs:int" />
+      <xs:element minOccurs="0" name="numeroCiclos" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="N_CiclosEvaluacion" nillable="true" type="tns:N_CiclosEvaluacion" />
+  <xs:complexType name="ArrayOfN_ProcedimientoClinico">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="N_ProcedimientoClinico" nillable="true" type="tns:N_ProcedimientoClinico" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfN_ProcedimientoClinico" nillable="true" type="tns:ArrayOfN_ProcedimientoClinico" />
+  <xs:complexType name="N_ProcedimientoClinico">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idMpat" type="xs:int" />
+      <xs:element minOccurs="0" name="orden" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="N_ProcedimientoClinico" nillable="true" type="tns:N_ProcedimientoClinico" />
   <xs:complexType name="N_Experimento">
     <xs:sequence>
       <xs:element minOccurs="0" name="codigoExperimento" nillable="true" type="xs:string" />
@@ -50,21 +79,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfN_Experimento" nillable="true" type="tns:ArrayOfN_Experimento" />
-  <xs:complexType name="N_ProcedimientoClinico">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="id" type="xs:int" />
-      <xs:element minOccurs="0" name="idMpat" type="xs:int" />
-      <xs:element minOccurs="0" name="orden" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="N_ProcedimientoClinico" nillable="true" type="tns:N_ProcedimientoClinico" />
-  <xs:complexType name="N_CiclosEvaluacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="id" type="xs:int" />
-      <xs:element minOccurs="0" name="idMpat" type="xs:int" />
-      <xs:element minOccurs="0" name="numeroCiclos" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="N_CiclosEvaluacion" nillable="true" type="tns:N_CiclosEvaluacion" />
 </xs:schema>
