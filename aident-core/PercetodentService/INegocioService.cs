@@ -41,10 +41,13 @@ namespace PercetodentService
         List<N_Mpat> MpatToList();
 
         [OperationContract]
+        List<N_Experimento> ExperimentoToList();
+
+        [OperationContract]
         List<N_ProcedimientoClinico> ProcedimientoToList(Int32 idMpat);
 
         [OperationContract]
-        List<N_Experimento> ExperimentoToList();
+        List<N_CiclosEvaluacion> CiclosEvaluacionToList(Int32 idMpat);
 
         [OperationContract]
         Boolean AddProcedimiento(N_ProcedimientoClinico pro);

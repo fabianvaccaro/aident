@@ -234,11 +234,26 @@ namespace AiGumsPC
             }
         }
 
+        private void cargarDatosDiagnostico()
+        {
+            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            List<N_Experimento> listaExperimento = new List<N_Experimento>();
+            listaExperimento = mets.ExperimentoToList().ToList();
+            if (listaExperimento != null)
+            {
+                grid_listado_diagnostico.ItemsSource = listaExperimento;
+            }
+            else
+            {
+                MessageBox.Show("Error al listar mpat");
+            }
+        }
+
         private void procesarExperimento(object sender, RoutedEventArgs e)
         {
             Int32 idExperimento = 0;
             idExperimento = Int32.Parse(this.txtDiagExperimentos.SelectedValue.ToString());
-            Muestras win = new Muestras( idExperimento);
+            Muestras win = new Muestras(idExperimento);
             win.Show();
             this.Hide();
             win.Owner = this;
@@ -257,12 +272,61 @@ namespace AiGumsPC
 
         private void addCicloEvaluacionLista(object sender, RoutedEventArgs e)
         {
-            N_CiclosEvaluacion ciclos = new N_CiclosEvaluacion();
-            ciclos.idMpat = 0;
-            ciclos.numeroCiclos = Int32.Parse(txtCiclosEvaluacion.Text);
-            txtListaCiclosEvaluacion.Items.Add(ciclos);
+            var listaCiclosEvaluacion = new List<N_CiclosEvaluacion>();
+            //Obtener elementos del control
+            foreach (N_CiclosEvaluacion ciclos in this.txtListaCiclosEvaluacion.Items)
+            {
+                listaCiclosEvaluacion.Add(ciclos);
+            }
+
+            //Añade un nuevo procedimiento a la lista
+            N_CiclosEvaluacion ciclo = new N_CiclosEvaluacion();
+            ciclo.idMpat = 0;
+            ciclo.numeroCiclos = Int32.Parse(txtCiclosEvaluacion.Text);
+            ciclo.orden = Int32.Parse(txtListaProcemientos.Items.Count.ToString()) + 1;
+
+            //Si se ha seleccionado un item de la lista
+            if (this.txtListaCiclosEvaluacion.SelectedIndex > -1)
+            {
+                var miOrden = Int32.Parse(txtListaCiclosEvaluacion.SelectedValue.ToString());
+                var xdf = (from arecord in listaCiclosEvaluacion
+                           where arecord.orden == miOrden
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                if (xdf.arecord != null)
+                {
+                    ciclo.orden = miOrden;
+                    foreach (var elemento in listaCiclosEvaluacion)
+                    {
+                        if (elemento.orden >= miOrden)
+                        {
+                            elemento.orden = elemento.orden + 1;
+                        }
+                    }
+                }
+
+            }
+            //insertar el nuevo elemento
+
+            listaCiclosEvaluacion.Add(ciclo);
+
+
+            //Ordenar lista
+            if (this.txtListaCiclosEvaluacion.SelectedIndex > -1)
+            {
+                var listaResultante = listaCiclosEvaluacion.OrderBy(x => x.orden).ToList();
+                listaCiclosEvaluacion = listaResultante;
+                this.txtListaCiclosEvaluacion.SelectedIndex = -1;
+            }
+            //dibujarlista
+            txtListaCiclosEvaluacion.ItemsSource = listaCiclosEvaluacion;
+            txtListaCiclosEvaluacion.SelectedValuePath = "orden";
+            txtListaCiclosEvaluacion.DisplayMemberPath = "numeroCiclos";
+
+            //txtListaProcemientos.Items.Add(procemiento);
             txtCiclosEvaluacion.Text = String.Empty;
-            
         }
 
         private void clearCiclosEvaluacionLista(object sender, RoutedEventArgs e)
@@ -341,14 +405,42 @@ namespace AiGumsPC
             Int32 idMpat = (Int32)Id;
             verProcedimientoClinico win = new verProcedimientoClinico(idMpat);
             win.Owner = this;
-            this.Hide();
+            //this.Hide();
             win.Show();
-
         }
 
         private void verCiclosEvaluacion(object sender, RoutedEventArgs e)
         {
-            // nueva ventana ciclosMasticatoriosEvaluacion
+            object Id = ((Button)sender).CommandParameter;
+            Int32 idMpat = (Int32)Id;
+            verCiclosEvaluacion win = new verCiclosEvaluacion(idMpat);
+            win.Owner = this;
+            //this.Hide();
+            win.Show();
+        }
+
+        private void RefrescaDiagnostico(object sender, RoutedEventArgs e)
+        {
+            cargarDatosDiagnostico();
+        }
+
+        private void DeleteDiagnostico(object sender, RoutedEventArgs e)
+        {
+            Metodos metodo = new Metodos();
+
+            object Id = ((Button)sender).CommandParameter;
+            List<N_Paciente> listaPacientesBorrar = metodo.PacientesExpToList(Int32.Parse(Id.ToString()));
+            if (metodo.DeleteExperimento(Int32.Parse(Id.ToString())))
+            {
+                foreach (N_Paciente paciente in listaPacientesBorrar)
+                { 
+                    if(metodo.DeletePaciente(paciente.id)){
+                        
+                    }else{
+                        Console.WriteLine("Error borrando pacientes");
+                    }
+                }
+            }
         }
     }
 }

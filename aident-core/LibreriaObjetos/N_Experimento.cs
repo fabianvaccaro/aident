@@ -24,6 +24,8 @@ namespace LibreriaObjetos
         public Int32 idMpat { set; get; } //fk_N_Mpat
         [DataMember]
         public Int32 numeroPacientes { set; get; } //fk_N_Mpat
+        [DataMember]
+        public Boolean procesado { set; get; } //Estado del experimento
         // Constructor de la clase
         public N_Experimento (){
             this.id = 0;
@@ -31,6 +33,7 @@ namespace LibreriaObjetos
             this.idPaciente = 0;
             this.idMpat = 0;
             this.numeroPacientes = 0;
+            this.procesado = false; // falso = no procesado
         }
     }
 }

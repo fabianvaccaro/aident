@@ -62,17 +62,23 @@
   <wsdl:message name="INegocioService_MpatToList_OutputMessage">
     <wsdl:part name="parameters" element="tns:MpatToListResponse" />
   </wsdl:message>
+  <wsdl:message name="INegocioService_ExperimentoToList_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExperimentoToList" />
+  </wsdl:message>
+  <wsdl:message name="INegocioService_ExperimentoToList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExperimentoToListResponse" />
+  </wsdl:message>
   <wsdl:message name="INegocioService_ProcedimientoToList_InputMessage">
     <wsdl:part name="parameters" element="tns:ProcedimientoToList" />
   </wsdl:message>
   <wsdl:message name="INegocioService_ProcedimientoToList_OutputMessage">
     <wsdl:part name="parameters" element="tns:ProcedimientoToListResponse" />
   </wsdl:message>
-  <wsdl:message name="INegocioService_ExperimentoToList_InputMessage">
-    <wsdl:part name="parameters" element="tns:ExperimentoToList" />
+  <wsdl:message name="INegocioService_CiclosEvaluacionToList_InputMessage">
+    <wsdl:part name="parameters" element="tns:CiclosEvaluacionToList" />
   </wsdl:message>
-  <wsdl:message name="INegocioService_ExperimentoToList_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ExperimentoToListResponse" />
+  <wsdl:message name="INegocioService_CiclosEvaluacionToList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CiclosEvaluacionToListResponse" />
   </wsdl:message>
   <wsdl:message name="INegocioService_AddProcedimiento_InputMessage">
     <wsdl:part name="parameters" element="tns:AddProcedimiento" />
@@ -123,13 +129,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/MpatToList" message="tns:INegocioService_MpatToList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/MpatToListResponse" message="tns:INegocioService_MpatToList_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ExperimentoToList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/ExperimentoToList" message="tns:INegocioService_ExperimentoToList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/ExperimentoToListResponse" message="tns:INegocioService_ExperimentoToList_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ProcedimientoToList">
       <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/ProcedimientoToList" message="tns:INegocioService_ProcedimientoToList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/ProcedimientoToListResponse" message="tns:INegocioService_ProcedimientoToList_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ExperimentoToList">
-      <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/ExperimentoToList" message="tns:INegocioService_ExperimentoToList_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/ExperimentoToListResponse" message="tns:INegocioService_ExperimentoToList_OutputMessage" />
+    <wsdl:operation name="CiclosEvaluacionToList">
+      <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/CiclosEvaluacionToList" message="tns:INegocioService_CiclosEvaluacionToList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/CiclosEvaluacionToListResponse" message="tns:INegocioService_CiclosEvaluacionToList_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddProcedimiento">
       <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/AddProcedimiento" message="tns:INegocioService_AddProcedimiento_InputMessage" />
@@ -223,6 +233,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ExperimentoToList">
+      <soap:operation soapAction="http://tempuri.org/INegocioService/ExperimentoToList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ProcedimientoToList">
       <soap:operation soapAction="http://tempuri.org/INegocioService/ProcedimientoToList" style="document" />
       <wsdl:input>
@@ -232,8 +251,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ExperimentoToList">
-      <soap:operation soapAction="http://tempuri.org/INegocioService/ExperimentoToList" style="document" />
+    <wsdl:operation name="CiclosEvaluacionToList">
+      <soap:operation soapAction="http://tempuri.org/INegocioService/CiclosEvaluacionToList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

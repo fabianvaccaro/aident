@@ -18,6 +18,8 @@ namespace LibreriaObjetos
         public Int32 idMpat { set; get; }
         [DataMember]
         public Int32 numeroCiclos { set; get; }
+        [DataMember]
+        public Int32 orden { set; get; }
 
         // Constructor de la clase
         public N_CiclosEvaluacion()
@@ -25,6 +27,7 @@ namespace LibreriaObjetos
             id = 0;
             idMpat = 0;
             numeroCiclos = 0;
+            orden = 0;
         }
     }
 }

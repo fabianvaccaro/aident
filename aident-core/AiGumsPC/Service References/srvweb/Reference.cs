@@ -70,17 +70,23 @@ namespace AiGumsPC.srvweb {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/MpatToList", ReplyAction="http://tempuri.org/INegocioService/MpatToListResponse")]
         System.Threading.Tasks.Task<LibreriaObjetos.N_Mpat[]> MpatToListAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ExperimentoToList", ReplyAction="http://tempuri.org/INegocioService/ExperimentoToListResponse")]
+        LibreriaObjetos.N_Experimento[] ExperimentoToList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ExperimentoToList", ReplyAction="http://tempuri.org/INegocioService/ExperimentoToListResponse")]
+        System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> ExperimentoToListAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ProcedimientoToList", ReplyAction="http://tempuri.org/INegocioService/ProcedimientoToListResponse")]
         LibreriaObjetos.N_ProcedimientoClinico[] ProcedimientoToList(int idMpat);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ProcedimientoToList", ReplyAction="http://tempuri.org/INegocioService/ProcedimientoToListResponse")]
         System.Threading.Tasks.Task<LibreriaObjetos.N_ProcedimientoClinico[]> ProcedimientoToListAsync(int idMpat);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ExperimentoToList", ReplyAction="http://tempuri.org/INegocioService/ExperimentoToListResponse")]
-        LibreriaObjetos.N_Experimento[] ExperimentoToList();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/CiclosEvaluacionToList", ReplyAction="http://tempuri.org/INegocioService/CiclosEvaluacionToListResponse")]
+        LibreriaObjetos.N_CiclosEvaluacion[] CiclosEvaluacionToList(int idMpat);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ExperimentoToList", ReplyAction="http://tempuri.org/INegocioService/ExperimentoToListResponse")]
-        System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> ExperimentoToListAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/CiclosEvaluacionToList", ReplyAction="http://tempuri.org/INegocioService/CiclosEvaluacionToListResponse")]
+        System.Threading.Tasks.Task<LibreriaObjetos.N_CiclosEvaluacion[]> CiclosEvaluacionToListAsync(int idMpat);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/AddProcedimiento", ReplyAction="http://tempuri.org/INegocioService/AddProcedimientoResponse")]
         bool AddProcedimiento(LibreriaObjetos.N_ProcedimientoClinico pro);
@@ -239,6 +245,14 @@ namespace AiGumsPC.srvweb {
             return base.Channel.MpatToListAsync();
         }
         
+        public LibreriaObjetos.N_Experimento[] ExperimentoToList() {
+            return base.Channel.ExperimentoToList();
+        }
+        
+        public System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> ExperimentoToListAsync() {
+            return base.Channel.ExperimentoToListAsync();
+        }
+        
         public LibreriaObjetos.N_ProcedimientoClinico[] ProcedimientoToList(int idMpat) {
             return base.Channel.ProcedimientoToList(idMpat);
         }
@@ -247,12 +261,12 @@ namespace AiGumsPC.srvweb {
             return base.Channel.ProcedimientoToListAsync(idMpat);
         }
         
-        public LibreriaObjetos.N_Experimento[] ExperimentoToList() {
-            return base.Channel.ExperimentoToList();
+        public LibreriaObjetos.N_CiclosEvaluacion[] CiclosEvaluacionToList(int idMpat) {
+            return base.Channel.CiclosEvaluacionToList(idMpat);
         }
         
-        public System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> ExperimentoToListAsync() {
-            return base.Channel.ExperimentoToListAsync();
+        public System.Threading.Tasks.Task<LibreriaObjetos.N_CiclosEvaluacion[]> CiclosEvaluacionToListAsync(int idMpat) {
+            return base.Channel.CiclosEvaluacionToListAsync(idMpat);
         }
         
         public bool AddProcedimiento(LibreriaObjetos.N_ProcedimientoClinico pro) {

@@ -4,7 +4,7 @@
         Title="Procedimiento Clinico" Height="300" Width="300">
     <Grid HorizontalAlignment="Left" Height="252" Margin="10,10,0,0" VerticalAlignment="Top" Width="280">
         <Button Content="Cerrar" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top" Width="75" Click="salir"/>
-        <DataGrid x:Name="gris_ProcedimientoClinico" HorizontalAlignment="Left" VerticalAlignment="Top" Height="206" Width="280" Margin="0,36,0,0">
+        <DataGrid x:Name="grid_ProcedimientoClinico" HorizontalAlignment="Left" VerticalAlignment="Top" Height="206" Width="280" Margin="0,36,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=id}" Header="Id"/>
                 <DataGridTextColumn Binding="{Binding Path=idMpat}" Header="Id MPAT"/>
@@ -12,6 +12,7 @@
                 <DataGridTextColumn Binding="{Binding Path=descripcion}" Header="Descripción"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label x:Name="prueba" Content="Label" HorizontalAlignment="Left" Margin="184,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 

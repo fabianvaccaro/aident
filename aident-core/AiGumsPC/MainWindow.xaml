@@ -93,14 +93,15 @@
                             <DataGridTextColumn Binding="{Binding Path=nombre }" Header="Nombre"/>
                             <DataGridTextColumn Binding="{Binding Path=idTestFood}" Header="idTestFood"/>
                             <DataGridTextColumn Binding="{Binding Path=CiclosMasticatorios}" Header="C. Masticatorios"/>
-                            <DataGridTextColumn Binding="{Binding Path=CiclosEvaluacion}" Header="C. Evaluación"/>
-                            <DataGridTemplateColumn Header="Procedimiento">
+                            <DataGridTemplateColumn Header="C. Evaluación">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Click="verCiclosEvaluacion" CommandParameter="{Binding Path=CiclosEvaluacion}">Ver C. Evaluación</Button>
+                                        <Button Click="verCiclosEvaluacion" CommandParameter="{Binding Path=id}">Ver C. Evaluación</Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn><DataGridTextColumn Binding="{Binding Path=idEstado}" Header="Estado"/>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Path=idEstado}" Header="Estado"/>
+
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -112,17 +113,36 @@
 
                     <DataGrid x:Name="grid_listado_experimento"  Margin="10,42,9.8,0" VerticalAlignment="Top" AutoGenerateColumns="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True" Grid.ColumnSpan="3">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Path=id}" Header="EXP_Id"/>
-                            <DataGridTextColumn Binding="{Binding Path=codigoExperimento}" Header="EXP_Código Experimento"/>
-                            <DataGridTextColumn Binding="{Binding Path=idPaciente}" Header="EXP_Paciente"/>
-                            <DataGridTextColumn Binding="{Binding Path=idMpat}" Header="EXP_MPAT"/>
-                            <DataGridTextColumn Binding="{Binding Path=numeroPacientes}" Header="EXP_Número Pacientes"/>
+                            <DataGridTextColumn Binding="{Binding Path=id}" Header="Id"/>
+                            <DataGridTextColumn Binding="{Binding Path=codigoExperimento}" Header="Código Experimento"/>
+                            <DataGridTextColumn Binding="{Binding Path=idPaciente}" Header="Paciente"/>
+                            <DataGridTextColumn Binding="{Binding Path=idMpat}" Header="MPAT"/>
+                            <DataGridTextColumn Binding="{Binding Path=numeroPacientes}" Header="Número Pacientes"/>
+                            <DataGridTextColumn Binding="{Binding Path=estado}" Header="Estado"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Listado Diagnósticos">
                 <Grid Background="#000F00">
+                    <DataGrid x:Name="grid_listado_diagnostico"  Margin="10,42,9.8,0" VerticalAlignment="Top" AutoGenerateColumns="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  ColumnWidth="*" IsReadOnly="True" Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=id}" Header="Id"/>
+                            <DataGridTextColumn Binding="{Binding Path=codigoExperimento}" Header="Código Experimento"/>
+                            <DataGridTextColumn Binding="{Binding Path=idPaciente}" Header="Paciente"/>
+                            <DataGridTextColumn Binding="{Binding Path=idMpat}" Header="MPAT"/>
+                            <DataGridTextColumn Binding="{Binding Path=numeroPacientes}" Header="Número Pacientes"/>
+                            <DataGridTextColumn Binding="{Binding Path=estado}" Header="Estado"/>
+                            <DataGridTemplateColumn Header="Borrar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Click="DeleteDiagnostico" CommandParameter="{Binding Path=id}">Borrar Experimento</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Content="Refresh" HorizontalAlignment="Left" Margin="176.4,17,0,0" VerticalAlignment="Top" Width="75" Click="RefrescaDiagnostico"/>
                 </Grid>
             </TabItem>
         </TabControl>

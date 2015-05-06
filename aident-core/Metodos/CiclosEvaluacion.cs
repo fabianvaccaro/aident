@@ -17,6 +17,7 @@ namespace MainCore
         public int Id { get; set; }
         public int idMpat { get; set; }
         public int numeroCiclos { get; set; }
+        public int orden { get; set; }
     
         public virtual Mpat Mpat { get; set; }
     }

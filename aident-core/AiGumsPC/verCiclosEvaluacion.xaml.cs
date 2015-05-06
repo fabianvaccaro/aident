@@ -1,5 +1,4 @@
 ﻿using LibreriaObjetos;
-using MainCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,35 +16,26 @@ using System.Windows.Shapes;
 namespace AiGumsPC
 {
     /// <summary>
-    /// Interaction logic for verProcedimientoClinico.xaml
+    /// Interaction logic for verCiclosEvaluacion.xaml
     /// </summary>
-    public partial class verProcedimientoClinico : Window
+    public partial class verCiclosEvaluacion : Window
     {
-        public verProcedimientoClinico(Int32 idMpat)
+        public verCiclosEvaluacion(Int32 idMpat)
         {
             InitializeComponent();
-            PintaDatos(idMpat);
+            mostrarCiclosEvaluacion(idMpat);
         }
-
-        private void PintaDatos(Int32 idMpat)
+        private void mostrarCiclosEvaluacion(Int32 idMpat)
         {
             srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
-            var listaProcedimientos = new List<N_ProcedimientoClinico>();
-            try
-            {
-                this.prueba.Content = idMpat.ToString();
-            }
-            catch (NullReferenceException nullRefEx)
-            {
-                Console.WriteLine("Error null exception" + nullRefEx);
-            }
+            var lista = new List<N_CiclosEvaluacion>();
 
-            listaProcedimientos = mets.ProcedimientoToList(idMpat).ToList();
-            if (listaProcedimientos != null)
+            lista = mets.CiclosEvaluacionToList(idMpat).ToList();
+            if (lista != null)
             {
                 try
                 {
-                    grid_ProcedimientoClinico.ItemsSource = listaProcedimientos;
+                    this.grid_CiclosEvaluacion.ItemsSource = lista;
                 }
                 catch (NullReferenceException nullRefEx)
                 {

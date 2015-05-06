@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/26/2015 19:26:22
+-- Date Created: 05/05/2015 18:58:34
 -- Generated from EDMX file: C:\Users\Jaime\Source\Repos\AiDent\aident-core\Metodos\Model1.edmx
 -- --------------------------------------------------
 
@@ -100,7 +100,8 @@ CREATE TABLE [dbo].[ExperimentoSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Codigo] nvarchar(max)  NOT NULL,
     [NumeroPacientes] int  NOT NULL,
-    [idMpat] int  NOT NULL
+    [idMpat] int  NOT NULL,
+    [Procesado] bit  NOT NULL
 );
 GO
 
@@ -196,7 +197,8 @@ GO
 CREATE TABLE [dbo].[CiclosEvaluacionSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [idMpat] int  NOT NULL,
-    [numeroCiclos] int  NOT NULL
+    [numeroCiclos] int  NOT NULL,
+    [orden] int  NOT NULL
 );
 GO
 

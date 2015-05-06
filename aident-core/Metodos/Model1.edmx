@@ -70,6 +70,7 @@
     <Property Name="Codigo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="NumeroPacientes" Type="int" Nullable="false" />
     <Property Name="idMpat" Type="int" Nullable="false" />
+    <Property Name="Procesado" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="HistoriaClinicaSet">
     <Key>
@@ -166,6 +167,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idMpat" Type="int" Nullable="false" />
     <Property Name="numeroCiclos" Type="int" Nullable="false" />
+    <Property Name="orden" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_MuestraCaracteristicaMedida">
     <End Role="MuestraSet" Type="Model1.Store.MuestraSet" Multiplicity="1" />
@@ -347,6 +349,7 @@
           <Property Name="idMpat" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Paciente" Relationship="Model1.ExperimentoPaciente" FromRole="Experimento" ToRole="Paciente" />
           <NavigationProperty Name="Mpat" Relationship="Model1.MpatExperimento" FromRole="Experimento" ToRole="Mpat" />
+          <Property Name="Procesado" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="HistoriaClinica">
           <Key>
@@ -554,6 +557,7 @@
           <Property Name="idMpat" Type="Int32" Nullable="false" />
           <Property Name="numeroCiclos" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Mpat" Relationship="Model1.MpatCiclosEvaluacion" FromRole="CiclosEvaluacion" ToRole="Mpat" />
+          <Property Name="orden" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="MpatCiclosEvaluacion">
           <End Type="Model1.Mpat" Role="Mpat" Multiplicity="1" />
@@ -589,6 +593,7 @@
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="NumeroPacientes" ColumnName="NumeroPacientes" />
           <ScalarProperty Name="idMpat" ColumnName="idMpat" />
+          <ScalarProperty Name="Procesado" ColumnName="Procesado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -694,6 +699,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="idMpat" ColumnName="idMpat" />
           <ScalarProperty Name="numeroCiclos" ColumnName="numeroCiclos" />
+          <ScalarProperty Name="orden" ColumnName="orden" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

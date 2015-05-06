@@ -77,6 +77,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="verCiclosEvaluacion.xaml.cs">
+      <DependentUpon>verCiclosEvaluacion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="verProcedimientoClinico.xaml.cs">
       <DependentUpon>verProcedimientoClinico.xaml</DependentUpon>
     </Compile>
@@ -111,6 +114,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="verCiclosEvaluacion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="verProcedimientoClinico.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -135,6 +142,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\LibreriaObjetos.N_CiclosEvaluacion.datasource" />
     <None Include="Properties\DataSources\LibreriaObjetos.N_Experimento.datasource" />
     <None Include="Properties\DataSources\LibreriaObjetos.N_Mpat.datasource" />
     <None Include="Properties\DataSources\LibreriaObjetos.N_ProcedimientoClinico.datasource" />

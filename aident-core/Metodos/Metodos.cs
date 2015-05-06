@@ -5,6 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using LibreriaObjetos;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows;
+using System.Runtime.InteropServices;
+using System.IO;
 
 
 namespace MainCore
@@ -125,7 +130,8 @@ namespace MainCore
                 }
             }
         }
-
+        
+        //--------------- PROCEDIMIENTOS A LISTAS
         /// <summary>
         /// Genera una lista de TestFood.
         /// </summary>
@@ -252,6 +258,7 @@ namespace MainCore
                             tf.numeroPacientes = registro.arecord.NumeroPacientes;
                             tf.codigoExperimento = registro.arecord.Codigo;
                             tf.idPaciente = 0;
+                            tf.procesado = registro.arecord.Procesado;
 
                             //añadir tf a la lista
                             listaExp.Add(tf);
@@ -366,6 +373,52 @@ namespace MainCore
             }
         }        
         
+        public List<N_CiclosEvaluacion> CiclosEvaluacionToList(Int32 idMpat)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                List<N_CiclosEvaluacion> lista = new List<N_CiclosEvaluacion>();
+
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.CiclosEvaluacionSet
+                           where arecord.idMpat == idMpat
+                           select new
+                           {
+                               arecord
+                           }).ToList();
+                try
+                {
+                    //Verifica que existan los registros
+                    if (xdf != null)
+                    {
+                        foreach (var registro in xdf)
+                        {
+                            //crear instancia de objeto N_CiclosEvaluacion
+                            N_CiclosEvaluacion ob = new N_CiclosEvaluacion();
+                            ob.id = registro.arecord.Id;
+                            ob.idMpat = registro.arecord.idMpat;
+                            ob.numeroCiclos = registro.arecord.numeroCiclos;
+                            ob.orden = registro.arecord.orden;
+
+                            //añadir ob a la lista
+                            lista.Add(ob);
+                        }
+                        return lista;
+                    }
+                    else
+                    {
+                        return lista;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return lista;
+                }
+            }
+        }       
+        
+        //-----------PROCEDIMIENTOS DE GRABACIÓN EN BD
         public Boolean AddTipoTestFood(N_TipoTestFood ttf)
         {
             using (Model1Container1 Context = new Model1Container1())
@@ -431,10 +484,13 @@ namespace MainCore
                 Experimento Db = new Experimento();
 
                 //Popula el objeto Db
-                //Db.Id = exp.id;
+                if (exp.id != 0) {
+                    Db.Id = exp.id; // viene de un update ¿correcto sin el if?
+                }
                 Db.idMpat = exp.idMpat;
                 Db.NumeroPacientes = exp.numeroPacientes;
                 Db.Codigo = exp.codigoExperimento;
+                Db.Procesado = exp.procesado;
 
                 //Guardar el objeto Dbtf en el Context
                 try
@@ -631,6 +687,42 @@ namespace MainCore
             }
         }
 
+
+        public Boolean DeleteExperimento(Int32 id)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.ExperimentoSet
+                           where arecord.Id == id
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        //Borra el registro
+                        Context.ExperimentoSet.Remove(xdf.arecord);
+                        Context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        // --------------------- PROCEDIMIENTOS DE BUSQUEDA
         public Boolean BuscaExperimento(Int32 miid, N_Experimento exp)
         {
             using (Model1Container1 Context = new Model1Container1())
@@ -651,6 +743,7 @@ namespace MainCore
                         exp.codigoExperimento = xdf.arecord.Codigo;
                         exp.idMpat = xdf.arecord.idMpat;
                         exp.numeroPacientes = xdf.arecord.NumeroPacientes;
+                        exp.procesado = xdf.arecord.Procesado;
                         return true;
                     }
                     else
@@ -665,6 +758,7 @@ namespace MainCore
                 }
             }
         }
+
         public Boolean BuscaMpat(Int32 miid, N_Mpat mpat)
         {
             using (Model1Container1 Context = new Model1Container1())
@@ -720,5 +814,311 @@ namespace MainCore
         //}
 
 
+        //---------------- RECOGIDA DATOS DE IMAGENES
+        public Boolean BuscaSiguienteOrdenNCiclos(Int32 idMpat, Int32 ordenAnterior, out Int32 ciclosSiguiente)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                //Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.CiclosEvaluacionSet
+                           where arecord.idMpat == idMpat
+                           && arecord.orden > ordenAnterior
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        ciclosSiguiente = xdf.arecord.orden;
+                        return true;
+                    }
+                    else
+                    {
+                        ciclosSiguiente = 0;
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    ciclosSiguiente = 0;
+                    return false;
+                }
+            }
+            
+        }
+    
+        //------------ TRATAMIENTO IMAGENES
+
+        public byte[] GetEncodedImageData(ImageSource image, string preferredFormat)
+        {
+
+            byte[] result = null;
+            BitmapEncoder encoder = null;
+
+            switch (preferredFormat.ToLower())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    encoder = new JpegBitmapEncoder();
+                    break;
+                case ".bmp":
+                    encoder = new BmpBitmapEncoder();
+                    break;
+                case ".png":
+                    encoder = new PngBitmapEncoder();
+                    break;
+                case ".tif":
+                case ".tiff":
+                    encoder = new TiffBitmapEncoder();
+                    break;
+                case ".gif":
+                    encoder = new GifBitmapEncoder();
+                    break;
+                case ".wmp":
+                    encoder = new WmpBitmapEncoder();
+                    break;
+            }
+
+            if (image is BitmapSource)
+            {
+                MemoryStream stream = new MemoryStream();
+                encoder.Frames.Add(BitmapFrame.Create(image as BitmapSource));
+                encoder.Save(stream);
+                stream.Seek(0, SeekOrigin.Begin);
+                result = new byte[stream.Length];
+                BinaryReader br = new BinaryReader(stream);
+                br.Read(result, 0, (int)stream.Length);
+                br.Close();
+                stream.Close();
+            }
+            return result;
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 2)]
+        private struct BITMAPFILEHEADER
+        {
+            public static readonly short BM = 0x4d42; // BM
+
+            public short bfType;
+            public int bfSize;
+            public short bfReserved1;
+            public short bfReserved2;
+            public int bfOffBits;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct BITMAPINFOHEADER
+        {
+            public int biSize;
+            public int biWidth;
+            public int biHeight;
+            public short biPlanes;
+            public short biBitCount;
+            public int biCompression;
+            public int biSizeImage;
+            public int biXPelsPerMeter;
+            public int biYPelsPerMeter;
+            public int biClrUsed;
+            public int biClrImportant;
+        }
+
+        public ImageSource ImageFromClipboardDib()
+        {
+            MemoryStream ms = Clipboard.GetData("DeviceIndependentBitmap") as MemoryStream;
+            if (ms != null)
+            {
+                byte[] dibBuffer = new byte[ms.Length];
+                ms.Read(dibBuffer, 0, dibBuffer.Length);
+
+                BITMAPINFOHEADER infoHeader = BinaryStructConverter.FromByteArray<BITMAPINFOHEADER>(dibBuffer);
+
+                int fileHeaderSize = Marshal.SizeOf(typeof(BITMAPFILEHEADER));
+                int infoHeaderSize = infoHeader.biSize;
+                int fileSize = fileHeaderSize + infoHeader.biSize + infoHeader.biSizeImage;
+
+                BITMAPFILEHEADER fileHeader = new BITMAPFILEHEADER();
+                fileHeader.bfType = BITMAPFILEHEADER.BM;
+                fileHeader.bfSize = fileSize;
+                fileHeader.bfReserved1 = 0;
+                fileHeader.bfReserved2 = 0;
+                fileHeader.bfOffBits = fileHeaderSize + infoHeaderSize + infoHeader.biClrUsed * 4;
+
+                byte[] fileHeaderBytes = BinaryStructConverter.ToByteArray<BITMAPFILEHEADER>(fileHeader);
+
+                MemoryStream msBitmap = new MemoryStream();
+                msBitmap.Write(fileHeaderBytes, 0, fileHeaderSize);
+                msBitmap.Write(dibBuffer, 0, dibBuffer.Length);
+                msBitmap.Seek(0, SeekOrigin.Begin);
+
+                return BitmapFrame.Create(msBitmap);
+            }
+            return null;
+        }
+
+        public static class BinaryStructConverter
+        {
+            public static T FromByteArray<T>(byte[] bytes) where T : struct
+            {
+                IntPtr ptr = IntPtr.Zero;
+                try
+                {
+                    int size = Marshal.SizeOf(typeof(T));
+                    ptr = Marshal.AllocHGlobal(size);
+                    Marshal.Copy(bytes, 0, ptr, size);
+                    object obj = Marshal.PtrToStructure(ptr, typeof(T));
+                    return (T)obj;
+                }
+                finally
+                {
+                    if (ptr != IntPtr.Zero)
+                        Marshal.FreeHGlobal(ptr);
+                }
+            }
+
+            public static byte[] ToByteArray<T>(T obj) where T : struct
+            {
+                IntPtr ptr = IntPtr.Zero;
+                try
+                {
+                    int size = Marshal.SizeOf(typeof(T));
+                    ptr = Marshal.AllocHGlobal(size);
+                    Marshal.StructureToPtr(obj, ptr, true);
+                    byte[] bytes = new byte[size];
+                    Marshal.Copy(ptr, bytes, 0, size);
+                    return bytes;
+                }
+                finally
+                {
+                    if (ptr != IntPtr.Zero)
+                        Marshal.FreeHGlobal(ptr);
+                }
+            }
+        }
+
+        private static ImageSource CreateImage(byte[] imageData, int decodePixelWidth, int decodePixelHeight)
+        {
+
+            if (imageData == null) return null;
+            BitmapImage result = new BitmapImage();
+            result.BeginInit();
+
+            if (decodePixelWidth > 0)
+            {
+                result.DecodePixelWidth = decodePixelWidth;
+            }
+
+            if (decodePixelHeight > 0)
+            {
+                result.DecodePixelHeight = decodePixelHeight;
+            }
+
+            result.StreamSource = new MemoryStream(imageData);
+            result.CreateOptions = BitmapCreateOptions.None;
+            result.CacheOption = BitmapCacheOption.Default;
+            result.EndInit();
+            return result;
+
+        }
+
+
+        public Boolean UpdateExperimento(N_Experimento experimento)
+        {
+            if (DeleteExperimento(experimento.id))
+            {
+                return AddExperimento(experimento);
+
+            }
+            else
+            {
+                return AddExperimento(experimento);
+            }
+        }
+
+        public Boolean DeletePaciente(Int32 id)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.PacienteSet
+                           where arecord.Id == id
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        //Borra el registro
+                        Context.PacienteSet.Remove(xdf.arecord);
+                        Context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+        public List<N_Paciente> PacientesExpToList(Int32 id)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                List<N_Paciente> listaExp = new List<N_Paciente>();
+
+                //Selecciona un registro de tipoTestFood por su Id
+                var xdf = (from arecord in Context.PacienteSet
+                           where arecord.idExperimento == id
+                           select new
+                           {
+                               arecord
+                           }).ToList();
+                try
+                {
+
+                    //Verifica que existan los registros
+                    if (xdf != null)
+                    {
+                        foreach (var registro in xdf)
+                        {
+                            //crear instancia de objeto N_TipoTestFood
+                            N_Paciente tf = new N_Paciente();
+                            tf.id = registro.arecord.Id;
+                            tf.identificacion = registro.arecord.DNI;
+                            tf.idHistoriaClinica = registro.arecord.idHistoriaClinica;
+                            //tf.idPacienteExp = registro.arecord.idPacienteExp;
+                            tf.nombre = registro.arecord.Nombre;
+                            tf.sexo = registro.arecord.Sexo;
+                            tf.ubicacion = registro.arecord.Ubicacion;
+
+                            //añadir tf a la lista
+                            listaExp.Add(tf);
+                        }
+                        return listaExp;
+                    }
+                    else
+                    {
+                        return listaExp;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return listaExp;
+                }
+            }
+        }
     }    
 }
