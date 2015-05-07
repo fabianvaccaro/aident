@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
@@ -66,9 +67,11 @@
     <Compile Include="AltaTestFood.xaml.cs">
       <DependentUpon>AltaTestFood.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CroppingAdorner.cs" />
     <Compile Include="Muestras.xaml.cs">
       <DependentUpon>Muestras.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PuncturedRect.cs" />
     <Compile Include="recogidaDatosPaciente.xaml.cs">
       <DependentUpon>recogidaDatosPaciente.xaml</DependentUpon>
     </Compile>
@@ -203,6 +206,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MtnChurch.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,8 +11,6 @@ namespace LibreriaObjetos
     [Serializable]
     public class N_Experimento
     {
-
-
         // Declaración de las variables
         [DataMember]
         public Int32 id { set; get; } //pk
@@ -26,6 +24,7 @@ namespace LibreriaObjetos
         public Int32 numeroPacientes { set; get; } //fk_N_Mpat
         [DataMember]
         public Boolean procesado { set; get; } //Estado del experimento
+
         // Constructor de la clase
         public N_Experimento (){
             this.id = 0;

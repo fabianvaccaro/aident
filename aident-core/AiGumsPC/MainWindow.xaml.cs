@@ -115,7 +115,13 @@ namespace AiGumsPC
                 this.txtListaCiclosEvaluacion.Items.Clear();
                 this.txtListaProcemientos.Items.Clear();
                 this.txtNombre.Text = String.Empty;
+
+                //txtListaCiclosEvaluacion.ItemsSource = new List<N_CiclosEvaluacion>();
+                //txtListaProcemientos.ItemsSource = new List<N_ProcedimientoClinico>();
                 updateComboBox();
+                cargarDatosExperimento();
+                cargarDatosDiagnostico();
+                cargarDatosMPAT();
             }
             catch { }
 
@@ -386,7 +392,7 @@ namespace AiGumsPC
             //Ordenar lista
             if(txtListaProcemientos.SelectedIndex>-1)
             {
-                var listaResultante = listaProcedimientosClinicos.OrderBy(x => x.orden).ToList();
+                var listaResultante = listaProcedimientosClinicos.OrderBy(x => x.descripcion).ToList();
                 listaProcedimientosClinicos = listaResultante;
                 txtListaProcemientos.SelectedIndex = -1;
             }
@@ -442,5 +448,17 @@ namespace AiGumsPC
                 }
             }
         }
+
+        private void BajaMpat(object sender, RoutedEventArgs e)
+        {
+            Metodos metodo = new Metodos();
+            if (metodo.DeleteMpat(Int32.Parse(this.txtMPAT.SelectedValue.ToString())))
+            {
+                estado.DataContext = txtMPAT.ToString() + " eliminada";
+            }
+            resetview();
+        }
+
+
     }
 }

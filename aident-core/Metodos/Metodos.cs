@@ -239,7 +239,9 @@ namespace MainCore
 
                 //Selecciona un registro de tipoTestFood por su Id
                 var xdf = (from arecord in Context.ExperimentoSet
+                           where arecord.Procesado == false
                            select new
+                           
                            {
                                arecord
                            }).ToList();
@@ -1023,8 +1025,7 @@ namespace MainCore
             return result;
 
         }
-
-
+        
         public Boolean UpdateExperimento(N_Experimento experimento)
         {
             if (DeleteExperimento(experimento.id))
@@ -1120,5 +1121,41 @@ namespace MainCore
                 }
             }
         }
+
+        public Boolean DeleteMpat(Int32 id)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                //Selecciona un registro de paciente por su Id
+                var xdf = (from arecord in Context.MpatSet
+                           where arecord.Id == id
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        //Borra el registro
+                        Context.MpatSet.Remove(xdf.arecord);
+                        Context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
+
+       
     }    
 }
