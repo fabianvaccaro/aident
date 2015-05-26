@@ -39,6 +39,54 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accord">
+      <HintPath>..\packages\Accord.2.14.0\lib\net40\Accord.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Extensions.Core">
+      <HintPath>..\packages\Accord.Extensions.Core.2.0.2\lib\net45\Accord.Extensions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Extensions.Imaging.AForgeInterop">
+      <HintPath>..\packages\Accord.Extensions.Imaging.AForgeInterop.2.0.2\lib\net45\Accord.Extensions.Imaging.AForgeInterop.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Extensions.Imaging.Algorithms">
+      <HintPath>..\packages\Accord.Extensions.Imaging.Algorithms.2.0.2\lib\net45\Accord.Extensions.Imaging.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Extensions.Imaging.BitmapInterop">
+      <HintPath>..\packages\Accord.Extensions.Imaging.BitmapInterop.2.0.2\lib\net45\Accord.Extensions.Imaging.BitmapInterop.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Extensions.Imaging.GenericImage">
+      <HintPath>..\packages\Accord.Extensions.Imaging.GenericImage.2.0.2\lib\net45\Accord.Extensions.Imaging.GenericImage.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Extensions.Math">
+      <HintPath>..\packages\Accord.Extensions.Math.2.0.2\lib\net45\Accord.Extensions.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Extensions.Vision">
+      <HintPath>..\packages\Accord.Extensions.Vision.2.0.2\lib\net45\Accord.Extensions.Vision.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Imaging">
+      <HintPath>..\packages\Accord.Imaging.2.14.0\lib\net40\Accord.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.MachineLearning">
+      <HintPath>..\packages\Accord.MachineLearning.2.14.0\lib\net40\Accord.MachineLearning.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Math">
+      <HintPath>..\packages\Accord.Math.2.14.0\lib\net40\Accord.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Statistics">
+      <HintPath>..\packages\Accord.Statistics.2.14.0\lib\net40\Accord.Statistics.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging">
+      <HintPath>..\packages\AForge.Imaging.2.2.5\lib\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math">
+      <HintPath>..\packages\AForge.Math.2.2.5\lib\AForge.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="ColorMine">
+      <HintPath>..\packages\ColorMine.1.1.3.0\lib\ColorMine.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>

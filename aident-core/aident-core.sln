@@ -24,6 +24,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebServ", "WebServ", "{269F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PercetodentService", "PercetodentService\PercetodentService.csproj", "{E3F19EE3-1F67-43B3-A882-67157CAEC648}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProcImagen", "ProcImagen", "{AAD6B0FE-B1A7-40A0-85C2-DA11AB56B93D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcImagen", "ProcImagen\ProcImagen.csproj", "{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +50,10 @@ Global
 		{E3F19EE3-1F67-43B3-A882-67157CAEC648}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3F19EE3-1F67-43B3-A882-67157CAEC648}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3F19EE3-1F67-43B3-A882-67157CAEC648}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,5 +64,6 @@ Global
 		{A1BB441A-927E-423E-BE61-D82672EC8D4D} = {6E255622-FCAA-4841-A7EA-0A9B4B512E9E}
 		{BCD6A64F-C21B-4500-9AA2-8191423E261A} = {A1BB441A-927E-423E-BE61-D82672EC8D4D}
 		{E3F19EE3-1F67-43B3-A882-67157CAEC648} = {269F7694-878E-4366-A172-BA5F8F573676}
+		{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4} = {AAD6B0FE-B1A7-40A0-85C2-DA11AB56B93D}
 	EndGlobalSection
 EndGlobal

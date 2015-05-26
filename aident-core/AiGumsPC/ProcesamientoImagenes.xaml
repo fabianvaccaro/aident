@@ -1,0 +1,13 @@
+﻿<Window x:Class="AiGumsPC.ProcesamientoImagenes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ProcesamientoImagenes" Height="480" Width="600">
+    <Grid>
+        <Image x:Name="vistaImagenProcesar" HorizontalAlignment="Left" Height="215" Margin="46,70,0,0" VerticalAlignment="Top" Width="386"/>
+        <Button x:Name="btCargarImagenMuestra" Content="Cargar Imagen Muestra" HorizontalAlignment="Left" Margin="46,28,0,0" VerticalAlignment="Top" Width="159"/>
+        <Label x:Name="lb_RutaImagenMuestra" Content="Ruta:" HorizontalAlignment="Left" Margin="252,28,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="bt_Segmentar" Content="Segmentar" HorizontalAlignment="Left" Margin="46,302,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="bt_GuardarResultado" Content="Guardar Resultado" HorizontalAlignment="Left" Margin="183,302,0,0" VerticalAlignment="Top" Width="117"/>
+
+    </Grid>
+</Window>

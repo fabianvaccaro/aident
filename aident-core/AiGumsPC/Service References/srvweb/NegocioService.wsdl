@@ -68,6 +68,12 @@
   <wsdl:message name="INegocioService_ExperimentoToList_OutputMessage">
     <wsdl:part name="parameters" element="tns:ExperimentoToListResponse" />
   </wsdl:message>
+  <wsdl:message name="INegocioService_ExperimentoToListNoProcesados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExperimentoToListNoProcesados" />
+  </wsdl:message>
+  <wsdl:message name="INegocioService_ExperimentoToListNoProcesados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExperimentoToListNoProcesadosResponse" />
+  </wsdl:message>
   <wsdl:message name="INegocioService_ProcedimientoToList_InputMessage">
     <wsdl:part name="parameters" element="tns:ProcedimientoToList" />
   </wsdl:message>
@@ -132,6 +138,10 @@
     <wsdl:operation name="ExperimentoToList">
       <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/ExperimentoToList" message="tns:INegocioService_ExperimentoToList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/ExperimentoToListResponse" message="tns:INegocioService_ExperimentoToList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExperimentoToListNoProcesados">
+      <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/ExperimentoToListNoProcesados" message="tns:INegocioService_ExperimentoToListNoProcesados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INegocioService/ExperimentoToListNoProcesadosResponse" message="tns:INegocioService_ExperimentoToListNoProcesados_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ProcedimientoToList">
       <wsdl:input wsaw:Action="http://tempuri.org/INegocioService/ProcedimientoToList" message="tns:INegocioService_ProcedimientoToList_InputMessage" />
@@ -235,6 +245,15 @@
     </wsdl:operation>
     <wsdl:operation name="ExperimentoToList">
       <soap:operation soapAction="http://tempuri.org/INegocioService/ExperimentoToList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExperimentoToListNoProcesados">
+      <soap:operation soapAction="http://tempuri.org/INegocioService/ExperimentoToListNoProcesados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

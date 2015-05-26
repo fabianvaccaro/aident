@@ -27,12 +27,13 @@ namespace AiGumsPC
         private Int32 MpatId;
         private Int32 paciente;
         private List<N_CiclosEvaluacion> lista;
-        private Int32 lado;
-        private String path = "\\muestras\\";
-        //Variables para el control de imagenes
+        private String path = String.Empty;
+        private Int32 final;
+        //Variables para el control de imagen
         CroppingAdorner _clp;
         FrameworkElement _felCur = null;
         Brush _brOriginal;
+        String lado = "A";
 
         public recogidaDatosPaciente(Int32 idExperimento, Int32 idMpat, Int32 idPaciente, List<N_CiclosEvaluacion> listaCiclos)
         {
@@ -42,7 +43,8 @@ namespace AiGumsPC
             MpatId = idMpat;
             lista = listaCiclos;
             Inicial(0);
-            lado = 0;
+            final = listaCiclos.Count();
+            path = ".\\muestras_exp_" + this.ExperimentoId.ToString() + "\\"; // Ruta de Almacenamiento del grupo de imagenes
         }
 
         private void Inicial(Int32 numOrden)
@@ -50,22 +52,19 @@ namespace AiGumsPC
             Metodos metodo = new Metodos();
             //Int32 ciclos = 0;
             //this.txtLado1.IsEnabled = false;
-            if (lado == 0)
-            {
-                this.txtLado1.Text = "A";
-            }
-            else
-            {
-                this.txtLado1.Text = "B";
-            }
-            
-            this.lbl_orden.Content = numOrden.ToString();
-            this.txtCiclosMasticatorios1.IsEnabled = false;
 
-            this.txtNumeroMuestra1.IsEnabled = false;
+            this.txtLado1.Text = lado;
+            this.lbl_orden.Content = numOrden.ToString();
             this.txtCiclosMasticatorios1.Text = lista[numOrden].numeroCiclos.ToString();
-            this.txtNumeroMuestra1.Text = this.ExperimentoId.ToString() + "_" + this.paciente.ToString() + "_" + txtLado1.Text + "_" + lista[numOrden].numeroCiclos.ToString();
-            this.lbRutaImagen.Content = String.Empty;
+            this.txtNumeroMuestra1.Text = this.ExperimentoId.ToString() + "_" + this.paciente.ToString() + "_" + txtLado1.Text + "-" + lista[numOrden].numeroCiclos.ToString();
+
+
+            this.txtLado1.IsEnabled = false;
+            this.txtCiclosMasticatorios1.IsEnabled = false;
+            this.txtNumeroMuestra1.IsEnabled = false;
+
+            this.lbRutaImagen.Content = path + this.txtNumeroMuestra1.Text + ".jpg";
+            lbRutaImagen.Visibility = Visibility.Hidden;
 
         }
 
@@ -73,8 +72,9 @@ namespace AiGumsPC
         {
             Metodos metodo = new Metodos();
             Int32 ciclos = Int32.Parse(txtCiclosMasticatorios1.Text);
+            String rutaImagenMuestra = path + this.txtNumeroMuestra1.Text + ".jpg";
             //grabacion de datos
-                    
+
             try
             {
                 //si no existe la carpeta temporal la creamos 
@@ -85,40 +85,42 @@ namespace AiGumsPC
 
                 if (Directory.Exists(path))
                 {
-                    FileStream fs = new FileStream(this.txtNumeroMuestra1.Text + ".jpg", FileMode.Create, FileAccess.Write);
-
-                    BinaryWriter bw = new BinaryWriter(fs);
-
-                    byte[] imageBytes = metodo.GetEncodedImageData(this.img_vistaPrevia.Source, ".jpg");
-                    bw.Write(imageBytes);
-                    bw.Close();
-
+                    FileStream fs = new FileStream(rutaImagenMuestra, FileMode.Create, FileAccess.Write);
+                    if (fs != null)
+                    {
+                        BinaryWriter bw = new BinaryWriter(fs);
+                        //guardamos la imagen temporal a Fichero
+                        byte[] imageBytes = metodo.GetEncodedImageData(this.img_vistaPrevia.Source, ".jpg");
+                        bw.Write(imageBytes);
+                        bw.Close();
+                    }
                     fs.Close();
-                    // Cambio de lado, posiblemente habrá que cambiar el orden del lado!!
-                    //
-                    //
-                    //
-                    
-                        if (lado == 0){
-                            lado = 1;
+
+                    try
+                    {
+                        if (lista[Int32.Parse(this.lbl_orden.Content.ToString()) + 1] != null)
+                        {
+                            Inicial(Int32.Parse(this.lbl_orden.Content.ToString()) + 1);
+                        }
+                    }
+                    catch (Exception exp)
+                    {
+                        if (this.lado.CompareTo("B") == 0)
+                        {
+                            Console.WriteLine("Error: " + exp.ToString());
+
+                            this.Close();
+                        }
+                        else
+                        {
+                            this.lbl_orden.Content = "0";
+                            this.lado = "B";
                             Inicial(Int32.Parse(this.lbl_orden.Content.ToString()));
                         }
-                        else {
-                            try
-                            {
-                                if (lista[Int32.Parse(this.lbl_orden.Content.ToString()) + 1] != null)
-                                {
-                                    lado = 0;
-                                    Inicial(Int32.Parse(this.lbl_orden.Content.ToString()) + 1);
-                                }
-                            }
-                            catch (Exception exp)
-                            {
-                                Console.WriteLine("Error: " + exp.ToString());
-                                this.Close();
-                            }
-                        }
-                    
+
+
+                    }
+
                 }
             }
             catch (Exception errorC)
@@ -133,9 +135,9 @@ namespace AiGumsPC
 
         private void Cerrar(object sender, RoutedEventArgs e)
         {
-               
-            this.Close();
 
+            this.Close();
+            this.Owner.Show();
         }
 
         private void CapturaImagen(object sender, RoutedEventArgs e)
@@ -143,40 +145,32 @@ namespace AiGumsPC
             Metodos metodos = new Metodos();
             String nombre = this.txtNumeroMuestra1.Text;
 
-            
-            //if (Clipboard.ContainsImage())
-            //{
-                ImageSource imageSource;
-                imageSource = this.img_vistaPrevia.Source;
-                try
+            ImageSource imageSource;
+            imageSource = this.img_vistaPrevia.Source;
+            try
+            {
+                this.img_vistaPrevia.Source = imageSource;
+                if (nombre.CompareTo(string.Empty) == 0)
                 {
-                    this.img_vistaPrevia.Source = imageSource;
-                    if (nombre.CompareTo(string.Empty) == 0)
-                    {
-                        MessageBox.Show("Para obtener la imagen, debe completar el campo identificación");
-                    }
-                    else
-                    {
-                        String ruta = path + this.txtNumeroMuestra1.Text + ".jpg";
-                                        
-                    }
-                    this.lbRutaImagen.Content = path + nombre + ".jpg";
+                    MessageBox.Show("Para obtener la imagen, debe completar el campo identificación");
                 }
-                catch (Exception exp)
+                else
                 {
-                    Console.WriteLine(exp);
-                }
-                
+                    String ruta = path + this.txtNumeroMuestra1.Text + ".jpg";
 
-                
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Portapapales vacio");
-            //}
+
+
+                }
+                this.lbRutaImagen.Content = path + nombre + ".jpg";
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine(exp);
+            }
+
         }
 
-        #region
+        #region Crop Imagen
         private void RemoveCropFromCur()
         {
             //AdornerLayer aly = AdornerLayer.GetAdornerLayer(_felCur);
@@ -299,35 +293,33 @@ namespace AiGumsPC
 
             if (Clipboard.ContainsImage())
             {
-            ImageSource imageSource;
-            imageSource = this.imgChurch.Source;
-            try
-            {
-                this.img_vistaPrevia.Source = imageSource;
-                if (nombre.CompareTo(string.Empty) == 0)
+                ImageSource imageSource;
+                imageSource = this.imgChurch.Source;
+                try
                 {
-                    MessageBox.Show("Para obtener la imagen, debe completar el campo identificación");
+                    this.img_vistaPrevia.Source = imageSource;
+                    if (nombre.CompareTo(string.Empty) == 0)
+                    {
+                        MessageBox.Show("Para obtener la imagen, debe completar el campo identificación");
+                    }
+                    else
+                    {
+                        String ruta = path + this.txtNumeroMuestra1.Text + ".jpg";
+
+                    }
+                    this.lbRutaImagen.Content = path + nombre + ".jpg";
                 }
-                else
+                catch (Exception exp)
                 {
-                    String ruta = path + this.txtNumeroMuestra1.Text + ".jpg";
-
+                    Console.WriteLine(exp);
                 }
-                this.lbRutaImagen.Content = path + nombre + ".jpg";
-            }
-            catch (Exception exp)
-            {
-                Console.WriteLine(exp);
-            }
-
-
-
             }
             else
             {
                 MessageBox.Show("Portapapales vacio");
             }
         }
+
 
     }
 }

@@ -52,7 +52,6 @@ namespace AiGumsPC
         }
         private void obtenerMuestras(object sender, RoutedEventArgs e)
         {
-            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
             
             //Creamos nuevoPaciente
             N_Paciente paciente = new N_Paciente();
@@ -83,7 +82,6 @@ namespace AiGumsPC
             paciente.ubicacion = txtUbicacion.Text;
             Int32 idHistoriaClinica = 0;
 
-
             // Añado la historiaClinica del paciente a la BD
             if (metodos.AddHistoriaClinica(nuevaHistoria, out idHistoriaClinica))
             {
@@ -107,16 +105,13 @@ namespace AiGumsPC
                     {
                         estado.Content = "El experimento no tiene recogida de datos";
                     }
-                        
                 }
                 else
                 {
                     estado.Content = "Error: Paciente no insertado";
                     return;
                 }
-            }
-            
-
+            }    
         }
 
         private void Siguiente(object sender, RoutedEventArgs e)

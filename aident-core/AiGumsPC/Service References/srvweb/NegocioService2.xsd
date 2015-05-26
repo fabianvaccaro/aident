@@ -131,6 +131,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ExperimentoToListNoProcesados">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExperimentoToListNoProcesadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ExperimentoToListNoProcesadosResult" nillable="true" type="q9:ArrayOfN_Experimento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ProcedimientoToList">
     <xs:complexType>
       <xs:sequence>
@@ -141,7 +153,7 @@
   <xs:element name="ProcedimientoToListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ProcedimientoToListResult" nillable="true" type="q9:ArrayOfN_ProcedimientoClinico" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ProcedimientoToListResult" nillable="true" type="q10:ArrayOfN_ProcedimientoClinico" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -155,14 +167,14 @@
   <xs:element name="CiclosEvaluacionToListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="CiclosEvaluacionToListResult" nillable="true" type="q10:ArrayOfN_CiclosEvaluacion" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="CiclosEvaluacionToListResult" nillable="true" type="q11:ArrayOfN_CiclosEvaluacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddProcedimiento">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="pro" nillable="true" type="q11:N_ProcedimientoClinico" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="pro" nillable="true" type="q12:N_ProcedimientoClinico" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -176,7 +188,7 @@
   <xs:element name="AddCiclosEvaluacion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ciclos" nillable="true" type="q12:N_CiclosEvaluacion" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/LibreriaObjetos" minOccurs="0" name="ciclos" nillable="true" type="q13:N_CiclosEvaluacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

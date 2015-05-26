@@ -44,6 +44,9 @@ namespace PercetodentService
         List<N_Experimento> ExperimentoToList();
 
         [OperationContract]
+        List<N_Experimento> ExperimentoToListNoProcesados();
+
+        [OperationContract]
         List<N_ProcedimientoClinico> ProcedimientoToList(Int32 idMpat);
 
         [OperationContract]

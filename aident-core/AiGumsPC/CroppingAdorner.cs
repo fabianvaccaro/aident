@@ -92,7 +92,7 @@ namespace AiGumsPC
 		#region Constructor
 		static CroppingAdorner()
 		{
-			Color clr = Colors.Red;
+			Color clr = Colors.Indigo;
 			System.Drawing.Graphics g = System.Drawing.Graphics.FromHwnd((IntPtr)0);
 
 			s_dpiX = g.DpiX;

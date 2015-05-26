@@ -239,9 +239,60 @@ namespace MainCore
 
                 //Selecciona un registro de tipoTestFood por su Id
                 var xdf = (from arecord in Context.ExperimentoSet
-                           where arecord.Procesado == false
                            select new
                            
+                           {
+                               arecord
+                           }).ToList();
+                try
+                {
+
+                    //Verifica que existan los registros
+                    if (xdf != null)
+                    {
+                        foreach (var registro in xdf)
+                        {
+                            //crear instancia de objeto N_TipoTestFood
+                            N_Experimento tf = new N_Experimento();
+                            tf.id = registro.arecord.Id;
+                            tf.idMpat = registro.arecord.idMpat;
+                            tf.numeroPacientes = registro.arecord.NumeroPacientes;
+                            tf.codigoExperimento = registro.arecord.Codigo;
+                            tf.idPaciente = 0;
+                            tf.procesado = registro.arecord.Procesado;
+
+                            //añadir tf a la lista
+                            listaExp.Add(tf);
+                        }
+                        return listaExp;
+                    }
+                    else
+                    {
+                        return listaExp;
+                    }
+
+
+
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return listaExp;
+                }
+            }
+        }
+
+        public List<N_Experimento> ExperimentoToListNoProcesados()
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                List<N_Experimento> listaExp = new List<N_Experimento>();
+
+                //Selecciona un registro de tipoTestFood por su Id
+                var xdf = (from arecord in Context.ExperimentoSet
+                           where arecord.Procesado == false && arecord.Procesado == false
+                           select new
+
                            {
                                arecord
                            }).ToList();
@@ -1028,14 +1079,43 @@ namespace MainCore
         
         public Boolean UpdateExperimento(N_Experimento experimento)
         {
-            if (DeleteExperimento(experimento.id))
+            using (Model1Container1 Context = new Model1Container1())
             {
-                return AddExperimento(experimento);
+                var xdf = (from arecord in Context.ExperimentoSet
+                           where arecord.Id == experimento.id
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        xdf.arecord.Procesado = experimento.procesado;
 
-            }
-            else
-            {
-                return AddExperimento(experimento);
+                        //Guardar el objeto Dbtf en el Context
+                        try
+                        {
+                            Context.SaveChanges();
+                            return true;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.Write("Error " + e);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
             }
         }
 
@@ -1155,7 +1235,6 @@ namespace MainCore
                 }
             }
         }
-
        
     }    
 }

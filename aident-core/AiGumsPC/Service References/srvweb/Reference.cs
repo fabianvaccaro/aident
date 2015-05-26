@@ -76,6 +76,12 @@ namespace AiGumsPC.srvweb {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ExperimentoToList", ReplyAction="http://tempuri.org/INegocioService/ExperimentoToListResponse")]
         System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> ExperimentoToListAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ExperimentoToListNoProcesados", ReplyAction="http://tempuri.org/INegocioService/ExperimentoToListNoProcesadosResponse")]
+        LibreriaObjetos.N_Experimento[] ExperimentoToListNoProcesados();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ExperimentoToListNoProcesados", ReplyAction="http://tempuri.org/INegocioService/ExperimentoToListNoProcesadosResponse")]
+        System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> ExperimentoToListNoProcesadosAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INegocioService/ProcedimientoToList", ReplyAction="http://tempuri.org/INegocioService/ProcedimientoToListResponse")]
         LibreriaObjetos.N_ProcedimientoClinico[] ProcedimientoToList(int idMpat);
         
@@ -251,6 +257,14 @@ namespace AiGumsPC.srvweb {
         
         public System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> ExperimentoToListAsync() {
             return base.Channel.ExperimentoToListAsync();
+        }
+        
+        public LibreriaObjetos.N_Experimento[] ExperimentoToListNoProcesados() {
+            return base.Channel.ExperimentoToListNoProcesados();
+        }
+        
+        public System.Threading.Tasks.Task<LibreriaObjetos.N_Experimento[]> ExperimentoToListNoProcesadosAsync() {
+            return base.Channel.ExperimentoToListNoProcesadosAsync();
         }
         
         public LibreriaObjetos.N_ProcedimientoClinico[] ProcedimientoToList(int idMpat) {

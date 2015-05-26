@@ -72,6 +72,12 @@ namespace PercetodentService
             return metodo.ExperimentoToList();
         }
 
+        public List<N_Experimento> ExperimentoToListNoProcesados()
+        {
+            Metodos metodo = new Metodos();
+            return metodo.ExperimentoToList();
+        }
+
         public List<N_CiclosEvaluacion> CiclosEvaluacionToList(Int32 idMpat)
         {
             Metodos metodo = new Metodos();
