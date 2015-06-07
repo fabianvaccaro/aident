@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows;
 using System.Runtime.InteropServices;
 using System.IO;
+using ImProcessing;
 
 
 namespace MainCore
@@ -133,7 +134,7 @@ namespace MainCore
         
         //--------------- PROCEDIMIENTOS A LISTAS
         /// <summary>
-        /// Genera una lista de TestFood.
+        /// Genera una lista con todos los TestFood de la BD.
         /// </summary>
         /// <returns> Devuelve una lista de TestFood.</returns>
         public List<N_TestFood> TestFoodToList()
@@ -185,6 +186,10 @@ namespace MainCore
             }
         }
 
+        /// <summary>
+        /// Devuelve la lista de TipoTestFood de la BD
+        /// </summary>
+        /// <returns></returns>
         public List<N_TipoTestFood> TipoTestFoodToList()
         {
             using (Model1Container1 Context = new Model1Container1())
@@ -232,6 +237,10 @@ namespace MainCore
             }
         }
 
+        /// <summary>
+        /// Devuelve una lista con todos los experimentos de la BD
+        /// </summary>
+        /// <returns></returns>
         public List<N_Experimento> ExperimentoToList(){
             using (Model1Container1 Context = new Model1Container1())
             {
@@ -739,8 +748,7 @@ namespace MainCore
                 }
             }
         }
-
-
+        
         public Boolean DeleteExperimento(Int32 id)
         {
             using (Model1Container1 Context = new Model1Container1())
@@ -1235,6 +1243,40 @@ namespace MainCore
                 }
             }
         }
-       
+
+        public Boolean enviarVectoresServidor(List<EstrucutraImagen> listaImagenesProcesadas)
+        {
+            Boolean resultado = true;
+            foreach (var elem in listaImagenesProcesadas)
+            {
+                resultado = resultado && enviarVectorServidor(elem);
+            }
+            return resultado;
+        }
+
+        private bool enviarVectorServidor(EstrucutraImagen elementoEstructuraImagen)
+        {
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                Muestra Db = new Muestra();
+                Int32 idMuestra = 0;
+                Db.Ciclos = elementoEstructuraImagen.numCiclos.ToString();
+                //Db.VectorCaracteristicas = elementoEstructuraImagen.Labels;
+
+                //Guardar el objeto Dbtf en el Context
+                try
+                {
+                    Context.MuestraSet.Add(Db);
+                    Context.SaveChanges();
+                    idMuestra = Db.Id; // devuelvo la id de la muestra para grabar despues las caracteristica con la muestra correcta
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    return false;
+                }
+            }
+        }
     }    
 }

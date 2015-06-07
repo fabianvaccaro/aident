@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProcImagen", "ProcImagen", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcImagen", "ProcImagen\ProcImagen.csproj", "{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImProcessing", "ImProcessing\ImProcessing.csproj", "{BADF2733-74D8-493C-B017-9B5F62021AF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BADF2733-74D8-493C-B017-9B5F62021AF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BADF2733-74D8-493C-B017-9B5F62021AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BADF2733-74D8-493C-B017-9B5F62021AF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BADF2733-74D8-493C-B017-9B5F62021AF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +71,6 @@ Global
 		{BCD6A64F-C21B-4500-9AA2-8191423E261A} = {A1BB441A-927E-423E-BE61-D82672EC8D4D}
 		{E3F19EE3-1F67-43B3-A882-67157CAEC648} = {269F7694-878E-4366-A172-BA5F8F573676}
 		{8A505D2F-8EB6-43CD-AB3B-E5EAE1BEC7F4} = {AAD6B0FE-B1A7-40A0-85C2-DA11AB56B93D}
+		{BADF2733-74D8-493C-B017-9B5F62021AF0} = {AAD6B0FE-B1A7-40A0-85C2-DA11AB56B93D}
 	EndGlobalSection
 EndGlobal

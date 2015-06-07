@@ -54,9 +54,10 @@ namespace AiGumsPC
         }
         private void updateComboBox()
         {
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
 
             List<N_TipoTestFood> lista = new List<N_TipoTestFood>();
-            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
 
             lista = mets.TipoTestFoodToList().ToList();
             cbTipo.ItemsSource = lista;
@@ -67,7 +68,9 @@ namespace AiGumsPC
 
         private void grabarTestFood(object sender, RoutedEventArgs e)
         {
-            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
+
             N_TestFood tf = new N_TestFood();
 
             tf.nombre = tbNombre.Text;

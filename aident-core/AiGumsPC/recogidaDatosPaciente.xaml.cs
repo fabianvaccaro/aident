@@ -49,7 +49,9 @@ namespace AiGumsPC
 
         private void Inicial(Int32 numOrden)
         {
-            Metodos metodo = new Metodos();
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
+
             //Int32 ciclos = 0;
             //this.txtLado1.IsEnabled = false;
 
@@ -70,7 +72,9 @@ namespace AiGumsPC
 
         private void Siguiente(object sender, RoutedEventArgs e)
         {
-            Metodos metodo = new Metodos();
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
+
             Int32 ciclos = Int32.Parse(txtCiclosMasticatorios1.Text);
             String rutaImagenMuestra = path + this.txtNumeroMuestra1.Text + ".jpg";
             //grabacion de datos
@@ -90,7 +94,7 @@ namespace AiGumsPC
                     {
                         BinaryWriter bw = new BinaryWriter(fs);
                         //guardamos la imagen temporal a Fichero
-                        byte[] imageBytes = metodo.GetEncodedImageData(this.img_vistaPrevia.Source, ".jpg");
+                        byte[] imageBytes = mets.GetEncodedImageData(this.img_vistaPrevia.Source, ".jpg");
                         bw.Write(imageBytes);
                         bw.Close();
                     }
@@ -142,7 +146,9 @@ namespace AiGumsPC
 
         private void CapturaImagen(object sender, RoutedEventArgs e)
         {
-            Metodos metodos = new Metodos();
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
+
             String nombre = this.txtNumeroMuestra1.Text;
 
             ImageSource imageSource;
@@ -287,7 +293,9 @@ namespace AiGumsPC
 
         private void bt_Escanear_Click(object sender, RoutedEventArgs e)
         {
-            Metodos metodos = new Metodos();
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
+
             String nombre = this.txtNumeroMuestra1.Text;
 
 

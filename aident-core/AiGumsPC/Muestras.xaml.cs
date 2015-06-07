@@ -21,21 +21,26 @@ namespace AiGumsPC
     /// </summary>
     public partial class Muestras : Window
     {
-        Metodos metodo = new Metodos();
         //private Int32 estado = 0;
         Int32 PacienteActual = 1;
+
         //buscamos el experimento que estamos procesando
         N_Experimento experimento = new N_Experimento();
+
         //buscamos la mpat que estamos procesando
         N_Mpat mpat = new N_Mpat();
+
+        //Lista de Pacientes a procesar
         List<N_Paciente> listaPacientes = new List<N_Paciente>();
 
         public Muestras(Int32 idExperimento)
         {
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
             InitializeComponent();
-            if (metodo.BuscaExperimento(idExperimento, experimento))
+            if (mets.BuscaExperimento(idExperimento, experimento))
             {
-                if (metodo.BuscaMpat(experimento.idMpat, mpat))
+                if (mets.BuscaMpat(experimento.idMpat, mpat))
                 {
                     estado.Content = "Todo ok";
                 }
@@ -52,11 +57,13 @@ namespace AiGumsPC
         }
         private void obtenerMuestras(object sender, RoutedEventArgs e)
         {
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
             
             //Creamos nuevoPaciente
             N_Paciente paciente = new N_Paciente();
             N_HistoriaClinica nuevaHistoria = new N_HistoriaClinica();
-            Metodos metodos = new Metodos(); 
+            
 
             // Actualizamos el estado
             estado.DataContext = "Introduce datos. ";
@@ -83,15 +90,15 @@ namespace AiGumsPC
             Int32 idHistoriaClinica = 0;
 
             // Añado la historiaClinica del paciente a la BD
-            if (metodos.AddHistoriaClinica(nuevaHistoria, out idHistoriaClinica))
+            if (mets.AddHistoriaClinica(nuevaHistoria, out idHistoriaClinica))
             {
                 Int32 idPac = 0;
                 paciente.idHistoriaClinica = idHistoriaClinica;
                 //Añado el paciente a la BD
-                if (metodos.AddPaciente(paciente, out idPac))
+                if (mets.AddPaciente(paciente, out idPac))
                 {
                     // Comienzo a buscar el primer numero de Ciclos para comenzar la recogida de datos
-                    var listaCi = metodos.CiclosEvaluacionToList(mpat.id);
+                    var listaCi = mets.CiclosEvaluacionToList(mpat.id);
                     if(listaCi != null)
                     {
                         // Llamo a la ventana que recogerá los datos del primer nCiclos
@@ -116,6 +123,8 @@ namespace AiGumsPC
 
         private void Siguiente(object sender, RoutedEventArgs e)
         {
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
 
             if (PacienteActual < experimento.numeroPacientes)
             {
@@ -132,7 +141,7 @@ namespace AiGumsPC
                 MessageBox.Show("Recogida de Datos Finalizada");
 
                 experimento.procesado = true;
-                if (metodo.UpdateExperimento(experimento))
+                if (mets.UpdateExperimento(experimento))
                 {
                     this.Close();
                     this.Owner.Show();

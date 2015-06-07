@@ -18,9 +18,9 @@ namespace LibreriaObjetos
         [DataMember]
         public Int32 ancho { set; get; }
         [DataMember]
-        public Image imagenOriginal { set; get; }
+        public Bitmap imagenOriginal { set; get; }
         [DataMember]
-        public Image imagenSegmentada { set; get; }
+        public Bitmap imagenSegmentada { set; get; }
         [DataMember]
         public Int32[,] etiquetas { set; get; }
         [DataMember]

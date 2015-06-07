@@ -76,13 +76,13 @@ namespace ProcImagen
             // sacar capa U matriz MxN
             // pasar la capa U a matriz Alterno
             // Del Alterno sacar una matriz de posiciones mayor o menor a un dato
-            Double[,] resultado = new Double[img1h, img1w];
+            Double[,] resultado = new Double[img1w, img1h];
             for (Int32 x = 0; x < img1w; x++)
                 {
                     for (Int32 y = 0; y < img1h; y++)
                     {
 
-                        resultado[y, x] = capaU[y, x];// Capa U está en la posición 1;
+                        resultado[x, y] = capaU[x, y];// Capa U está en la posición 1;
                     }
             }
 
@@ -103,14 +103,14 @@ namespace ProcImagen
             {
                 for (y = 0; y < Alterno.GetLength(1); y++)
                 {
-                    if ((Alterno[y, x] > umbral && tipoUmbral == 0) || (Alterno[y, x] < umbral && tipoUmbral == 1))
+                    if ((Alterno[x, y] > umbral && tipoUmbral == 0) || (Alterno[x, y] < umbral && tipoUmbral == 1))
                     {
-                        resultado[y, x] = 1;
+                        resultado[x, y] = 1;
 
                     }
                     else
                     {
-                        resultado[y, x] = 0;
+                        resultado[x, y] = 0;
                     }
 
                 }
@@ -173,7 +173,7 @@ namespace ProcImagen
             Int32 x = xR.GetLength(0);
             Int32 y = xR.GetLength(1);
             List<Double> resultado = new List<Double>();
-            Int32 punteroResultado = 0;
+            //Int32 punteroResultado = 0;
             // Loop through the images pixels to reset color.
             for (x = 0; x < xR.GetLength(0); x++)
             {
@@ -182,7 +182,7 @@ namespace ProcImagen
                     if (mascara[y, x] == 1)
                     {
                         resultado.Add(xR[y, x]);
-                        punteroResultado++;
+                        //punteroResultado++;
                     }
 
                 }
