@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModeloDatosServidor.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModeloDatosServidorStoreContainer">
+    <EntitySet Name="CiclosEvaluacionSet" EntityType="ModeloDatosServidor.Store.CiclosEvaluacionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MpatSet" EntityType="ModeloDatosServidor.Store.MpatSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProcedimientoClinicoSet" EntityType="ModeloDatosServidor.Store.ProcedimientoClinicoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UsuarioSet" EntityType="ModeloDatosServidor.Store.UsuarioSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CaracteristicasExtraidasSet" EntityType="ModeloDatosServidor.Store.CaracteristicasExtraidasSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MuestraSet" EntityType="ModeloDatosServidor.Store.MuestraSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ExperimentoSet" EntityType="ModeloDatosServidor.Store.ExperimentoSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_MpatCiclosEvaluacion" Association="ModeloDatosServidor.Store.FK_MpatCiclosEvaluacion">
+      <End Role="MpatSet" EntitySet="MpatSet" />
+      <End Role="CiclosEvaluacionSet" EntitySet="CiclosEvaluacionSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProcedimientoClinicoMpat" Association="ModeloDatosServidor.Store.FK_ProcedimientoClinicoMpat">
+      <End Role="MpatSet" EntitySet="MpatSet" />
+      <End Role="ProcedimientoClinicoSet" EntitySet="ProcedimientoClinicoSet" />
+    </AssociationSet>
+    <AssociationSet Name="MuestraSetCaracteristicasExtraidasSet" Association="ModeloDatosServidor.Store.MuestraSetCaracteristicasExtraidasSet">
+      <End Role="MuestraSet" EntitySet="MuestraSet" />
+      <End Role="CaracteristicasExtraidasSet" EntitySet="CaracteristicasExtraidasSet" />
+    </AssociationSet>
+    <AssociationSet Name="ExperimentoSetUsuarioSet" Association="ModeloDatosServidor.Store.ExperimentoSetUsuarioSet">
+      <End Role="ExperimentoSet" EntitySet="ExperimentoSet" />
+      <End Role="UsuarioSet" EntitySet="UsuarioSet" />
+    </AssociationSet>
+    <AssociationSet Name="ExperimentoSetMuestraSet" Association="ModeloDatosServidor.Store.ExperimentoSetMuestraSet">
+      <End Role="ExperimentoSet" EntitySet="ExperimentoSet" />
+      <End Role="MuestraSet" EntitySet="MuestraSet" />
+    </AssociationSet>
+    <AssociationSet Name="ExperimentoSetMpatSet" Association="ModeloDatosServidor.Store.ExperimentoSetMpatSet">
+      <End Role="ExperimentoSet" EntitySet="ExperimentoSet" />
+      <End Role="MpatSet" EntitySet="MpatSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="CiclosEvaluacionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idMpat" Type="int" Nullable="false" />
+    <Property Name="numeroCiclos" Type="int" Nullable="false" />
+    <Property Name="orden" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MpatSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ciclosMasticatorios" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="DescripcionTestFood" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UsuarioSetId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProcedimientoClinicoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orden" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="idMpat" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsuarioSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuario" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CaracteristicasExtraidasSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idMuestra" Type="int" Nullable="false" />
+    <Property Name="codigoCaracteristica" Type="int" Nullable="false" />
+    <Property Name="Valor" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MuestraSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CiclosMasticatorios" Type="int" Nullable="false" />
+    <Property Name="idPaciente" Type="int" Nullable="false" />
+    <Property Name="idExperimento" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExperimentoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idUsuario" Type="int" Nullable="false" />
+    <Property Name="idMpat" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_MpatCiclosEvaluacion">
+    <End Role="MpatSet" Type="ModeloDatosServidor.Store.MpatSet" Multiplicity="1" />
+    <End Role="CiclosEvaluacionSet" Type="ModeloDatosServidor.Store.CiclosEvaluacionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MpatSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CiclosEvaluacionSet">
+        <PropertyRef Name="idMpat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProcedimientoClinicoMpat">
+    <End Role="MpatSet" Type="ModeloDatosServidor.Store.MpatSet" Multiplicity="1" />
+    <End Role="ProcedimientoClinicoSet" Type="ModeloDatosServidor.Store.ProcedimientoClinicoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MpatSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProcedimientoClinicoSet">
+        <PropertyRef Name="idMpat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MuestraSetCaracteristicasExtraidasSet">
+    <End Role="MuestraSet" Type="ModeloDatosServidor.Store.MuestraSet" Multiplicity="1" />
+    <End Role="CaracteristicasExtraidasSet" Type="ModeloDatosServidor.Store.CaracteristicasExtraidasSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MuestraSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CaracteristicasExtraidasSet">
+        <PropertyRef Name="idMuestra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExperimentoSetUsuarioSet">
+    <End Role="ExperimentoSet" Type="ModeloDatosServidor.Store.ExperimentoSet" Multiplicity="*" />
+    <End Role="UsuarioSet" Type="ModeloDatosServidor.Store.UsuarioSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="UsuarioSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ExperimentoSet">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExperimentoSetMuestraSet">
+    <End Role="ExperimentoSet" Type="ModeloDatosServidor.Store.ExperimentoSet" Multiplicity="1" />
+    <End Role="MuestraSet" Type="ModeloDatosServidor.Store.MuestraSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExperimentoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MuestraSet">
+        <PropertyRef Name="idExperimento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExperimentoSetMpatSet">
+    <End Role="ExperimentoSet" Type="ModeloDatosServidor.Store.ExperimentoSet" Multiplicity="*" />
+    <End Role="MpatSet" Type="ModeloDatosServidor.Store.MpatSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="MpatSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ExperimentoSet">
+        <PropertyRef Name="idMpat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModeloDatosServidor" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModeloDatosServidorContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CiclosEvaluacionSet" EntityType="ModeloDatosServidor.CiclosEvaluacionSet" />
+          <EntitySet Name="MpatSet" EntityType="ModeloDatosServidor.MpatSet" />
+          <EntitySet Name="ProcedimientoClinicoSet" EntityType="ModeloDatosServidor.ProcedimientoClinicoSet" />
+          <AssociationSet Name="FK_MpatCiclosEvaluacion" Association="ModeloDatosServidor.FK_MpatCiclosEvaluacion">
+            <End Role="MpatSet" EntitySet="MpatSet" />
+            <End Role="CiclosEvaluacionSet" EntitySet="CiclosEvaluacionSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProcedimientoClinicoMpat" Association="ModeloDatosServidor.FK_ProcedimientoClinicoMpat">
+            <End Role="MpatSet" EntitySet="MpatSet" />
+            <End Role="ProcedimientoClinicoSet" EntitySet="ProcedimientoClinicoSet" />
+          </AssociationSet>
+          <EntitySet Name="UsuarioSet" EntityType="ModeloDatosServidor.UsuarioSet" />
+          <EntitySet Name="CaracteristicasExtraidasSet" EntityType="ModeloDatosServidor.CaracteristicasExtraidasSet" />
+          <EntitySet Name="MuestraSet" EntityType="ModeloDatosServidor.MuestraSet" />
+          <AssociationSet Name="MuestraSetCaracteristicasExtraidasSet" Association="ModeloDatosServidor.MuestraSetCaracteristicasExtraidasSet">
+            <End Role="MuestraSet" EntitySet="MuestraSet" />
+            <End Role="CaracteristicasExtraidasSet" EntitySet="CaracteristicasExtraidasSet" />
+          </AssociationSet>
+          <EntitySet Name="ExperimentoSet" EntityType="ModeloDatosServidor.ExperimentoSet" />
+          <AssociationSet Name="ExperimentoSetUsuarioSet" Association="ModeloDatosServidor.ExperimentoSetUsuarioSet">
+            <End Role="ExperimentoSet" EntitySet="ExperimentoSet" />
+            <End Role="UsuarioSet" EntitySet="UsuarioSet" />
+          </AssociationSet>
+          <AssociationSet Name="ExperimentoSetMuestraSet" Association="ModeloDatosServidor.ExperimentoSetMuestraSet">
+            <End Role="ExperimentoSet" EntitySet="ExperimentoSet" />
+            <End Role="MuestraSet" EntitySet="MuestraSet" />
+          </AssociationSet>
+          <AssociationSet Name="ExperimentoSetMpatSet" Association="ModeloDatosServidor.ExperimentoSetMpatSet">
+            <End Role="ExperimentoSet" EntitySet="ExperimentoSet" />
+            <End Role="MpatSet" EntitySet="MpatSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CiclosEvaluacionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idMpat" Type="Int32" Nullable="false" />
+          <Property Name="numeroCiclos" Type="Int32" Nullable="false" />
+          <Property Name="orden" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MpatSet" Relationship="ModeloDatosServidor.FK_MpatCiclosEvaluacion" FromRole="CiclosEvaluacionSet" ToRole="MpatSet" />
+        </EntityType>
+        <EntityType Name="MpatSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ciclosMasticatorios" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <Property Name="DescripcionTestFood" Type="String" Nullable="false" />
+          <NavigationProperty Name="CiclosEvaluacionSet" Relationship="ModeloDatosServidor.FK_MpatCiclosEvaluacion" FromRole="MpatSet" ToRole="CiclosEvaluacionSet" />
+          <NavigationProperty Name="ProcedimientoClinicoSet" Relationship="ModeloDatosServidor.FK_ProcedimientoClinicoMpat" FromRole="MpatSet" ToRole="ProcedimientoClinicoSet" />
+          <Property Name="UsuarioSetId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ExperimentoSet" Relationship="ModeloDatosServidor.ExperimentoSetMpatSet" FromRole="MpatSet" ToRole="ExperimentoSet" />
+        </EntityType>
+        <EntityType Name="ProcedimientoClinicoSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orden" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idMpat" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MpatSet" Relationship="ModeloDatosServidor.FK_ProcedimientoClinicoMpat" FromRole="ProcedimientoClinicoSet" ToRole="MpatSet" />
+        </EntityType>
+        <Association Name="FK_MpatCiclosEvaluacion">
+          <End Type="ModeloDatosServidor.MpatSet" Role="MpatSet" Multiplicity="1" />
+          <End Type="ModeloDatosServidor.CiclosEvaluacionSet" Role="CiclosEvaluacionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MpatSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CiclosEvaluacionSet">
+              <PropertyRef Name="idMpat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProcedimientoClinicoMpat">
+          <End Type="ModeloDatosServidor.MpatSet" Role="MpatSet" Multiplicity="1" />
+          <End Type="ModeloDatosServidor.ProcedimientoClinicoSet" Role="ProcedimientoClinicoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MpatSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProcedimientoClinicoSet">
+              <PropertyRef Name="idMpat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UsuarioSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="ExperimentoSet" Relationship="ModeloDatosServidor.ExperimentoSetUsuarioSet" FromRole="UsuarioSet" ToRole="ExperimentoSet" />
+        </EntityType>
+        <EntityType Name="CaracteristicasExtraidasSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idMuestra" Type="Int32" Nullable="false" />
+          <Property Name="codigoCaracteristica" Type="Int32" Nullable="false" />
+          <Property Name="Valor" Type="Double" Nullable="false" />
+          <NavigationProperty Name="MuestraSet" Relationship="ModeloDatosServidor.MuestraSetCaracteristicasExtraidasSet" FromRole="CaracteristicasExtraidasSet" ToRole="MuestraSet" />
+        </EntityType>
+        <EntityType Name="MuestraSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CiclosMasticatorios" Type="Int32" Nullable="false" />
+          <Property Name="idPaciente" Type="Int32" Nullable="false" />
+          <Property Name="idExperimento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CaracteristicasExtraidasSet" Relationship="ModeloDatosServidor.MuestraSetCaracteristicasExtraidasSet" FromRole="MuestraSet" ToRole="CaracteristicasExtraidasSet" />
+          <NavigationProperty Name="ExperimentoSet" Relationship="ModeloDatosServidor.ExperimentoSetMuestraSet" FromRole="MuestraSet" ToRole="ExperimentoSet" />
+          <Property Name="lado" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="MuestraSetCaracteristicasExtraidasSet">
+          <End Type="ModeloDatosServidor.MuestraSet" Role="MuestraSet" Multiplicity="1" />
+          <End Type="ModeloDatosServidor.CaracteristicasExtraidasSet" Role="CaracteristicasExtraidasSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MuestraSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CaracteristicasExtraidasSet">
+              <PropertyRef Name="idMuestra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ExperimentoSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UsuarioSet" Relationship="ModeloDatosServidor.ExperimentoSetUsuarioSet" FromRole="ExperimentoSet" ToRole="UsuarioSet" />
+          <NavigationProperty Name="MuestraSet" Relationship="ModeloDatosServidor.ExperimentoSetMuestraSet" FromRole="ExperimentoSet" ToRole="MuestraSet" />
+          <Property Name="idMpat" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MpatSet" Relationship="ModeloDatosServidor.ExperimentoSetMpatSet" FromRole="ExperimentoSet" ToRole="MpatSet" />
+        </EntityType>
+        <Association Name="ExperimentoSetUsuarioSet">
+          <End Type="ModeloDatosServidor.ExperimentoSet" Role="ExperimentoSet" Multiplicity="*" />
+          <End Type="ModeloDatosServidor.UsuarioSet" Role="UsuarioSet" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="UsuarioSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExperimentoSet">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExperimentoSetMuestraSet">
+          <End Type="ModeloDatosServidor.ExperimentoSet" Role="ExperimentoSet" Multiplicity="1" />
+          <End Type="ModeloDatosServidor.MuestraSet" Role="MuestraSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExperimentoSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MuestraSet">
+              <PropertyRef Name="idExperimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExperimentoSetMpatSet">
+          <End Type="ModeloDatosServidor.ExperimentoSet" Role="ExperimentoSet" Multiplicity="*" />
+          <End Type="ModeloDatosServidor.MpatSet" Role="MpatSet" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="MpatSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExperimentoSet">
+              <PropertyRef Name="idMpat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModeloDatosServidorStoreContainer" CdmEntityContainer="ModeloDatosServidorContainer">
+    <EntitySetMapping Name="CiclosEvaluacionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDatosServidor.CiclosEvaluacionSet)">
+        <MappingFragment StoreEntitySet="CiclosEvaluacionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="idMpat" ColumnName="idMpat" />
+          <ScalarProperty Name="numeroCiclos" ColumnName="numeroCiclos" />
+          <ScalarProperty Name="orden" ColumnName="orden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MpatSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDatosServidor.MpatSet)">
+        <MappingFragment StoreEntitySet="MpatSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="ciclosMasticatorios" ColumnName="ciclosMasticatorios" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="DescripcionTestFood" ColumnName="DescripcionTestFood" />
+          <ScalarProperty Name="UsuarioSetId" ColumnName="UsuarioSetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProcedimientoClinicoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDatosServidor.ProcedimientoClinicoSet)">
+        <MappingFragment StoreEntitySet="ProcedimientoClinicoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="orden" ColumnName="orden" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="idMpat" ColumnName="idMpat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsuarioSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDatosServidor.UsuarioSet)">
+        <MappingFragment StoreEntitySet="UsuarioSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CaracteristicasExtraidasSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDatosServidor.CaracteristicasExtraidasSet)">
+        <MappingFragment StoreEntitySet="CaracteristicasExtraidasSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="idMuestra" ColumnName="idMuestra" />
+          <ScalarProperty Name="codigoCaracteristica" ColumnName="codigoCaracteristica" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MuestraSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDatosServidor.MuestraSet)">
+        <MappingFragment StoreEntitySet="MuestraSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CiclosMasticatorios" ColumnName="CiclosMasticatorios" />
+          <ScalarProperty Name="idPaciente" ColumnName="idPaciente" />
+          <ScalarProperty Name="idExperimento" ColumnName="idExperimento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExperimentoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModeloDatosServidor.ExperimentoSet)">
+        <MappingFragment StoreEntitySet="ExperimentoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="idMpat" ColumnName="idMpat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

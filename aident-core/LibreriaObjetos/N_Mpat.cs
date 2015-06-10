@@ -18,7 +18,6 @@ namespace LibreriaObjetos
         public List<N_ProcedimientoClinico> ListaProcedimientos { set; get; }
         [DataMember]
         public String nombre { set; get; }
-        //public List<N_ProcedimientoClinico> ListaProcedimientos { set; get; }
         [DataMember]
         public Int32 idTestFood { set; get; }
         [DataMember]

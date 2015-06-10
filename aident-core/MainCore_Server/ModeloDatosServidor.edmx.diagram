@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b8c00779d311487f9412d8414e1a1724" Name="Diagram1" >
+        <EntityTypeShape EntityType="ModeloDatosServidor.CiclosEvaluacionSet" Width="1.5" PointX="4.625" PointY="3.625" />
+        <EntityTypeShape EntityType="ModeloDatosServidor.MpatSet" Width="1.5" PointX="2.625" PointY="3.625" />
+        <EntityTypeShape EntityType="ModeloDatosServidor.ProcedimientoClinicoSet" Width="1.5" PointX="6.625" PointY="3.625" />
+        <AssociationConnector Association="ModeloDatosServidor.FK_MpatCiclosEvaluacion" />
+        <AssociationConnector Association="ModeloDatosServidor.FK_ProcedimientoClinicoMpat" />
+        <EntityTypeShape EntityType="ModeloDatosServidor.UsuarioSet" Width="1.5" PointX="0.5" PointY="0.625" />
+        <EntityTypeShape EntityType="ModeloDatosServidor.CaracteristicasExtraidasSet" Width="1.5" PointX="6.75" PointY="0.625" />
+        <EntityTypeShape EntityType="ModeloDatosServidor.MuestraSet" Width="1.5" PointX="4.625" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="ModeloDatosServidor.MuestraSetCaracteristicasExtraidasSet" />
+        <EntityTypeShape EntityType="ModeloDatosServidor.ExperimentoSet" Width="1.5" PointX="2.625" PointY="0.625" />
+        <AssociationConnector Association="ModeloDatosServidor.ExperimentoSetUsuarioSet" />
+        <AssociationConnector Association="ModeloDatosServidor.ExperimentoSetMuestraSet" />
+        <AssociationConnector Association="ModeloDatosServidor.ExperimentoSetMpatSet" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

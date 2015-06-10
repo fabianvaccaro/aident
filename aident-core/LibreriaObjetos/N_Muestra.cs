@@ -17,12 +17,15 @@ namespace LibreriaObjetos
         public Int32 ciclosMasticatorios { set; get; }
         [DataMember]
         public Int32 idPaciente { set; get; }
+        [DataMember]
+        public Int32 idExperimento { set; get; }
 
         public N_Muestra() {
 
             this.id = 0;
             this.ciclosMasticatorios = 0;
             this.idPaciente = 0;
+            this.idExperimento = 0;
         }
     }
 }

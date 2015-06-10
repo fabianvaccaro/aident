@@ -19,6 +19,8 @@ namespace MainCore
     [Serializable]
     public class Metodos
     {
+        List<S_Muestra> listaMuestrasAEnviar = new List<S_Muestra>();
+        
         public Metodos()
         {
 
@@ -517,11 +519,8 @@ namespace MainCore
                 //Popula el objeto Db
                 //Dbtf.Id = tf.id;
                 Db.idTestFood = mpat.idTestFood;
-                //Db.procedimiento = mpat.ListaProcedimientos;
                 Db.ciclosMasticatorios = mpat.CiclosMasticatorios;
-                //Db.ciclosEvaluacion = mpat.CiclosEvaluacion;
                 Db.nombre = mpat.nombre;
-
 
                 //Guardar el objeto Dbtf en el Context
                 try

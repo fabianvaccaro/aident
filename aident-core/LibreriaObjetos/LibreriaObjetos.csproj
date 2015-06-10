@@ -91,6 +91,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FeatureImage.cs" />
+    <Compile Include="S_Caracteristica.cs" />
+    <Compile Include="S_CiclosEvaluacion.cs" />
+    <Compile Include="S_Experimento.cs" />
+    <Compile Include="S_Mpat.cs" />
+    <Compile Include="S_Muestra.cs" />
     <Compile Include="N_CiclosEvaluacion.cs" />
     <Compile Include="N_Experimento.cs" />
     <Compile Include="N_HistoriaClinica.cs" />
@@ -101,6 +106,8 @@
     <Compile Include="N_Mpat.cs" />
     <Compile Include="N_TipoTestFood.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="S_Procedimiento.cs" />
+    <Compile Include="S_Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

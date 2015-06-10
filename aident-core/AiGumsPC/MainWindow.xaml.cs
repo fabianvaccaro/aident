@@ -32,6 +32,7 @@ namespace AiGumsPC
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<ImProcessing.EstrucutraImagen> listaImagenesProcesadas = new List<ImProcessing.EstrucutraImagen>();
 
         public MainWindow()
         {
@@ -509,16 +510,25 @@ namespace AiGumsPC
             if (op.ShowDialog() == true)
             {
                 String ruta = op.FileName;
-
+                S_Muestra muestra = new S_Muestra();
+                this.lb_RutaImagenMuestra.Content = "Ruta: " + ruta;
                 Bitmap image1 = new Bitmap(ruta, true);
+                this.vistaImagenResultado.Source = ConvertDrawingImageToWPFImage(image1).Source;
+                this.vistaImagenProcesar.Source = ConvertDrawingImageToWPFImage(image1).Source;
                 ImProcessing.EstrucutraImagen imagen = new ImProcessing.EstrucutraImagen(image1);
 
                 string[] tabNameArray = ruta.Split('\\');
                 string tabName = tabNameArray[tabNameArray.Length - 1];
-                String[] nombre = tabName.Split('-', '.');
+                String[] nombre = tabName.Split('_','-', '.');
                 listaPalabras.ItemsSource = nombre;
-                this.txtNumCiclosNombre.Text = nombre[1];
-                this.txtDatos.Text = nombre[0] + nombre[2];
+                muestra.idExperimento =  Convert.ToInt32( nombre[0]);
+                muestra.idPaciente = Convert.ToInt32( nombre[1]);
+                muestra.lado = nombre[2];
+                muestra.nCiclos = Convert.ToInt32(nombre[3]);
+                
+
+                this.txtNumCiclosNombre.Text = muestra.nCiclos.ToString();
+                this.txtDatos.Text = " idE:" + muestra.idExperimento.ToString() + " idP:" + muestra.idPaciente.ToString();
 
                 this.vistaImagenResultado.Source = ConvertDrawingImageToWPFImage(imagen.FIMG).Source;
                 this.vistaImagenProcesar.Source = ConvertDrawingImageToWPFImage(imagen.Original).Source;
@@ -716,12 +726,17 @@ namespace AiGumsPC
             img.Stretch = System.Windows.Media.Stretch.Fill;
             return img;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+       
+        /// <summary>
+        /// Selecciona la carpeta de imágenes que deseas procesar y extrae los vectores de
+        /// caracteristicas de cada una de las imágenes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ProcesarCarpeta(object sender, RoutedEventArgs e)
         {
             Metodos mets = new Metodos();
-            List<ImProcessing.EstrucutraImagen> listaImagenesProcesadas = new List<ImProcessing.EstrucutraImagen>();
-
+            
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             DialogResult result = fbd.ShowDialog();
 
@@ -739,11 +754,18 @@ namespace AiGumsPC
                 listaImagenesProcesadas.Add(imagen);
             }
             System.Windows.Forms.MessageBox.Show("Files found: " + ficheros.Length.ToString(), "Message");
+
+        }
+
+        private void bt_GuardarResultado_Click(object sender, RoutedEventArgs e)
+        {
+            Metodos mets = new Metodos();
+
             if (mets.enviarVectoresServidor(listaImagenesProcesadas))
             {
-
                 System.Windows.Forms.MessageBox.Show("Vectores enviados: ", "Message");
             }
+
         }
 
     }
