@@ -116,7 +116,9 @@
   <ItemGroup>
     <Content Include="NegocioService.svc" />
     <Content Include="Service1.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="INegocioService.cs" />
@@ -146,9 +148,9 @@
       <Project>{c069f7bb-ba70-47e1-b51b-965d15b8dbcc}</Project>
       <Name>LibreriaObjetos</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Metodos\MainCore.csproj">
-      <Project>{8e76d7ec-7ef2-4a5a-829d-adddf6bf58ad}</Project>
-      <Name>MainCore</Name>
+    <ProjectReference Include="..\MainCore_Server\MainCore_Server.csproj">
+      <Project>{583f861a-ef11-48a0-ab59-002d81840692}</Project>
+      <Name>MainCore_Server</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

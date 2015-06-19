@@ -29,5 +29,13 @@ namespace LibreriaObjetos
             numeroCiclos = 0;
             orden = 0;
         }
+        public S_CiclosEvaluacion toSTipo(){
+            S_CiclosEvaluacion resultado = new S_CiclosEvaluacion();
+            resultado.Id = this.id;
+            resultado.idMpat = this.idMpat;
+            resultado.numeroCiclos = this.numeroCiclos;
+            resultado.orden = this.orden;
+            return resultado;
+        }
     }
 }

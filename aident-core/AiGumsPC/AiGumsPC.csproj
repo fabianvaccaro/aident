@@ -241,7 +241,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\srvweb\AiGumsPC.srvweb.AddMPATResponse.datasource">
+    <None Include="Service References\srvweb\AiGumsPC.srvweb.procesoValidacionMPATResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\srvweb\NegocioService.wsdl" />

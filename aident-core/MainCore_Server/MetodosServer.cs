@@ -18,27 +18,29 @@ namespace MainCore_Server
         {
             using (ModeloDatosServidorContainer Context = new ModeloDatosServidorContainer())
             {
-                MpatSet Db = new MpatSet();
-                idMpat = 0;
+                MainCore_Server.MpatSet Db = new MainCore_Server.MpatSet();
+                Int32 temp = 0;
 
                 //Completamos el objeto Db
                 //Db.Id = mpat.id;
                 Db.DescripcionTestFood = mpat.DescripcionTestFood;
                 Db.nombre = mpat.nombre;
+                Db.ciclosMasticatorios = mpat.ciclosMasticatorios;
 
                 //Guardar el objeto Dbtf en el Context
                 try
                 {
                     Context.MpatSet.Add(Db);
                     Context.SaveChanges();
-                    idMpat = Db.Id;
+                    temp = Db.Id;
                     foreach (var a in mpat.ListaProcedimientos)
                     {
                         if (!addProcedimientoEvaluacion(a))
                         {
                             //si falla el procedimiento de inserccion debo borrar el elemento Mpat
-                            Context.MpatSet.Remove(Db);
-                            Context.SaveChanges();
+                            //Context.MpatSet.Remove(Db);
+                            //Context.SaveChanges();
+                            idMpat = 0;
                             return false;
                         }
                     }
@@ -50,14 +52,17 @@ namespace MainCore_Server
                             //borrarListaProcedimientos(idMpat);
                             Context.MpatSet.Remove(Db);
                             Context.SaveChanges();
+                            idMpat = 0;
                             return false;
                         }
                     }
+                    idMpat = temp;
                     return true;
                 }
                 catch (Exception e)
                 {
                     Console.Write("Error " + e);
+                    idMpat = temp;
                     return false;
                 }
             }
@@ -191,7 +196,7 @@ namespace MainCore_Server
                 CiclosEvaluacionSet Db = new CiclosEvaluacionSet();
 
 
-                Db.Id = ciclos.Id;
+                //Db.Id = ciclos.Id;
                 Db.idMpat = ciclos.idMpat;
                 Db.numeroCiclos = ciclos.numeroCiclos;
                 Db.orden = ciclos.orden;
@@ -217,7 +222,7 @@ namespace MainCore_Server
                 ProcedimientoClinicoSet Db = new ProcedimientoClinicoSet();
 
 
-                Db.Id = procedimiento.Id;
+                //Db.Id = procedimiento.Id;
                 Db.idMpat = procedimiento.idMpat;
                 Db.descripcion = procedimiento.descripcion;
                 Db.orden = procedimiento.orden;
@@ -313,5 +318,89 @@ namespace MainCore_Server
                 }
             }
         }
+
+        //-------------- PROCEDIMIENTOS VALIDACION MPAT ----------------------------------//
+        public Boolean login(String Usuario, String Password){
+            if (!addUser(Usuario, Password)) { return false; }
+            using (ModeloDatosServidorContainer Context = new ModeloDatosServidorContainer())
+            {
+                var xdf = (from arecord in Context.UsuarioSet
+                           where arecord.Usuario == Usuario
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                try
+                {
+                    Boolean resultado = false;
+                    if ((xdf != null) && (Password.CompareTo(xdf.arecord.Password)==0))
+                    {
+                        resultado = true;
+                    }
+                    else
+                    {
+                        resultado = false;
+                    }
+                    return resultado;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Exception: " + e);
+                    return false;
+                }
+            }
+            
+        }
+        private Boolean addUser(String Usuario, String Password)
+        {
+            using (ModeloDatosServidorContainer Context = new ModeloDatosServidorContainer())
+            {
+                UsuarioSet Db = new UsuarioSet();
+                Db.Usuario = Usuario;
+                Db.Password = Password;
+                try
+                {
+                    Context.UsuarioSet.Add(Db);
+                    Context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error: " + e);
+                    return false;
+                }
+            }
+        }
+        //-------------- PROCEDIMIENTOS VALIDACION MPAT ----------------------------------//
+        
+        public Boolean procesoValidacionMPAT(S_Mpat mpat, List<Double[]> listaVectoresCaracteristicas,out Double[] vector )
+        {
+            Int32 idMpat;
+            //Double[] vectorPesos= new Double[10];
+            try
+            {
+                if (addMpat(mpat, out idMpat))
+                {
+                    //vectorPesos = entrenarRNA(Rna, idMpat);
+                    //vector = vectorPesos;
+                }
+                else
+                {
+                    vector = null;
+                    return false;
+                }
+                vector = null;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception:" + e);
+                vector = null;
+                return false;
+            }
+
+            
+        }
+
     }
 }

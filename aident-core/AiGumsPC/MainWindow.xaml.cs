@@ -538,27 +538,29 @@ namespace AiGumsPC
         }
 
         private void bt_Segmentar_Click(object sender, RoutedEventArgs e){
+            S_Muestra muestra = new S_Muestra();
             List<String> palabras = new List<string>();
             String ruta = @"C:\Users\Jaime\Source\Repos\AiDent\aident-core\AiGumsPC\Images\MtnChurch.jpg";
             this.lb_RutaImagenMuestra.Content = ruta;
             Bitmap image1 = new Bitmap(ruta, true);
             ImProcessing.EstrucutraImagen imagen = new ImProcessing.EstrucutraImagen(image1);
-            
-            char[] delimiterChars = { '_', '.', '\t' };
 
-            System.Console.WriteLine("Original text: '{0}'", ruta);
+            string[] tabNameArray = ruta.Split('\\');
+            string tabName = tabNameArray[tabNameArray.Length - 1];
+            String[] nombre = tabName.Split('_', '-', '.');
+            listaPalabras.ItemsSource = nombre;
+            muestra.idExperimento = Convert.ToInt32(nombre[0]);
+            muestra.idPaciente = Convert.ToInt32(nombre[1]);
+            muestra.lado = nombre[2];
+            muestra.nCiclos = Convert.ToInt32(nombre[3]);
 
-            string[] words = ruta.Split(delimiterChars);
-            System.Console.WriteLine("{0} words in text:", words.Length);
-
-            foreach (string s in words)
+            foreach (string s in tabNameArray)
             {
                 palabras.Add(s);
             }
-            //dibujarlista
+
             listaPalabras.ItemsSource = palabras;
-            //listaPalabras.SelectedValuePath = "orden";
-            //listaPalabras.DisplayMemberPath = "";
+
 
             try {
 
@@ -735,6 +737,7 @@ namespace AiGumsPC
         /// <param name="e"></param>
         private void ProcesarCarpeta(object sender, RoutedEventArgs e)
         {
+            S_Muestra muestra = new S_Muestra();
             Metodos mets = new Metodos();
             
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -747,25 +750,78 @@ namespace AiGumsPC
                 this.lb_RutaImagenMuestra.Content = ruta;
                 Bitmap image1 = new Bitmap(ruta, true);
 
+                string[] tabNameArray = ruta.Split('\\');
+                string tabName = tabNameArray[tabNameArray.Length - 1];
+                String[] nombre = tabName.Split('_', '-', '.');
+                listaPalabras.ItemsSource = nombre;
+                muestra.idExperimento = Convert.ToInt32(nombre[0]);
+                muestra.idPaciente = Convert.ToInt32(nombre[1]);
+                muestra.lado = nombre[2];
+                muestra.nCiclos = Convert.ToInt32(nombre[3]);
+                txt_CodExperimentoProcesado.Text = muestra.idExperimento.ToString();
                 ImProcessing.EstrucutraImagen imagen = new ImProcessing.EstrucutraImagen(image1);                
                 
                 this.vistaImagenResultado.Source = ConvertDrawingImageToWPFImage(imagen.FIMG).Source;
                 this.vistaImagenProcesar.Source = ConvertDrawingImageToWPFImage(imagen.Original).Source;
                 listaImagenesProcesadas.Add(imagen);
             }
+            this.bt_GuardarResultado.IsEnabled = true;
             System.Windows.Forms.MessageBox.Show("Files found: " + ficheros.Length.ToString(), "Message");
 
         }
 
         private void bt_GuardarResultado_Click(object sender, RoutedEventArgs e)
         {
-            Metodos mets = new Metodos();
+            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos metodo = new Metodos();
+            String Password = "Pepe";
+            String Usuario = "Pepe";
+            N_Mpat nMpat = new N_Mpat();
+            S_Mpat sMpat = new S_Mpat();
+            N_Experimento experimento = new N_Experimento();
+            Int32 idExperimento = Int32.Parse(this.txt_CodExperimentoProcesado.Text);
+            Int32 idMpat = 0;
+            Double[] vectorPesos;
+            List<Double[]> listaVectoresCaracteristicas = new List<Double[]>();
 
-            if (mets.enviarVectoresServidor(listaImagenesProcesadas))
+            foreach (var a in listaImagenesProcesadas)
             {
-                System.Windows.Forms.MessageBox.Show("Vectores enviados: ", "Message");
+                listaVectoresCaracteristicas.Add(a.Features);
             }
 
+
+            if (metodo.BuscaIdMpatPorCodigoExperimento(idExperimento, out idMpat))
+            {
+                if (metodo.BuscaMpat(idMpat, out nMpat))
+                {
+                    foreach (var a in nMpat.CiclosEvaluacion)
+                    {
+                        sMpat.CiclosEvaluacion.Add(a.toSTipo());
+                    }
+                    sMpat.ciclosMasticatorios = nMpat.CiclosMasticatorios;
+                    sMpat.DescripcionTestFood = metodo.descripcionTestFood(nMpat.idTestFood);
+                    sMpat.Id = 0;
+                    sMpat.idEstado = nMpat.idEstado;
+                    //sMpat.idUsuario = mets.buscarIdUsuario(Usuario);
+                    foreach (var a in nMpat.ListaProcedimientos)
+                    {
+                        sMpat.ListaProcedimientos.Add(a.toSTipo());
+                    }
+                    sMpat.nombre = nMpat.nombre;
+
+                }
+            }
+
+
+            if (mets.login(Usuario, Password))
+            {
+                if (mets.procesoValidacionMPAT(sMpat, listaVectoresCaracteristicas.ToArray(), out vectorPesos))
+                {
+                    //metodo.addVectorPesos(vectorPesos, mpat.id);
+                    System.Windows.Forms.MessageBox.Show("Vectores enviados: ", "Message");
+                }
+            }
+            
         }
 
     }

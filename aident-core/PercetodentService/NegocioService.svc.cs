@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using MainCore;
+using MainCore_Server;
 using LibreriaObjetos;
 
 namespace PercetodentService
@@ -15,6 +16,18 @@ namespace PercetodentService
     {
         public void DoWork()
         {
+        }
+
+        public Boolean login(String Usuario, String Password)
+        {
+            MetodosServer metodo = new MetodosServer();
+            return metodo.login(Usuario, Password);
+        }
+
+        public Boolean procesoValidacionMPAT(S_Mpat mpat, List<Double[]> listaVectoresCaracteristicas, out Double[] vector)
+        {
+            MetodosServer metodo = new MetodosServer();
+            return metodo.procesoValidacionMPAT(mpat, listaVectoresCaracteristicas, out vector);
         }
 
         //public Boolean AddTipoTestFood(N_TipoTestFood tff)

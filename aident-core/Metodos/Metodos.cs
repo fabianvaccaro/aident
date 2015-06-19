@@ -783,8 +783,10 @@ namespace MainCore
         }
 
         // --------------------- PROCEDIMIENTOS DE BUSQUEDA
-        public Boolean BuscaExperimento(Int32 miid, N_Experimento exp)
+        public Boolean BuscaExperimento(Int32 miid, out N_Experimento exp)
         {
+
+            exp = new N_Experimento();
             using (Model1Container1 Context = new Model1Container1())
             {
                 //Selecciona un registro de paciente por su DNI
@@ -808,23 +810,100 @@ namespace MainCore
                     }
                     else
                     {
+
                         return false;
                     }
                 }
                 catch (Exception e)
                 {
                     Console.Write("Error " + e);
+
                     return false;
                 }
             }
         }
 
-        public Boolean BuscaMpat(Int32 miid, N_Mpat mpat)
+        public Boolean BuscaMpat(Int32 miid, out N_Mpat mpat)
         {
+            var resultado = new N_Mpat();
             using (Model1Container1 Context = new Model1Container1())
             {
                 //Selecciona un registro de paciente por su DNI
                 var xdf = (from arecord in Context.MpatSet
+                           where arecord.Id == miid
+                           select new
+                           {
+                               arecord
+                           }).FirstOrDefault();
+                var xdf2 = (from brecord in Context.ProcedimientoClinicoSet
+                           where brecord.idMpat == miid
+                           select new
+                           {
+                               brecord
+                           }).ToList();
+                var xdf3 = (from crecord in Context.CiclosEvaluacionSet
+                            where crecord.idMpat == miid
+                            select new
+                            {
+                                crecord
+                            }).ToList();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null && xdf2 != null && xdf3 !=null)
+                    {
+                        resultado.id = xdf.arecord.Id;
+                        resultado.CiclosMasticatorios = xdf.arecord.ciclosMasticatorios;
+                        resultado.idEstado = xdf.arecord.Estado;
+                        resultado.idTestFood = xdf.arecord.idTestFood;
+                        resultado.nombre = xdf.arecord.nombre;
+
+                        resultado.CiclosEvaluacion = new List<N_CiclosEvaluacion>();
+                        foreach (var c in xdf3)
+                        {
+                            N_CiclosEvaluacion ciclo = new N_CiclosEvaluacion();
+                            ciclo.id = c.crecord.Id;
+                            ciclo.idMpat = c.crecord.idMpat;
+                            ciclo.numeroCiclos = c.crecord.numeroCiclos;
+                            ciclo.orden = c.crecord.orden;
+
+                            resultado.CiclosEvaluacion.Add(ciclo);
+                        }
+                        resultado.ListaProcedimientos = new List<N_ProcedimientoClinico>();
+                        foreach (var b in xdf2)
+                        {
+                            N_ProcedimientoClinico procedimiento = new N_ProcedimientoClinico();
+                            procedimiento.id = b.brecord.Id;
+                            procedimiento.idMpat = b.brecord.idMpat;
+                            procedimiento.orden = b.brecord.orden;
+                            resultado.ListaProcedimientos.Add(procedimiento);
+                        }
+
+                        mpat = resultado;
+                        return true;
+                    }
+                    else
+                    {
+
+                        mpat = resultado; 
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+                    mpat = resultado;
+                    return false;
+                }
+            }
+        }
+        public Boolean BuscaTestFood(Int32 miid, out N_TestFood salida)
+        {
+            salida = new N_TestFood();
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                //Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.TestFoodSet
                            where arecord.Id == miid
                            select new
                            {
@@ -835,13 +914,11 @@ namespace MainCore
                     //Comprueba si el resultado es vacio
                     if (xdf.arecord != null)
                     {
-                        mpat.id = xdf.arecord.Id;
-                        //mpat.CiclosEvaluacion = xdf.arecord.CiclosEvaluacion.ToList();
-                        mpat.CiclosMasticatorios = xdf.arecord.ciclosMasticatorios;
-                        mpat.idEstado = xdf.arecord.Estado;
-                        mpat.idTestFood = xdf.arecord.idTestFood;
-                        //mpat.ListaProcedimientos = xdf.arecord.Experimento;
-                        mpat.nombre = xdf.arecord.nombre;
+                        salida.id = xdf.arecord.Id;
+                        salida.caracteristicasMonitorizadas = xdf.arecord.caracteristicaMonitorzadas;
+                        salida.descripcion = xdf.arecord.descripcion;
+                        salida.nombre = xdf.arecord.nombre;
+                        salida.tipo = xdf.arecord.IdTipo;
                         return true;
                     }
                     else
@@ -1275,6 +1352,57 @@ namespace MainCore
                     Console.Write("Error " + e);
                     return false;
                 }
+            }
+        }
+
+        public Boolean BuscaIdMpatPorCodigoExperimento(Int32 idExperimento, out Int32 idMpat) {
+        {
+
+            idMpat = 0;
+            using (Model1Container1 Context = new Model1Container1())
+            {
+                //Selecciona un registro de paciente por su DNI
+                var xdf = (from arecord in Context.ExperimentoSet
+                            where arecord.Id == idExperimento
+                            select new
+                            {
+                                arecord
+                            }).FirstOrDefault();
+                try
+                {
+                    //Comprueba si el resultado es vacio
+                    if (xdf.arecord != null)
+                    {
+                        idMpat = xdf.arecord.idMpat;
+                        return true;
+                    }
+                    else
+                    {
+
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Error " + e);
+
+                    return false;
+                }
+            }
+        }
+
+        }
+
+        public String descripcionTestFood(Int32 idTestFood)
+        {
+            N_TestFood salida = new N_TestFood();
+            if (BuscaTestFood(idTestFood, out salida))
+            {
+                return salida.descripcion;
+            }
+            else
+            {
+                return "";
             }
         }
     }    

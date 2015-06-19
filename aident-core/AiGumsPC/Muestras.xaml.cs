@@ -38,9 +38,9 @@ namespace AiGumsPC
             //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
             Metodos mets = new Metodos();
             InitializeComponent();
-            if (mets.BuscaExperimento(idExperimento, experimento))
+            if (mets.BuscaExperimento(idExperimento,out experimento))
             {
-                if (mets.BuscaMpat(experimento.idMpat, mpat))
+                if (mets.BuscaMpat(experimento.idMpat, out mpat))
                 {
                     estado.Content = "Todo ok";
                 }

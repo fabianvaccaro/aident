@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/09/2015 19:06:33
+-- Date Created: 06/19/2015 19:17:55
 -- Generated from EDMX file: C:\Users\Jaime\Source\Repos\AiDent\aident-core\MainCore_Server\ModeloDatosServidor.edmx
 -- --------------------------------------------------
 
@@ -23,6 +23,18 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ProcedimientoClinicoMpat]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProcedimientoClinicoSet] DROP CONSTRAINT [FK_ProcedimientoClinicoMpat];
 GO
+IF OBJECT_ID(N'[dbo].[FK_MuestraSetCaracteristicasExtraidasSet]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CaracteristicasExtraidasSet] DROP CONSTRAINT [FK_MuestraSetCaracteristicasExtraidasSet];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ExperimentoSetUsuarioSet]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ExperimentoSet] DROP CONSTRAINT [FK_ExperimentoSetUsuarioSet];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ExperimentoSetMuestraSet]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MuestraSet] DROP CONSTRAINT [FK_ExperimentoSetMuestraSet];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ExperimentoSetMpatSet]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ExperimentoSet] DROP CONSTRAINT [FK_ExperimentoSetMpatSet];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -36,6 +48,18 @@ IF OBJECT_ID(N'[dbo].[MpatSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ProcedimientoClinicoSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProcedimientoClinicoSet];
+GO
+IF OBJECT_ID(N'[dbo].[UsuarioSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UsuarioSet];
+GO
+IF OBJECT_ID(N'[dbo].[CaracteristicasExtraidasSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CaracteristicasExtraidasSet];
+GO
+IF OBJECT_ID(N'[dbo].[MuestraSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MuestraSet];
+GO
+IF OBJECT_ID(N'[dbo].[ExperimentoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ExperimentoSet];
 GO
 
 -- --------------------------------------------------
@@ -57,8 +81,7 @@ CREATE TABLE [dbo].[MpatSet] (
     [nombre] nvarchar(max)  NOT NULL,
     [ciclosMasticatorios] int  NOT NULL,
     [Estado] int  NOT NULL,
-    [DescripcionTestFood] nvarchar(max)  NOT NULL,
-    [UsuarioSetId] int  NOT NULL
+    [DescripcionTestFood] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -93,7 +116,8 @@ CREATE TABLE [dbo].[MuestraSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [CiclosMasticatorios] int  NOT NULL,
     [idPaciente] int  NOT NULL,
-    [idExperimento] int  NOT NULL
+    [idExperimento] int  NOT NULL,
+    [lado] nvarchar(max)  NOT NULL
 );
 GO
 

@@ -29,7 +29,8 @@ namespace AiGumsPC
 
         private void PintaDatos(Int32 idMpat)
         {
-            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
             var listaProcedimientos = new List<N_ProcedimientoClinico>();
             try
             {

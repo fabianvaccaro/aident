@@ -27,5 +27,14 @@ namespace LibreriaObjetos
             this.id = 0;
             this.descripcion = String.Empty;
         }
+        public S_Procedimiento toSTipo()
+        {
+            S_Procedimiento resultado = new S_Procedimiento();
+            resultado.descripcion = this.descripcion;
+            resultado.Id = this.id;
+            resultado.idMpat = this.idMpat;
+            resultado.orden = this.orden;
+            return resultado;
+        }
     }
 }

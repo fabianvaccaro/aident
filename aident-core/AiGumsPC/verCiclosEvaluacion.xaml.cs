@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MainCore;
 
 namespace AiGumsPC
 {
@@ -27,7 +28,8 @@ namespace AiGumsPC
         }
         private void mostrarCiclosEvaluacion(Int32 idMpat)
         {
-            srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            //srvweb.NegocioServiceClient mets = new srvweb.NegocioServiceClient();
+            Metodos mets = new Metodos();
             var lista = new List<N_CiclosEvaluacion>();
 
             lista = mets.CiclosEvaluacionToList(idMpat).ToList();

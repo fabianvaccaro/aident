@@ -154,12 +154,13 @@
                     <Button x:Name="btCargarImagenMuestra" Content="Cargar Imagen Muestra" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="159" Click="btCargarImagenMuestra_Click"/>
                     <Label x:Name="lb_RutaImagenMuestra" Content="Ruta:" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="bt_Segmentar" IsEnabled="False" Content="Segmentar" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" Width="75" Click="bt_Segmentar_Click"/>
-                    <Button x:Name="bt_GuardarResultado" Content="Enviar Resultados Servidor" HorizontalAlignment="Left" Margin="234,563,0,0" VerticalAlignment="Top" Width="197" Click="bt_GuardarResultado_Click" Height="32"/>
+                    <Button x:Name="bt_GuardarResultado" Content="Enviar Resultados Servidor" HorizontalAlignment="Left" Margin="234,563,0,0" VerticalAlignment="Top" Width="197" Click="bt_GuardarResultado_Click" Height="32" IsEnabled="False"/>
                     <Image x:Name="vistaImagenResultado" HorizontalAlignment="Left" Height="215" Margin="355,59,0,0" VerticalAlignment="Top" Width="324"/>
                     <ListBox x:Name="listaPalabras" HorizontalAlignment="Left" Height="135" Margin="10,425,0,0" VerticalAlignment="Top" Width="120" />
                     <Button Content="Procesar Carpeta" HorizontalAlignment="Left" Margin="10,345,0,0" VerticalAlignment="Top" Width="120" Click="ProcesarCarpeta"/>
                     <TextBox x:Name="txtDatos" HorizontalAlignment="Left" Height="23" Margin="10,369,0,0" TextWrapping="Wrap" Text="Nombre del fichero" VerticalAlignment="Top" Width="120"/>
                     <TextBox x:Name="txtNumCiclosNombre" HorizontalAlignment="Left" Height="23" Margin="10,397,0,0" TextWrapping="Wrap" Text="Número de ciclos" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="txt_CodExperimentoProcesado" HorizontalAlignment="Left" Height="23" Margin="460,10,0,0" TextWrapping="Wrap" Text="Codigo Experimento Procesado" VerticalAlignment="Top" Width="191" RenderTransformOrigin="0.453,0.413"/>
                 </Grid>
             </TabItem>
         </TabControl>

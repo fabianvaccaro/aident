@@ -26,7 +26,6 @@ namespace MainCore_Server
         public int ciclosMasticatorios { get; set; }
         public int Estado { get; set; }
         public string DescripcionTestFood { get; set; }
-        public int UsuarioSetId { get; set; }
     
         public virtual ICollection<CiclosEvaluacionSet> CiclosEvaluacionSet { get; set; }
         public virtual ICollection<ProcedimientoClinicoSet> ProcedimientoClinicoSet { get; set; }

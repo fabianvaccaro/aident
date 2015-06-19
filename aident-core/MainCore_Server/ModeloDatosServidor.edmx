@@ -56,7 +56,6 @@
     <Property Name="ciclosMasticatorios" Type="int" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
     <Property Name="DescripcionTestFood" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="UsuarioSetId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ProcedimientoClinicoSet">
     <Key>
@@ -92,6 +91,7 @@
     <Property Name="CiclosMasticatorios" Type="int" Nullable="false" />
     <Property Name="idPaciente" Type="int" Nullable="false" />
     <Property Name="idExperimento" Type="int" Nullable="false" />
+    <Property Name="lado" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ExperimentoSet">
     <Key>
@@ -231,7 +231,6 @@
           <Property Name="DescripcionTestFood" Type="String" Nullable="false" />
           <NavigationProperty Name="CiclosEvaluacionSet" Relationship="ModeloDatosServidor.FK_MpatCiclosEvaluacion" FromRole="MpatSet" ToRole="CiclosEvaluacionSet" />
           <NavigationProperty Name="ProcedimientoClinicoSet" Relationship="ModeloDatosServidor.FK_ProcedimientoClinicoMpat" FromRole="MpatSet" ToRole="ProcedimientoClinicoSet" />
-          <Property Name="UsuarioSetId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ExperimentoSet" Relationship="ModeloDatosServidor.ExperimentoSetMpatSet" FromRole="MpatSet" ToRole="ExperimentoSet" />
         </EntityType>
         <EntityType Name="ProcedimientoClinicoSet">
@@ -382,7 +381,6 @@
           <ScalarProperty Name="ciclosMasticatorios" ColumnName="ciclosMasticatorios" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="DescripcionTestFood" ColumnName="DescripcionTestFood" />
-          <ScalarProperty Name="UsuarioSetId" ColumnName="UsuarioSetId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -422,6 +420,7 @@
           <ScalarProperty Name="CiclosMasticatorios" ColumnName="CiclosMasticatorios" />
           <ScalarProperty Name="idPaciente" ColumnName="idPaciente" />
           <ScalarProperty Name="idExperimento" ColumnName="idExperimento" />
+          <ScalarProperty Name="lado" ColumnName="lado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

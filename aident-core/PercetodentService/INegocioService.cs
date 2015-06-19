@@ -16,6 +16,12 @@ namespace PercetodentService
         [OperationContract]
         void DoWork();
 
+        [OperationContract]
+        Boolean login(String Usuario, String Password);
+
+        [OperationContract]
+        Boolean procesoValidacionMPAT(S_Mpat mpat, List<Double[]> listaVectoresCaracteristicas, out Double[] vector);
+
         //[OperationContract]
         //List<N_TipoTestFood> TipoTestFoodToList();
 
